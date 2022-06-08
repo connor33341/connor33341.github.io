@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Alert systems</title>
+</head>
+<body>
+  <h1>
+    This tool allows you to make browser alerts
+  </h1>
+  <p>
+    Type you message then press "Make alert" to make a new alert
+  </p>
+ <button onclick = MakeAlert()>Make alert</button>
+	<textarea placeholder = "Type you message here", id = "txbx"></textarea>
+<script>
+	function MakeAlert() {
+	const textobject = document.getElementById("txbx")
+	alert(textobject.value)
+	textobject.value = ""
+}
+</script>
+</body>
+</html>
