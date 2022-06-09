@@ -13,6 +13,7 @@
 	<input type = "search" id = "search" placeholder = "Search">
 	<button onclick = Search()>Search</button>
 	<input type = "checkbox" id = "schbx">Display results in frame
+	<button onclick = Reset()>Reset frame</button>
 	<iframe src="" width = "100%" height = "1000" id = "view"></iframe>
 <script>
 function LoadWebpage() {
@@ -41,6 +42,11 @@ frame.src = Header+SearchArea.value
 else {
 alert("Feature not avaible")
 }
+}
+function Reset() {
+const frame = document.getElementById("view")
+alert("Reseting")
+frame.src = ""
 }
 </script>
 </body>
