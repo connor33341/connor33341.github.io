@@ -13,7 +13,7 @@
 	<input type = "search" id = "search" placeholder = "Search">
 	<button onclick = Search()>Search</button>
 	<input type = "checkbox" id = "schbx">Display results in frame
-	<button onclick = Reset()>Reset frame</button>
+	<button onclick = Reset()>Reset</button>
 	<iframe src="" width = "100%" height = "1000" id = "view"></iframe>
 <script>
 function LoadWebpage() {
@@ -40,13 +40,24 @@ alert("Loading")
 frame.src = Header+SearchArea.value
 }
 else {
-alert("Feature not avaible")
+alert("Loading in new tab")
+window.open(Header+SearchArea.value)
 }
 }
 function Reset() {
 const frame = document.getElementById("view")
-alert("Reseting")
+var alert = confirm("Do you want to browser")
+const SearchArea = document.getElementById("search")
+const Searchbox = document.getElementById("schbx")
+const Textarea = document.getElementById("txbx")
+const cbox = document.getElementById("cbox")
+if (alert == true) {
 frame.src = ""
+SearchArea.value = ""
+Searchbox.checked = false
+Textarea.value = ""
+cbox.checked = false
+}
 }
 </script>
 </body>
