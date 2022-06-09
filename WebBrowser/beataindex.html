@@ -27,10 +27,12 @@ const cbox = document.getElementById("cbox")
 if (cbox.checked == true) {
 	alert("loading")
 	frame.src = Header+Textarea.value
+	console.log("Loaded webpage into iframe using headers")
 }
 else {
 alert("loading")
 frame.src = Textarea.value
+console.log("Loaded webpage")
 }
 }
 function Search() {
@@ -52,6 +54,7 @@ var lowerValue = SearchArea.value.toLowerString()
 if (Searchbox.checked == true) {
 alert("Loading")
 frame.src = Header+Linkinsnake
+console.log("Looking for wikipedia page")
 }
 else {
 alert("Loading in new tab")
@@ -71,6 +74,7 @@ SearchArea.value = ""
 Searchbox.checked = false
 Textarea.value = ""
 cbox.checked = false
+console.log("Reset UI")
 }
 }
 </script>
