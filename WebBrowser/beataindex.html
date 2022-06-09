@@ -8,14 +8,21 @@
   <h1>Web Browser</h1>
 	<textarea placeholder = "Enter web url here" id = "txbx"></textarea>
 	<button onclick = LoadWebpage()>Load webpage</button>
+	<button onclick = SetAuth()>Authorise</button>
 	<iframe src="" width = "100%" height = "1000" id = "view"></iframe>
 <script>
+const auth = false
+function SetAuth() {
+auth = true
+}
 function LoadWebpage() {
 const Textarea = document.getElementById("txbx")
 const frame = document.getElementById("view")
-alert('Loading webpage')
-frame.src = Textarea.value
+if auth == true {
+	alert('Loading webpage')
+	frame.src = Textarea.value
+	Textarea.value = ""
+	}
 }
 </script>
 </body>
-</html>
