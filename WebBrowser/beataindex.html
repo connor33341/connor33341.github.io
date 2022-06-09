@@ -42,15 +42,15 @@ const Searchbox = document.getElementById("schbx")
 const frame = document.getElementById("view")
 var Linkinsnake = ""
 var lowerValue = SearchArea.value.toLowerString()
-   var length = lowerValue.length
-     for (let i = 0; i < length; i++) {
-        var letter = lowerValue.charAt(i)
-           if (letter == " ") {
-             Linkinsnake += "_"
-            } else {
-             Linkinsnake += letter
-            }
-       }
+var length = lowerValue.length
+for (let i = 0; i < length; i++) {
+var letter = lowerValue.charAt(i)
+if (letter == " ") {
+Linkinsnake += "_"
+} else {
+Linkinsnake += letter
+}
+}
 if (Searchbox.checked == true) {
 alert("Loading")
 frame.src = Header+Linkinsnake
