@@ -34,17 +34,28 @@ frame.src = Textarea.value
 }
 }
 function Search() {
-const Header = "https://www.google.com/search?q=" //I don't know if google will connect but I hope it would
+const Header = "https://wikipedia/wiki/" //I don't know if google will connect but I hope it would
 const SearchArea = document.getElementById("search")
 const Searchbox = document.getElementById("schbx")
 const frame = document.getElementById("view")
+var Linkinsnake = ""
+var lowerValue = SearchArea.value
+   var length = lowerValue.length
+     for (let i = 0; i < length; i++) {
+        var letter = lowerValue.charAt(i)
+           if (letter == " ") {
+             Linkinsnake += "_"
+            } else {
+             Linkinsnake += letter
+            }
+       }
 if (Searchbox.checked == true) {
 alert("Loading")
-frame.src = Header+SearchArea.value
+frame.src = Header+Linkinsnake
 }
 else {
 alert("Loading in new tab")
-window.open(Header+SearchArea.value)
+window.open(Header+Linkinsnake)
 }
 }
 function Reset() {
