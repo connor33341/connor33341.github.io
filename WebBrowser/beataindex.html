@@ -9,12 +9,21 @@
 	<p>This web browser allows you to load sites right from github without them being on you search history</p>
 	<textarea placeholder = "Enter web url here" id = "txbx"></textarea>
 	<button onclick = LoadWebpage()>Load webpage</button>
+	<input type = "checkbox" id = "cbox">Auto use headers
 	<iframe src="" width = "100%" height = "1000" id = "view"></iframe>
 <script>
 function LoadWebpage() {
+const Header = "https://"
 const Textarea = document.getElementById("txbx")
 const frame = document.getElementById("view")
+const cbox = document.getElementById("cbox")
+if (cbox.checked == true) {
+	alert("loading")
+	frame.src = Header+Textarea.value
+}
+else {
 frame.src = Textarea.value
+}
 }
 </script>
 </body>
