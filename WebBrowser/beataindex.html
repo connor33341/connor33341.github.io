@@ -6,23 +6,17 @@
 </head>
 <body>
   <h1>Web Browser</h1>
+	<p>This web browser allows you to load sites right from github without them being on you search history</p>
 	<textarea placeholder = "Enter web url here" id = "txbx"></textarea>
 	<button onclick = LoadWebpage()>Load webpage</button>
-	<button onclick = SetAuth()>Authorise</button>
 	<iframe src="" width = "100%" height = "1000" id = "view"></iframe>
 <script>
-const auth = false
-function SetAuth() {
-auth = true
-}
 function LoadWebpage() {
 const Textarea = document.getElementById("txbx")
 const frame = document.getElementById("view")
-if auth == true {
-	alert('Loading webpage')
-	frame.src = Textarea.value
-	Textarea.value = ""
-	}
+alert('Loading webpage')
+frame.src = Textarea.value
 }
 </script>
 </body>
+</html>
