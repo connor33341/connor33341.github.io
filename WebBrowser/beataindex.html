@@ -19,6 +19,20 @@ layout: default
 	<button onclick = Reset()>Reset</button>
 	<iframe src="" width = "100%" height = "1000" id = "view"></iframe>
 <script>
+ function snake(text) {
+            var lowerValue = text.toLowerString()
+            var length = lowerValue.length
+            output.value = ""
+            for (let i = 0; i < length; i++) {
+              var letter = lowerValue.charAt(i)
+              if (letter == " ") {
+                output.value += "_"
+              } else {
+                output.value += letter
+              }
+            }
+            return output.value
+          }
 function LoadWebpage() {
 const Header = "https://"
 const Textarea = document.getElementById("txbx")
@@ -40,7 +54,7 @@ const Header = "https://wikipedia/wiki/" //
 const SearchArea = document.getElementById("search")
 const Searchbox = document.getElementById("schbx")
 const frame = document.getElementById("view")
-var Linkinsnake = ""
+var Linkinsnake = snake(SaerchArea.value)
 if (Searchbox.checked == true) {
 alert("Loading")
 frame.src = Header+Linkinsnake
