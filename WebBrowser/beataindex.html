@@ -22,16 +22,17 @@ layout: default
  function snake(text) {
             var lowerValue = text.toLowerCase()
             var length = lowerValue.length
+	    var opt = ""
             output.value = ""
             for (let i = 0; i < length; i++) {
               var letter = lowerValue.charAt(i)
               if (letter == " ") {
-                output.value += "_"
+                opt += "_"
               } else {
-                output.value += letter
+                opt += letter
               }
             }
-            return output.value
+            return opt
           }
 function LoadWebpage() {
 const Header = "https://"
