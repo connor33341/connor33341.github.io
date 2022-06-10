@@ -40,26 +40,14 @@ const Header = "https://wikipedia/wiki/" //
 const SearchArea = document.getElementById("search")
 const Searchbox = document.getElementById("schbx")
 const frame = document.getElementById("view")
-var Linkinsnake = ""
- var lowerValue = text.toLowerCase()
-            var length = lowerValue.length
-            for (let i = 0; i < length; i++) {
-              var letter = lowerValue.charAt(i)
-              if (letter == " ") {
-                Linkinsnake += "_"
-              } else {
-                Linkinsnake += letter
-              }
-            }
-          }
 if (Searchbox.checked == true) {
 alert("Loading")
-frame.src = Header+Linkinsnake
+frame.src = Header+SearchArea.value
 console.log("Looking for wikipedia page")
 }
 else {
 alert("Loading in new tab")
-window.open(Header+Linkinsnake)
+window.open(Header+SearchArea.value)
 }
 }
 function Reset() {
