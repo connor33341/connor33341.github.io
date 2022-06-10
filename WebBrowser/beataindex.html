@@ -36,14 +36,14 @@ console.log("Loaded webpage")
 }
 }
 function Search() {
-const Header = "https://wikipedia/wiki/" //
+const Header = "https://www.bing.com/search?q=" //Header
 const SearchArea = document.getElementById("search")
 const Searchbox = document.getElementById("schbx")
 const frame = document.getElementById("view")
 if (Searchbox.checked == true) {
 alert("Loading")
 frame.src = Header+SearchArea.value
-console.log("Looking for wikipedia page")
+console.log("Looking for data page")
 }
 else {
 alert("Loading in new tab")
