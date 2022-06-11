@@ -51,7 +51,7 @@ function LoadLastPage() {
  const dataframe = document.getElementById("Ckd")
  const Textarea = document.getElementById("txbx")
  var cookiedata = getCookie("Sch")
- dataframe.text = "Cookie data: "+cookiedata
+ dataframe.innerHtml = "Cookie data: "+cookiedata
  frame.src = cookiedata
  Textarea.value = cookiedata
 }
