@@ -18,6 +18,7 @@ layout: default
   <input type = "password" id = "pswd" placeholder = "Password">
   <button onclick = MAC()>Login</button>
 <script>
+let Loggedin = false
 function setCookie(cname, cvalue, exdays) {
   const d = new Date();
   d.setTime(d.getTime() + (exdays*24*60*60*1000));
@@ -47,6 +48,7 @@ if (confirmdata == true) {
 var password = getCookie(Usrn.value)
 if (password == Pswd.value) {
  alert("Logged in as: "+Usrn.value)
+ Loggedin = true
 } 
 else {
 alert("Invalid password or username")
