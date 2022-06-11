@@ -19,6 +19,32 @@ layout: default
 	<button onclick = Reset()>Reset</button>
 	<iframe src="" width = "100%" height = "900" id = "view"></iframe>
 <script>
+const CookieDays = 5
+function setCookie(cname, cvalue, exdays) {
+  const d = new Date();
+  d.setTime(d.getTime() + (exdays*24*60*60*1000));
+  let expires = "expires="+ d.toUTCString();
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+function getCookie(cname) {
+  let name = cname + "=";
+  let decodedCookie = decodeURIComponent(document.cookie);
+  let ca = decodedCookie.split(';');
+  for(let i = 0; i <ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+window.onload = function(){
+ const frame = document.getElementById("view")
+ frame.scr = getCookie("Sch")
+}
 function LoadWebpage() {
 const Header = "https://"
 const Textarea = document.getElementById("txbx")
@@ -28,11 +54,13 @@ if (cbox.checked == true) {
 	alert("loading")
 	frame.src = Header+Textarea.value
 	console.log("Loaded webpage into iframe using headers")
+	setCookie("Sch",Header+Textarea.value,CookieDays)
 }
 else {
 alert("loading")
 frame.src = Textarea.value
 console.log("Loaded webpage")
+setCookie("Sch",Textarea.value,CookieDays)
 }
 }
 function Search() {
@@ -64,11 +92,8 @@ Searchbox.checked = false
 Textarea.value = ""
 cbox.checked = false
 console.log("Reset UI")
+setCookie("Sch","",CookieDays)
 }
-}
-function SetCookie(Name,Data) {
-var CookieName = Name+"="
-document.cookie = CookieName+Data
 }
 </script>
 </body>
