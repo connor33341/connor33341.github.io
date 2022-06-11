@@ -2,22 +2,49 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Alert systems</title>
+  <title>Make Account</title>
 </head>
 <body>
   <h1>
-    This tool allows you to make browser alerts
+    Make an account
   </h1>
   <p>
-    Type you message then press "Make alert" to make a new alert
+    Instruction: Make a username and make a password
   </p>
- <button onclick = MakeAlert()>Make alert</button>
-	<textarea placeholder = "Type you message here", id = "txbx"></textarea>
+  <input type = "text" id = "usrnme" placeholder = "Username">
+  <input type = "password" id = "pswd" placeholder = "Password">
+  <button onclick = MAC()>Set</button>
 <script>
-	function MakeAlert() {
-	const textobject = document.getElementById("txbx")
-	alert(textobject.value)
-	textobject.value = ""
+function setCookie(cname, cvalue, exdays) {
+  const d = new Date();
+  d.setTime(d.getTime() + (exdays*24*60*60*1000));
+  let expires = "expires="+ d.toUTCString();
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+function getCookie(cname) {
+  let name = cname + "=";
+  let decodedCookie = decodeURIComponent(document.cookie);
+  let ca = decodedCookie.split(';');
+  for(let i = 0; i <ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+function MAC() {
+const Usrn = document.getElementById("usrnme")
+const Pswd = document.getElementById("pswd")
+var confirmdata = confirm("Do you want to make an account with the username being: "+Usrn.value+" and password being: "+Pswd.value)
+if (confirmdata == true) {
+alert("Making account cookie")
+setCookie(Usrn.value,Pswd.value,30)
+alert("Notice: You account will expire in 30 day and all data will be erased, this is becasue of cookie experation times")
+}
 }
 </script>
 </body>
