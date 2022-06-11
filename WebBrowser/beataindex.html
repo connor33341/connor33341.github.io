@@ -19,7 +19,7 @@ layout: default
 	<input type = "checkbox" id = "schbx">Display results in frame
 	<button onclick = Reset()>Reset</button>
 	<button onclick = LoadLastPage()>Load last saved page</button>
-	<p id = "Ckd"></p>
+	<p id = "Ckd" class="backgroundText"></p>
 	<iframe src="" width = "100%" height = "900" id = "view"></iframe>
 <script>
 const CookieDays = 5
@@ -50,11 +50,8 @@ function LoadLastPage() {
  const frame = document.getElementById("view")
  const dataframe = document.getElementById("Ckd")
  const Textarea = document.getElementById("txbx")
- const dataheader = "Cookie data: "
- let ddiy = ""
  var cookiedata = getCookie("Sch")
- ddiy = dataheader+ddiy
- dataframe.innerHtml = ddiy
+ dataframe.innerHtml = "Cookie data: "+cookiedata
  frame.src = cookiedata
  Textarea.value = cookiedata
 }
