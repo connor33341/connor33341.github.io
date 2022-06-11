@@ -23,6 +23,8 @@ layout: default
 	<iframe src="" width = "100%" height = "900" id = "view"></iframe>
 <script>
 const CookieDays = 5
+const CookieName = "SCH"
+const DebugVersion = "1.2"
 function setCookie(cname, cvalue, exdays) {
   const d = new Date();
   d.setTime(d.getTime() + (exdays*24*60*60*1000));
@@ -47,11 +49,14 @@ function getCookie(cname) {
 function LoadLastPage() {
  const frame = document.getElementById("view")
  const dataframe = document.getElementById("Ckd")
+ const Textarea = document.getElementById("txbx")
  const dataheader = "Cookie data: "
  let ddiy = ""
+ var cookiedata = getCookie("Sch")
  ddiy = dataheader+ddiy
  dataframe.innerHtml = ddiy
- frame.src = getCookie("Sch")
+ frame.src = cookiedata
+ Textarea.value = cookiedata
 }
 function LoadWebpage() {
 const Header = "https://"
