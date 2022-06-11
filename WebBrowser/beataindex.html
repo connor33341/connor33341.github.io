@@ -17,6 +17,7 @@ layout: default
 	<button onclick = Search()>Search</button>
 	<input type = "checkbox" id = "schbx">Display results in frame
 	<button onclick = Reset()>Reset</button>
+	<button onclick LoadLastPage()>Load last saved page</button>
 	<iframe src="" width = "100%" height = "900" id = "view"></iframe>
 <script>
 const CookieDays = 5
@@ -41,7 +42,7 @@ function getCookie(cname) {
   }
   return "";
 }
-window.onload = function(){
+function LoadLastPage() {
  const frame = document.getElementById("view")
  frame.scr = getCookie("Sch")
 }
