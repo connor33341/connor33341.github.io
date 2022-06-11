@@ -46,7 +46,7 @@ var confirmdata = confirm("Do you want to make an account with the username bein
 if (confirmdata == true) {
 alert("Making account cookie")
 setCookie(Usrn.value,Pswd.value,30)
-setCookie("DTA_"+Usrn.value."",30)
+setCookie("DTA_"+Usrn.value,"",30)
 alert("Notice: You account will expire in 30 days and all data will be erased, this is becasue of cookie experation times")
 }
 }
