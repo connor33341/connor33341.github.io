@@ -16,7 +16,7 @@ layout: default
   </p>
   <input type = "text" id = "usrnme" placeholder = "Username">
   <input type = "password" id = "pswd" placeholder = "Password">
-  <button onclick = MAC()>Set</button>
+  <button onclick = MAC()>Login</button>
 <script>
 function setCookie(cname, cvalue, exdays) {
   const d = new Date();
@@ -46,7 +46,7 @@ var confirmdata = confirm("Do you want to login?")
 if (confirmdata == true) {
 var password = getCookie(Usrn.value)
 if (password == Pswd.value) {
- alert(`Logged in as $[Usrn.value]`)
+ alert("Logged in as: "+Usrn.value)
 } else {
 alert("Invalid password or username")
 }
