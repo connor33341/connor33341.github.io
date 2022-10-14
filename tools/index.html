@@ -33,7 +33,7 @@
         .card h1,p,h2{
            color: white;
         }
-        .card .Buttons button{
+        button{
             border-radius: 2px;
             border-style: solid;
             border-color: white;
@@ -50,14 +50,14 @@
 <body>
     <div id="particles-js"></div>
     <div class="card">
-        <h1>Products</h1>
+        <h1>connor_33341</h1>
         <noscript><strong>This page requires Java Script, most function will not work</strong></noscript>
-        <h2>Find useful apps an code here</h2>
+        <h2>I make random stuff</h2>
         <div id="Buttons"></div>
     </div>
     <script>
         const Buttons = document.getElementById("Buttons")
-        const ButtonsArray = [["3D Engine","","This allows you to render any obj file with python, it is designed to be easily customized"],["Tools","/tools","Find useful tools that help you get stuff done"],["Databases","","Not public yet"]]
+        const ButtonsArray = [["Products","/products","Find sofrware from 3D engines to JS librarys"],["Tools","/tools","Find useful tools that help you get stuff done"],["Databases","","Not public yet"]]
         function WriteGrid(){
             for (let index in ButtonsArray){
                 var object = ButtonsArray[index]
@@ -70,6 +70,7 @@
                 Button.innerText = Name
                 Buttons.appendChild(Button)
                 Button.addEventListener("click", () => {
+                    console.log(LinkHref)
                     Redirect(LinkHref)
                 })
             }
