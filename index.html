@@ -4,6 +4,7 @@
     <title>connor_33341</title>
     <link rel="icon" href="/Assets/Icon.ico">
     <link rel="stylesheet" href="/Assets/main.css">
+    <script src="/Assets/redirect"></script>
     <script src="/Assets/particles.js"></script>
     <style>
         #particles-js{
@@ -64,10 +65,10 @@
                 let Button = document.createElement("button")
                 Button.setAttribute("aria-label", tip)
                 Button.setAttribute("data-balloon-pos", "up")
+                Button.innerText = Name
                 Buttons.appendChild(Button)
                 Button.addEventListener("click", () => {
-                     main.style.display = "none"
-                    newCard.style.display = "unset"
+                    Redirect(LinkHref)
                 })
             }
         }
