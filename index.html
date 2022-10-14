@@ -10,13 +10,13 @@
             width: 100vw;
             height: 100vh;
         }
-         body{
+        body{
             margin: 0px;
             overflow: hidden;
             background-color: #373955;
         }
         .card{
-          background-color: #0c0c0cef;
+          background-color:#0c0c0cef;
           position: absolute;
           left: 50%;
           top: 50%;
@@ -27,17 +27,33 @@
           text-align: center;
           border-radius: 5px;
           max-width: 350px;
-          color: white;
         }
-        
+        .card h1,p{
+           color: white;
+        }
     </style>
 </head>
 <body>
     <div id="particles-js"></div>
     <div class="card">
         <h1>connor_33341</h1>
+        <noscript><strong>This page requires Java Script, most function will not work</strong></noscript>
         <h2>I make random stuff</h2>
+        <div id="Buttons"></div>
     </div>
+    <script>
+        const Buttons = document.getElementById("Buttons")
+        const ButtonsArray = [["Products",""],["Tools",""],["Databases",""]]
+        function WriteGrid(){
+            for (let index in ButtonsArray){
+                var object = ButtonsArray[index]
+                var Name = object[0]
+                var LinkHref = object[1]
+                Buttons.innerHTML = Buttons.innerHTML + "<a href = \""+LinkHref+"\" target = blank>"+Name+"</a>"
+            }
+        }
+        WriteGrid()
+    </script>
     <script>
         particlesJS.load('particles-js', '/Assets/particlesjs-config.json', function() {});
     </script>
