@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>connor_33341</title>
+    <link rel="icon" href="/Assets/Icon.ico">
+    <link rel="stylesheet" href="/Assets/main.css">
+    <link rel="stylesheet" href="https://unpkg.com/balloon-css/balloon.min.css">
+    <script src="/Assets/redirect.js"></script>
+    <script src="/Assets/particles.js"></script>
+    <style>
+        #particles-js{
+            width: 100vw;
+            height: 100vh;
+        }
+        body{
+            margin: 0px;
+            overflow: hidden;
+            background-color: #373955;
+        }
+        .card{
+          background-color:#0c0c0cef;
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
+          padding: 10px;
+          padding-top: 5px;
+          font-family: sans-serif;
+          text-align: center;
+          border-radius: 5px;
+          max-width: 350px;
+        }
+        .card h1,p,h2{
+           color: white;
+        }
+        .card .Buttons button{
+            border-radius: 2px;
+            border-style: solid;
+            border-color: white;
+			border-width: thin;
+			color: white;
+			padding: 2px;
+            background-color: black;
+        }
+		.card .Buttons{
+			padding: 10px;
+		}
+    </style>
+</head>
+<body>
+    <div id="particles-js"></div>
+    <div class="card">
+        <h1>Products</h1>
+        <noscript><strong>This page requires Java Script, most function will not work</strong></noscript>
+        <h2>Find useful apps an code here</h2>
+        <div id="Buttons"></div>
+    </div>
+    <script>
+        const Buttons = document.getElementById("Buttons")
+        const ButtonsArray = [["3D Engine","","This allows you to render any obj file with python, it is designed to be easily customized"],["Tools","/tools","Find useful tools that help you get stuff done"],["Databases","","Not public yet"]]
+        function WriteGrid(){
+            for (let index in ButtonsArray){
+                var object = ButtonsArray[index]
+                var Name = object[0]
+                var LinkHref = object[1]
+                var tip = object[2]
+                let Button = document.createElement("button")
+                Button.setAttribute("aria-label", tip)
+                Button.setAttribute("data-balloon-pos", "up")
+                Button.innerText = Name
+                Buttons.appendChild(Button)
+                Button.addEventListener("click", () => {
+                    Redirect(LinkHref)
+                })
+            }
+        }
+        WriteGrid()
+    </script>
+    <script>
+        particlesJS.load('particles-js', '/Assets/particlesjs-config.json', function() {});
+    </script>
+</body>
+</html>
