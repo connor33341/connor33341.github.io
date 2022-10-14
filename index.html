@@ -31,11 +31,17 @@
         .card h1,p,h2{
            color: white;
         }
-        .card .Buttons{
+        a{
             border-radius: 2px;
-            border-style: groove;
+            border-style: solid;
             border-color: white;
+						border-width: thin;
+						color: white;
+						padding: 2px;
         }
+		.card .Buttons{
+			padding: 10px;
+		}
     </style>
 </head>
 <body>
@@ -48,13 +54,21 @@
     </div>
     <script>
         const Buttons = document.getElementById("Buttons")
-        const ButtonsArray = [["Products",""],["Tools",""],["Databases",""]]
+        const ButtonsArray = [["Products","","See the latest software"],["Tools","","Find useful tools made my me"],["Databases","","Find a database system that works for you"]]
         function WriteGrid(){
             for (let index in ButtonsArray){
                 var object = ButtonsArray[index]
                 var Name = object[0]
                 var LinkHref = object[1]
-                Buttons.innerHTML = Buttons.innerHTML + "<a href = \""+LinkHref+"\" target = blank>"+Name+"</a>"
+                var tip = object[2]
+                let Button = document.createElement("button")
+                Button.setAttribute("aria-label", tip)
+                Button.setAttribute("data-balloon-pos", "up")
+                Buttons.appendChild(Button)
+                button.addEventListener("click", () => {
+                     main.style.display = "none"
+                    newCard.style.display = "unset"
+                })
             }
         }
         WriteGrid()
