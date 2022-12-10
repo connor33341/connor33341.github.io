@@ -67,6 +67,7 @@
                 let Button = document.createElement("button")
                 Button.setAttribute("aria-label", tip)
                 Button.setAttribute("data-balloon-pos", "up")
+		Button.innerText = Name
                 Buttons.appendChild(Button)
                 Button.addEventListener("click", () => {
                     console.log(LinkHref)
