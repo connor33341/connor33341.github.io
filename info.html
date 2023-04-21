@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Inactive</title>
+    <link rel="icon" href="/Assets/Icon.ico">
+    <link rel="stylesheet" href="/Assets/main.css">
+    <link rel="stylesheet" href="https://unpkg.com/balloon-css/balloon.min.css">
+    <script src="/Assets/redirect.js"></script>
+    <script src="/Assets/particles.js"></script>
+    <style>
+        #particles-js{
+            width: 100vw;
+            height: 100vh;
+        }
+        body{
+            margin: 0px;
+            overflow: hidden;
+            background-color: #373955;
+        }
+        .card{
+          background-color:#0c0c0cef;
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
+          padding: 10px;
+          padding-top: 5px;
+          font-family: sans-serif;
+          text-align: center;
+          border-radius: 5px;
+          max-width: 700px;
+        }
+        .card h1,p,h2,h3{
+           color: white;
+        }
+        button{
+            border-radius: 2px;
+            border-style: solid;
+            border-color: white;
+			border-width: thin;
+			color: white;
+			padding: 2px;
+            background-color: black;
+        }
+		.card .Buttons{
+			padding: 10px;
+		}
+    </style>
+</head>
+<body>
+    <div id="particles-js"></div>
+    <div class="card">
+        <h1>Info</h1>
+        <noscript><strong>This page requires Java Script, most function will not work</strong></noscript>
+      <h3>Website Inactive 4/20/23</h3>
+      <p>This website remains as a placeholder untill it is needed. Write more stuff here</p>
+        </div>
+    <script>
+        particlesJS.load('particles-js', '/Assets/particlesjs-config.json', function() {});
+    </script>
+</body>
+</html>
