@@ -69,10 +69,11 @@
                 Button.setAttribute("aria-label", tip)
                 Button.setAttribute("data-balloon-pos", "up")
 		Button.innerText = Name
+		Button.setAttribute("href", LinkHref)
                 Buttons.appendChild(Button)
                 Button.addEventListener("click", () => {
                     console.log(LinkHref)
-                    Redirect(LinkHref)
+                    Redirect(Button.href)
                 })
             }
         }
