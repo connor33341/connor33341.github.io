@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proxy Website</title>
+</head>
+<body>
+    <h1>Proxy Website</h1>
+    <input type="text" id="urlInput" placeholder="Enter website URL">
+    <button onclick="fetchWebsite()">Fetch Website</button>
+    <div id="content"></div>
+
+    <script>
+        function fetchWebsite() {
+            var url = document.getElementById("urlInput").value;
+            var proxyUrl = 'https://api.allorigins.win/get?url=' + encodeURIComponent(url); // Using AllOrigins as a proxy
+
+            fetch(proxyUrl)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                document.getElementById("content").innerHTML = data.contents;
+            })
+            .catch(error => {
+                console.error('There was a problem with the fetch operation:', error);
+            });
+        }
+    </script>
+</body>
+</html>
