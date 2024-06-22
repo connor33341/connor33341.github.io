@@ -1,6 +1,6 @@
 # connor33341.github.io
 ---
-I am updating this website constantly, some features are not here yet because of the amount of software that needs to be updated
+I really only use this for json/xml schemas and MISX testing. With some random static stuff
 
 # For all those who can't move on from the past
 ### (2022-2021) Pre the GREAT DELETION
