@@ -1,1 +1,86 @@
-Soon
+<!DOCTYPE html>
+<html>
+<head>
+    <title>connor_33341</title>
+    <link rel="icon" href="/static/icons/mainicon.ico">
+    <link rel="stylesheet" href="/Assets/main.css">
+    <link rel="stylesheet" href="https://unpkg.com/balloon-css/balloon.min.css">
+    <script src="/static/redirect.js"></script>
+    <script src="/static/particles/particles.js"></script>
+    <style>
+        #particles-js{
+            width: 100vw;
+            height: 100vh;
+        }
+        body{
+            margin: 0px;
+            overflow: hidden;
+            background-color: #373955;
+        }
+        .card{
+          background-color:#0c0c0cef;
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
+          padding: 10px;
+          padding-top: 5px;
+          font-family: sans-serif;
+          text-align: center;
+          border-radius: 5px;
+          max-width: 350px;
+        }
+        .card h1,p,h2,h3{
+           color: white;
+        }
+        button{
+            border-radius: 2px;
+            border-style: solid;
+            border-color: white;
+			border-width: thin;
+			color: white;
+			padding: 2px;
+            background-color: black;
+        }
+		.card .Buttons{
+			padding: 10px;
+		}
+    </style>
+</head>
+<body>
+    <div id="particles-js"></div>
+    <div class="card">
+        <h1>connor_33341</h1>
+        <noscript><strong>This page requires Java Script, most function will not work</strong></noscript>
+        <h2>I make random stuff</h2>
+	    <h3>Website Inactive <a href="info.html">Info</a></h3>
+        <div id="Buttons"></div>
+    </div>
+    <script>
+        const Buttons = document.getElementById("Buttons")
+        const ButtonsArray = [["Products","/products","Find sofrware from 3D engines to JS librarys"],["Tools","/tools","Find useful tools that help you get stuff done"],["Databases","","Not public yet"],["AI","/info.html","Not on website yet"]]
+        function WriteGrid(){
+            for (let index in ButtonsArray){
+                var object = ButtonsArray[index]
+                var Name = object[0]
+                var LinkHref = object[1]
+                var tip = object[2]
+                let Button = document.createElement("button")
+                Button.setAttribute("aria-label", tip)
+                Button.setAttribute("data-balloon-pos", "up")
+		Button.innerText = Name
+		Button.setAttribute("href", LinkHref)
+                Buttons.appendChild(Button)
+                Button.addEventListener("click", () => {
+                    console.log(LinkHref)
+                    Redirect(Button.href)
+                })
+            }
+        }
+        WriteGrid()
+    </script>
+    <script>
+        particlesJS.load('particles-js', '/static/particles/particlesjs-config.json', function() {});
+    </script>
+</body>
+</html>
