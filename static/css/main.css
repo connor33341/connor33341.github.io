@@ -23,6 +23,9 @@
         .card h1,p,h2,h3{
            color: white;
         }
+        h3{
+		color: white;
+	}
         button{
             border-radius: 2px;
             border-style: solid;
