@@ -20,28 +20,32 @@
     <div id="content">
         <p id="loading">Loading...</p>
     </div>
-    <!--<script>
-        const loading = document.getElementById("loading")
-        const states = [
-            "Loading...",
-            "Loading..",
-            "Loading.",
-            "Loading..",
-        ]
-        let loaded = false
-        let index = -1
-        function switchstate(){
-            if (index > states.length){
-                index = 0
-            }
-            loading.innerText = states[index]
-        }
-        //var interval = setInterval(switchstate, 500)
-        //while (loaded != true){
-        //   console.log("loading")
-        //}
-        //clearInterval(interval)
-    </script> /-->
+    <script>
+       const loading = document.getElementById("loading");
+const states = [
+    "Loading...",
+    "Loading..",
+    "Loading.",
+    "Loading..",
+];
+let loaded = false;
+let index = 0;
+
+function switchstate() {
+    loading.innerText = states[index];
+    index = (index + 1) % states.length;
+}
+
+// Start the interval
+const interval = setInterval(switchstate, 500);
+
+// Simulate some loading process
+setTimeout(() => {
+    loaded = true;
+    clearInterval(interval);
+    loading.innerText = "Loaded!";
+}, 5000); 
+    </script>
     <script type="module">
         import loadAndRender from 'static/repoloader/loader.js';
         loadAndRender();
