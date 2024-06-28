@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub User Profile</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">GitHub User Profile</h1>
+        <div class="input-group mb-3">
+            <input type="text" id="username" class="form-control" placeholder="Enter GitHub username">
+            <button class="btn btn-primary" id="search">Search</button>
+        </div>
+        <div id="profile" class="d-none">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title" id="name"></h5>
+                    <h6 class="card-subtitle mb-2 text-muted" id="login"></h6>
+                    <p class="card-text" id="bio"></p>
+                    <a href="#" class="card-link" id="profile-link">View Profile</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>
