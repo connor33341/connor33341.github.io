@@ -18,8 +18,30 @@
 </head>
 <body>
     <div id="content">
-        <p>Loading...</p>
+        <p id="loading">Loading...</p>
     </div>
+    <script>
+        const loading = document.getElementById("loading")
+        const states = [
+            "Loading...",
+            "Loading..",
+            "Loading.",
+            "Loading..",
+        ]
+        let loaded = false
+        let index = -1
+        function switchstate(){
+            if (index > states.length){
+                index = 0
+            }
+            loading.innerText = states[index]
+        }
+        var interval = setInterval(switchstate, 500)
+        while (loaded != true){
+            console.log("loading")
+        }
+        clearInterval(interval)
+    </script>
     <script type="module">
         import loadAndRender from 'static/repoloader/loader.js';
         loadAndRender();
