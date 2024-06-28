@@ -38,6 +38,7 @@ Disallow: /.DS_Store
 
 # Route to site map
 SiteMap: https://connor33341.github.io/static/seo/sitemap.txt
+SiteMap: https://sitemapgen.glitch.me/connor33341.github.io
 
 # Dont rack up another bill
 Crawl-delay: 8
