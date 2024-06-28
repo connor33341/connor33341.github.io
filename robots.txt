@@ -1,3 +1,43 @@
-# Disallow webcrawlers from accessing static files
+# Web Crawler Config
+# connor33341
+# Disable useless stuff
+# And add a delay
+
+# Allow all user agents
 User-Agent: *
+
+# Disallow static dirs
 Disallow: /static/
+Disallow: /schema/
+
+# Disallow git
+Disallow: /.git
+Disallow: /.github
+Disallow: .gitignore
+
+# Disallow MSVS and MSVSC
+Disallow: /.vs
+Disallow: /.vsc
+Disallow: /.vs-code
+Disallow: *.msix
+Disallow: *.sln
+Disallow: *.slnf
+
+# Disallow appx and project installer
+Disallow: /appx/
+Disallow: *.dll
+Disallow: *.exe
+Disallow: /.projectinstaller/
+Disallow: *.pak
+
+# Disallow old legacy dirs
+Disallow: /Assets/
+Disallow: /legacy/
+Disallow: /Games/
+Disallow: /.DS_Store
+
+# Route to site map
+SiteMap: https://connor33341.github.io/static/seo/sitemap.txt
+
+# Dont rack up another bill
+Crawl-delay: 8
