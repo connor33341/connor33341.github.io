@@ -1,7 +1,8 @@
 # Web Crawler Config
 # connor33341
-# Disable useless stuff
-# And add a delay
+# uses sitemapgen.glitch.me which is owned by connor33341
+# sitemapgen.glitch.me can be used by anyone
+# pass /SITENAME to sitemapgen.glitch.me to generate sitemap.txt
 
 # Allow all user agents
 User-Agent: *
