@@ -40,6 +40,8 @@ Disallow: /.DS_Store
 # Route to site map
 SiteMap: https://connor33341.github.io/static/seo/sitemap.txt
 SiteMap: https://sitemapgen.glitch.me/connor33341.github.io
+# Old sitemap backup from when cloudflare (workers/pages/mongodb/vercel/heroku) used to be used. Before the budget cut
+#SiteMap: https://sitemapgen.glitch.me/use:cf.workers/sitemapgen/site:connor33341.github.io/output:txt/schema:null/cache:true
 
 # Dont rack up another bill
 Crawl-delay: 8
