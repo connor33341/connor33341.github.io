@@ -1,0 +1,10 @@
+<imports>
+    <import>
+        <selector>#toolbar-placeholder</selector>
+        <url>toolbar.html</url>
+    </import>
+    <import>
+        <selector>#footer-placeholder</selector>
+        <url>footer.html</url>
+    </import>
+</imports>
