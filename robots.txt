@@ -41,3 +41,8 @@ SiteMap: https://connor33341.github.io/static/seo/sitemap.txt
 
 # Dont rack up another bill
 Crawl-delay: 8
+
+# Google targeting
+User-agent: googlebot
+Crawl-delay: 12
+Allow: /
