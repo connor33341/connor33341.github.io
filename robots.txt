@@ -1,0 +1,3 @@
+# Disallow webcrawlers from accessing static files
+User-Agent: *
+Disallow: /static/
