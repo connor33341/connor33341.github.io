@@ -20,7 +20,7 @@
           border-radius: 5px;
           max-width: 350px;
         }
-        .card h1,p,h2{
+        .card h1,p,h2,h3{
            color: white;
         }
         button{
