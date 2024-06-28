@@ -1,6 +1,6 @@
 # connor33341.github.io
 ---
-I really only use this for json/xml schemas and MISX testing. With some random static stuff
+Slowly being updated, still mainly used for repo cards, static hosting, json/xml schemas, and MSIX
 
 # For all those who can't move on from the past
 ### (2022-2021) Pre the GREAT DELETION
