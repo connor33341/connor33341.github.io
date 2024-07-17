@@ -29,8 +29,24 @@
 
 <body>
 
-    <iframe src="https://connor33341.github.io/static/virtualkeyboard"></iframe>
+    <iframe id="if" src="https://connor33341.github.io/static/virtualkeyboard"></iframe>
+    <script>
+     function getQueryParams() {
+            const params = new URLSearchParams(window.location.search);
+            return params;
+        }
 
+        // Function to set the iframe source based on the 'src' query parameter
+        function setIframeSrc() {
+            const params = getQueryParams();
+            const srcValue = params.get('src');
+            if (srcValue) {
+                const iframe = document.getElementById('if');
+                iframe.src = srcValue;
+            }
+        }
+     document.addEventListener('DOMContentLoaded', setIframeSrc);
+    </script>
     <script src="script.js"></script>
 
 </body>
