@@ -47,7 +47,7 @@ const Keyboard = {
     },
 
     _addEventListenersForInputs(doc) {
-        const inputs = doc.querySelectorAll(".use-keyboard-input");
+        const inputs = doc.querySelectorAll("input");
         inputs.forEach((input) => {
             input.addEventListener("focus", () => {
                 this.properties.activeInput = input; // Track the active input field
