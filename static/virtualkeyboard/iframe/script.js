@@ -58,13 +58,14 @@ const Keyboard = {
                 this.open(input.value, (currentValue) => {
                     input.value = currentValue;
                 });
-            };
-            input.addEventListener("focus", () => {
-                this.properties.activeInput = input; // Track the active input field
-                this.open(input.value, (currentValue) => {
-                    input.value = currentValue;
+            } else {
+                input.addEventListener("focus", () => {
+                    this.properties.activeInput = input; // Track the active input field
+                    this.open(input.value, (currentValue) => {
+                        input.value = currentValue;
+                    });
                 });
-            });
+            };
         });
     },
 
