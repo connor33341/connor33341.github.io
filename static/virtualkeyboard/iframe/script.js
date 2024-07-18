@@ -47,9 +47,18 @@ const Keyboard = {
         }
     },
 
+    getParams(){
+        return new URLSearchParams(window.location.search);
+    }
     _addEventListenersForInputs(doc) {
         const inputs = doc.querySelectorAll("input");
         inputs.forEach((input) => {
+            if (this.getParams().get("auto") == "true"){
+                this.properties.activeInput = input; // Track the active input field
+                this.open(input.value, (currentValue) => {
+                    input.value = currentValue;
+                });
+            };
             input.addEventListener("focus", () => {
                 this.properties.activeInput = input; // Track the active input field
                 this.open(input.value, (currentValue) => {
