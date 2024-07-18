@@ -1,0 +1,2 @@
+src<string>: ""; # IFrame SRC
+auto<bool>: false; # Auto Focus
