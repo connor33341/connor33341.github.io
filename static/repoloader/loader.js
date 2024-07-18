@@ -1,5 +1,5 @@
 // Import a markdown library
-import { marked } from 'https://cdn.jsdelivr.net/npm/marked/marked.min.js';
+import { marked } from 'https://cdn.jsdelivr.net/npm/marked/lib/marked.esm.js';
 
 // Function to fetch JSON data
 async function fetchJson(url) {
