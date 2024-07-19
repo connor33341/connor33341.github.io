@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>installers</title>
+    </head>
+    <body onload="Main()">
+        <h1>CW Installers</h1>
+        <br>
+        <h3 id="os-element">Current OS: </h3>
+        <h3 id="script-element">Current Script: </h3>
+        <a id="download" hidden="true" download="installer">Download Installer</a>
+        <script>
+            // connor33341
+            // 7/18/24
+            const OS_Element = document.getElementById("os-element")
+            const Script_Element = document.getElementById("script-element")
+            const Download_Element = document.getElementById("download")
+            function GetParams(){
+                const params = new URLSearchParams(window.location.search);
+                return {
+                    target: params.get('target'),
+                    source: params.get('source'),
+                    force: params.get('force')
+                };
+            }
+            function Main(){
+                var Params = GetParams()
+                OS_Element.innerText = "Current OS: "+Params["target"]
+                Script_Element.innerText = "Current Script: "+Params["source"]
+                Download_Element.href = Params["source"]
+                Download_Element.download = "installer"
+                if (Params["force"]){
+                    console.log("Force")
+                    Download_Element.hidden = false
+                }else{
+                    console.log("Download")
+                    Download_Element.click()
+                }
+            }
+        </script>
+    </body>
+</html>
