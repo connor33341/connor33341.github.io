@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html data-bs-theme="dark">
+
+<head>
+    <script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/4.36.1/gradio.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</head>
+
+<body onload="init()">
+    <h1>Image Generator</h1>
+    <gradio-app src="https://stabilityai-stable-diffusion-3-medium.hf.space"></gradio-app>
+    <script>
+        function init() {
+            console.log("Init")
+            
+        }
+    </script>
+</body>
+
+</html>
