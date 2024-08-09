@@ -193,7 +193,7 @@
         const AlertBox = document.getElementById("alert")
         import { Client } from "https://cdn.jsdelivr.net/npm/@gradio/client/dist/index.min.js";
         const TextToImageClient = await Client.connect("stabilityai/stable-diffusion-3-medium");
-        //const ImageToImageClient = await Client.connect("turboedit/turbo_edit")
+        const ImageToImageClient = await Client.connect("turboedit/turbo_edit")
         const TextToImageControls = {
             EImage: document.getElementById("img1"),
             EProg: document.getElementById("prog1"),
@@ -314,14 +314,15 @@
             }
             if (Seed >= MaxSeed){
                 ImageToImageControls.ESeed.value = "MAX SEED IS "+MaxSeed
-            }/*
+            }
             const Result = await ImageToImageClient.predict("/main_pipeline", {
                 input_image: ImageData,
                 src_prompt: Data.prompt,
                 tgt_prompt: Data2.prompt2,
                 seed: Number(Seed),
                 w1: W
-            })*/
+            })
+            console.log(Result)
         })
         ImageToImageControls.ESave.addEventListener("click", async () => {
             var Data = GenerateData2()
