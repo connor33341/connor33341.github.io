@@ -10,7 +10,7 @@
     <!--<script src="https://cdn.jsdelivr.net/npm/@gradio/client/dist/index.min.js"></script>-->
     <style>
         .fakeimg {
-            height: 31.4%;
+            /*height: 31.4%;*/
             background: #aaa;
             aspect-ratio: 1;
         }
@@ -184,6 +184,9 @@
             ELoad: document.getElementById("load1"),
             ERemove: document.getElementById("remove1"),
         }
+        const ImageToImageControls = {
+            EPrompt: document.getElementById("prompt2"),
+        }
         function Delay(ms) {
             return new Promise(resolve =>
                 setTimeout(resolve, ms)
@@ -202,14 +205,14 @@
             await Delay(2000)
             var Data = GenerateData()
             TextToImageControls.EProg.style = "width:45%;"
-            let Seed = Data.seed
+            let Seed = Number(Data.seed)
             if (Data.random){
                 Seed = 0
             }
             const Result = await TextToImageClient.predict("/infer", {
                 prompt: Data.prompt,
                 negative_prompt: NegativePrompt,
-                seed: Seed,
+                seed: Number(Seed),
                 randomize_seed: Data.random,
                 width: 1024,
                 height: 1024,
@@ -217,11 +220,15 @@
                 num_inference_steps: 28,
             });
             ImageUrl = Result["data"][0]["url"]
+            //console.log(Result)
             console.log(ImageUrl)
             TextToImageControls.EProg.style = "width:80%;"
             await Delay(3000)
             TextToImageControls.EProg.style = "width:100%;"
             TextToImageControls.EImage.src = ImageUrl
+            TextToImageControls.ESeed.value = Result["data"][1]
+            TextToImageControls.ERandom.checked = false
+            ImageToImageControls.EPrompt.value = Data.prompt
         })
         TextToImageControls.ESave.addEventListener("click", () => {
             var Data = GenerateData()
@@ -233,7 +240,11 @@
         TextToImageControls.ELoad.addEventListener("click", () => {
             TextToImageControls.EPrompt.value = localStorage.getItem("prompt")
             TextToImageControls.ESeed.value = localStorage.getItem("seed")
-            TextToImageControls.ERandom.checked = localStorage.getItem("random")
+            let Checked = false
+            if (localStorage.getItem("random") == "true"){
+                Checked = true
+            }
+            TextToImageControls.ERandom.checked = Checked
         })
     </script>
     <script type="module">
