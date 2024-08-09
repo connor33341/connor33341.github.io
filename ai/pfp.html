@@ -322,7 +322,14 @@
                 seed: Number(Seed),
                 w1: W
             })
+            ImageUrl = Result["data"][0]["url"]
             console.log(Result)
+            ImageToImageControls.EProg.style = "width:80%;"
+            await Delay(3000)
+            ImageToImageControls.EImage.src = ImageUrl
+            ImageToImageControls.ESeed.value = Result["data"][1]
+            ImageToImageControls.ERandom.checked = false
+            ImageToImageControls.EProg.style = "width:100%;"
         })
         ImageToImageControls.ESave.addEventListener("click", async () => {
             var Data = GenerateData2()
