@@ -46,6 +46,10 @@
     <div class="container mt-5">
         <div class="row">
             <div class="col-sm-4">
+                <div class="alert alert-danger alert-dismissible fade show" id="alert" hidden="true">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    <strong>Failed</strong> Something went wrong
+                </div>
                 <h2>Help:</h2>
                 <h5>Creating a PFP</h5>
                 <p>Before you can generate variations of your image, you need to generate a base image, which all
@@ -136,13 +140,26 @@
                 </div>
                 <div class="form-check mb-3">
                     <label class="form-check-label">
-                        <input class="form-check-input" type="checkbox" name="random1" id="random1"> Random Seed
+                        <input class="form-check-input" type="checkbox" name="random1" id="random2" checked="true">
+                        Random Seed
                     </label>
                 </div>
                 <br>
                 <button class="btn btn-primary" id="btn2">
                     <span class="spinner-border spinner-border-sm" id="spin2" hidden="true"></span>
+                    Generate
+                </button>
+                <button class="btn btn-secondary" id="save2">
+                    <span class="spinner-border spinner-border-sm" id="spinsave1" hidden="true"></span>
                     Save
+                </button>
+                <button class="btn btn-secondary" id="load2">
+                    <span class="spinner-border spinner-border-sm" id="spinsave1" hidden="true"></span>
+                    Load
+                </button>
+                <button class="btn btn-danger" id="remove2">
+                    <span class="spinner-border spinner-border-sm" id="spinsave1" hidden="true"></span>
+                    Remove
                 </button>
                 <br>
             </div>
@@ -169,10 +186,14 @@
         <p>connor33341 2024</p>
     </div>
     <script type="module">
-        const NegativePrompt = ""
+        const NegativePrompt = "low res, blurry,less digit,bad anatomy,extra digit"
+        const W = 1.5
         let ImageUrl = ""
+        let ImageData
+        const AlertBox = document.getElementById("alert")
         import { Client } from "https://cdn.jsdelivr.net/npm/@gradio/client/dist/index.min.js";
         const TextToImageClient = await Client.connect("stabilityai/stable-diffusion-3-medium");
+        //const ImageToImageClient = await Client.connect("turboedit/turbo_edit")
         const TextToImageControls = {
             EImage: document.getElementById("img1"),
             EProg: document.getElementById("prog1"),
@@ -185,7 +206,15 @@
             ERemove: document.getElementById("remove1"),
         }
         const ImageToImageControls = {
+            EImage: document.getElementById("img2"),
+            EProg: document.getElementById("prog2"),
             EPrompt: document.getElementById("prompt2"),
+            ESeed: document.getElementById("seed2"),
+            ERandom: document.getElementById("random2"),
+            EGenerate: document.getElementById("btn2"),
+            ESave: document.getElementById("save2"),
+            ELoad: document.getElementById("load2"),
+            ERemove: document.getElementById("remove2"),
         }
         function Delay(ms) {
             return new Promise(resolve =>
@@ -200,35 +229,60 @@
             }
             return Data
         }
+        function GenerateData2() {
+            var Data = {
+                prompt2: ImageToImageControls.EPrompt.value,
+                seed2: ImageToImageControls.ESeed.value,
+                random2: ImageToImageControls.ERandom.checked
+            }
+            return Data
+        }
         TextToImageControls.EGenerate.addEventListener("click", async () => {
             TextToImageControls.EProg.style = "width:24%;"
             await Delay(2000)
             var Data = GenerateData()
             TextToImageControls.EProg.style = "width:45%;"
             let Seed = Number(Data.seed)
-            if (Data.random){
+            if (Data.random) {
                 Seed = 0
             }
-            const Result = await TextToImageClient.predict("/infer", {
-                prompt: Data.prompt,
-                negative_prompt: NegativePrompt,
-                seed: Number(Seed),
-                randomize_seed: Data.random,
-                width: 1024,
-                height: 1024,
-                guidance_scale: 5,
-                num_inference_steps: 28,
-            });
+            const Debug = {
+                Prompt: Data.prompt,
+                Negative: NegativePrompt,
+                Seed: Number(Seed),
+                Random: Data.random
+            }
+            let Result
+            try {
+                Result = await TextToImageClient.predict("/infer", {
+                    prompt: Data.prompt,
+                    negative_prompt: NegativePrompt,
+                    seed: Number(Seed),
+                    randomize_seed: Data.random,
+                    width: 1024,
+                    height: 1024,
+                    guidance_scale: 5,
+                    num_inference_steps: 28,
+                });
+            } catch {
+                console.log(Result)
+                console.log(Debug)
+                AlertBox.hidden = false
+            }
             ImageUrl = Result["data"][0]["url"]
             //console.log(Result)
             console.log(ImageUrl)
             TextToImageControls.EProg.style = "width:80%;"
             await Delay(3000)
-            TextToImageControls.EProg.style = "width:100%;"
+            TextToImageControls.EProg.style = "width:90%;"
             TextToImageControls.EImage.src = ImageUrl
             TextToImageControls.ESeed.value = Result["data"][1]
             TextToImageControls.ERandom.checked = false
             ImageToImageControls.EPrompt.value = Data.prompt
+            await Delay(1000)
+            TextToImageControls.EProg.style = "width:100%;"
+            var Request = await fetch(ImageUrl)
+            ImageData = await Request.blob()
         })
         TextToImageControls.ESave.addEventListener("click", () => {
             var Data = GenerateData()
@@ -241,10 +295,49 @@
             TextToImageControls.EPrompt.value = localStorage.getItem("prompt")
             TextToImageControls.ESeed.value = localStorage.getItem("seed")
             let Checked = false
-            if (localStorage.getItem("random") == "true"){
+            if (localStorage.getItem("random") == "true") {
                 Checked = true
             }
             TextToImageControls.ERandom.checked = Checked
+        })
+        ImageToImageControls.EGenerate.addEventListener("click", async () => {
+            ImageToImageControls.EProg.style = "width:24%;"
+            await Delay(2000)
+            var Data = GenerateData()
+            var OrginalPrompt = Data.prompt
+            var Data2 = GenerateData2()
+            ImageToImageControls.EProg.style = "width:45%;"
+            let Seed = Number(Data2.seed)
+            const MaxSeed = 16384
+            if (Data2.random) {
+                Seed = Math.random() * MaxSeed
+            }
+            if (Seed >= MaxSeed){
+                ImageToImageControls.ESeed.value = "MAX SEED IS "+MaxSeed
+            }/*
+            const Result = await ImageToImageClient.predict("/main_pipeline", {
+                input_image: ImageData,
+                src_prompt: Data.prompt,
+                tgt_prompt: Data2.prompt2,
+                seed: Number(Seed),
+                w1: W
+            })*/
+        })
+        ImageToImageControls.ESave.addEventListener("click", async () => {
+            var Data = GenerateData2()
+            for (let i in Data) {
+                var v = Data[i]
+                localStorage.setItem(i, v)
+            }
+        })
+        ImageToImageControls.ELoad.addEventListener("click", async () => {
+            ImageToImageControls.EPrompt.value = localStorage.getItem("prompt2")
+            ImageToImageControls.ESeed.value = localStorage.getItem("seed2")
+            let Checked = false
+            if (localStorage.getItem("random2") == "true") {
+                Checked = true
+            }
+            ImageToImageControls.ERandom.checked = Checked
         })
     </script>
     <script type="module">
