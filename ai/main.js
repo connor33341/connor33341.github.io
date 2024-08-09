@@ -4,7 +4,7 @@ export function Init(){
     for (let i in Buttons){
         var Button = Buttons[i]
         Button.addEventListener("click", ()=>{
-            Button.firstChild.hidden = false
+            Button.lastElementChild.hidden = false
         })
     }
 }
