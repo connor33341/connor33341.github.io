@@ -107,6 +107,10 @@
                         <input class="form-check-input" type="checkbox" name="random1" id="random1"> Random Seed
                     </label>
                 </div>
+                <div class="mb-3 mt-3 collapse" id="divadvanced">
+                    <label for="text" class="form-label">Negative Prompt:</label>
+                    <input type="text" class="form-control" id="negative" placeholder="Enter Negative Prompt" name="negative">
+                </div>
                 <br>
                 <button class="btn btn-primary" id="btn1">
                     <span class="spinner-border spinner-border-sm" id="spin1" hidden="true"></span>
@@ -119,6 +123,9 @@
                 <button class="btn btn-secondary" id="load1">
                     <span class="spinner-border spinner-border-sm" id="spinsave1" hidden="true"></span>
                     Load
+                </button>
+                <button class="btn btn-secondary" data-bs-toggle="collapse" data-bs-target="#divadvanced">
+                    Advanced
                 </button>
                 <button class="btn btn-danger" id="remove1">
                     <span class="spinner-border spinner-border-sm" id="spinsave1" hidden="true"></span>
@@ -212,6 +219,7 @@
             ESave: document.getElementById("save1"),
             ELoad: document.getElementById("load1"),
             ERemove: document.getElementById("remove1"),
+            ENegative: document.getElementById("negative")
         }
         const ImageToImageControls = {
             EImage: document.getElementById("img2"),
@@ -233,7 +241,8 @@
             var Data = {
                 prompt: TextToImageControls.EPrompt.value,
                 seed: TextToImageControls.ESeed.value,
-                random: TextToImageControls.ERandom.checked
+                random: TextToImageControls.ERandom.checked,
+                negative: TextToImageControls.ENegative.value,
             }
             return Data
         }
@@ -303,7 +312,7 @@
             try {
                 Result = await TextToImageClient.predict("/infer", {
                     prompt: Data.prompt,
-                    negative_prompt: NegativePrompt,
+                    negative_prompt: Data.negative,
                     seed: Number(Seed),
                     randomize_seed: Data.random,
                     width: 1024,
@@ -433,6 +442,7 @@
             };
         }
         function Init(){
+            TextToImageControls.ENegative.value = NegativePrompt
             var Params = GetParams()
             if (Params.Shared){
                 let Random = true
