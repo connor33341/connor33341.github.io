@@ -459,9 +459,7 @@
                 ImageToImageControls.EPrompt.value = Params.Prompt2
                 ImageToImageControls.ESeed.value = Params.Seed2
                 ImageToImageControls.ERandom.checked = Random2
-                if (Params.NegativePrompt){
-                    NegativePrompt = Params.NegativePrompt
-                }
+                TextToImageControls.ENegative.value = Params.NegativePrompt
             }
         }
         Init()
