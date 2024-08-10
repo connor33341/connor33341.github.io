@@ -316,10 +316,12 @@
             if (Seed >= MaxSeed){
                 ImageToImageControls.ESeed.value = "MAX SEED IS "+MaxSeed
             }
+            const testimga = await fetch("https://raw.githubusercontent.com/gradio-app/gradio/main/test/test_files/bus.png")
+            const testimg = await testimga.blob()
             const Result = await ImageToImageClient.predict("/main_pipeline", {
-                input_image: ImageData,
-                src_prompt: Data.prompt,
-                tgt_prompt: Data2.prompt2,
+                input_image: testimg,//ImageData,
+                src_prompt: "bus",//Data.prompt,
+                tgt_prompt: "red bus",//Data2.prompt2,
                 seed: Number(Seed),
                 w1: W
             })
