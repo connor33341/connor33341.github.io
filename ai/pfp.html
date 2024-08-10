@@ -31,6 +31,9 @@
                     <a class="nav-link active" href="https://connor33341.github.io">Home</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="#SharedLink" id="share">Share</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="#">Generate Design</a>
                 </li>
                 <li class="nav-item">
@@ -73,6 +76,9 @@
                         <a class="nav-link disabled" href="#">Website</a>
                     </li>
                 </ul>
+                <button class="btn btn-primary" id="sharebtn" hidden="true">
+                    Generate Share Link
+                </button>
                 <hr class="d-sm-none">
             </div>
             <div class="col-sm-8">
@@ -186,7 +192,7 @@
         <p>connor33341 2024</p>
     </div>
     <script type="module">
-        const NegativePrompt = "low res, blurry,less digit,bad anatomy,extra digit"
+        let NegativePrompt = "low res, blurry,less digit,bad anatomy,extra digit"
         const W = 1.5
         let ImageUrl = ""
         let ImageData
@@ -194,6 +200,8 @@
         import { Client } from "https://cdn.jsdelivr.net/npm/@gradio/client/dist/index.min.js";
         const TextToImageClient = await Client.connect("stabilityai/stable-diffusion-3-medium");
         const ImageToImageClient = await Client.connect("turboedit/turbo_edit")
+        const ShareLink = document.getElementById("share")
+        const ShareBtn = document.getElementById("sharebtn")
         const TextToImageControls = {
             EImage: document.getElementById("img1"),
             EProg: document.getElementById("prog1"),
@@ -237,8 +245,47 @@
             }
             return Data
         }
+        function GenerateParams(){
+            var Data = GenerateData()
+            var Data2 = GenerateData2()
+            var Params = {}
+            let ParamUrl = "?shared=true"
+            for (let index in Data){
+                Params[index] = Data[index]
+            }
+            for (let index in Data2){
+                Params[index] = Data2[index]
+            }
+            let i = -1
+            for (let index in Params){
+                i += 1
+                var Object = Params[index]
+                let Header = "&"
+                /*if (i == 0){
+                    Header = "?"
+                }*/
+                let Section = ""
+                Section += Header
+                Section += index
+                Section += "="
+                Section += Object
+                ParamUrl += Section
+            }
+            ParamUrl += "#SharedLink"
+            ShareLink.href = ParamUrl
+            return ParamUrl
+        }
+        ShareBtn.addEventListener("click", () => {
+            var Params = GenerateParams()
+            console.log(Params)
+        })
+        ShareLink.addEventListener("click", () => {
+            GenerateParams()
+            ShareLink.click()
+        })
         TextToImageControls.EGenerate.addEventListener("click", async () => {
             TextToImageControls.EProg.style = "width:24%;"
+            GenerateParams()
             await Delay(2000)
             var Data = GenerateData()
             TextToImageControls.EProg.style = "width:45%;"
@@ -355,11 +402,38 @@
             }
             ImageToImageControls.ERandom.checked = Checked
         })
+        function GetParams() {
+            const Params = new URLSearchParams(window.location.search);
+            return {
+                Shared: Params.get("shared"),
+                Prompt: Params.get("prompt"),
+                NegativePrompt: Params.get("negative"),
+                Seed: Params.get("seed"),
+                Random: Params.get("random"),
+                Prompt2: Params.get("prompt2"),
+                Random2: Params.get("random2"),
+                Seed2: Params.get("seed2")
+            };
+        }
+        function Init(){
+            var Params = GetParams()
+            if (Params.Shared){
+                TextToImageControls.EPrompt.value = Params.Prompt
+                TextToImageControls.ESeed.value = Params.Seed
+                TextToImageControls.ERandom.checked = Params.Random
+                ImageToImageControls.EPrompt.value = Params.Prompt2
+                ImageToImageControls.ESeed.value = Params.Seed2
+                ImageToImageControls.ERandom.checked = Params.Random2
+            }
+        }
+        Init()
     </script>
+    <!--
     <script type="module">
         import { Init } from "./main.js"
         Init()
     </script>
+-->
 </body>
 
 </html>
