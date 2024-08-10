@@ -418,12 +418,20 @@
         function Init(){
             var Params = GetParams()
             if (Params.Shared){
+                let Random = true
+                let Random2 = true
+                if (Params.Random == "false"){
+                    Random = false
+                }
+                if (Params.Random2 == "false"){
+                    Random2 = false
+                }
                 TextToImageControls.EPrompt.value = Params.Prompt
                 TextToImageControls.ESeed.value = Params.Seed
-                TextToImageControls.ERandom.checked = Params.Random
+                TextToImageControls.ERandom.checked = Random
                 ImageToImageControls.EPrompt.value = Params.Prompt2
                 ImageToImageControls.ESeed.value = Params.Seed2
-                ImageToImageControls.ERandom.checked = Params.Random2
+                ImageToImageControls.ERandom.checked = Random2
             }
         }
         Init()
