@@ -283,6 +283,7 @@
             TextToImageControls.EProg.style = "width:100%;"
             var Request = await fetch(ImageUrl)
             ImageData = await Request.blob()
+            console.log(ImageData)
         })
         TextToImageControls.ESave.addEventListener("click", () => {
             var Data = GenerateData()
