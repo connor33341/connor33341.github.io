@@ -310,14 +310,16 @@
             ImageToImageControls.EProg.style = "width:45%;"
             let Seed = Number(Data2.seed)
             const MaxSeed = 16384
-            if (Data2.random) {
+            if (Data2.random2) {
+                //console.log("a")
                 Seed = Math.random() * MaxSeed
             }
-            if (Seed >= MaxSeed){
-                ImageToImageControls.ESeed.value = "MAX SEED IS "+MaxSeed
+            if (Seed >= MaxSeed) {
+                ImageToImageControls.ESeed.value = "MAX SEED IS " + MaxSeed
             }
             const testimga = await fetch("https://raw.githubusercontent.com/gradio-app/gradio/main/test/test_files/bus.png")
             const testimg = await testimga.blob()
+            // console.log(Seed)
             const Result = await ImageToImageClient.predict("/main_pipeline", {
                 input_image: testimg,//ImageData,
                 src_prompt: "bus",//Data.prompt,
