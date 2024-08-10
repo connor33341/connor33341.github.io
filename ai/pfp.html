@@ -317,14 +317,17 @@
             if (Seed >= MaxSeed) {
                 ImageToImageControls.ESeed.value = "MAX SEED IS " + MaxSeed
             }
-            const testimga = await fetch("https://raw.githubusercontent.com/gradio-app/gradio/main/test/test_files/bus.png")
-            const testimg = await testimga.blob()
-            // console.log(Seed)
+            Seed = Math.floor(Seed)
+            //const testimga = await fetch("https://raw.githubusercontent.com/gradio-app/gradio/main/test/test_files/bus.png")
+            //const testimg = await testimga.blob()
+            //console.log(Data.prompt)
+            //console.log(Data2.prompt2)
+            //console.log(Number(Seed))
             const Result = await ImageToImageClient.predict("/main_pipeline", {
-                input_image: testimg,//ImageData,
-                src_prompt: "bus",//Data.prompt,
-                tgt_prompt: "red bus",//Data2.prompt2,
-                seed: Number(Seed),
+                input_image: ImageData,
+                src_prompt: Data.prompt,
+                tgt_prompt: Data2.prompt2,
+                seed: Seed,
                 w1: W
             })
             ImageUrl = Result["data"][0]["url"]
@@ -332,7 +335,7 @@
             ImageToImageControls.EProg.style = "width:80%;"
             await Delay(3000)
             ImageToImageControls.EImage.src = ImageUrl
-            ImageToImageControls.ESeed.value = Result["data"][1]
+            ImageToImageControls.ESeed.value = Seed
             ImageToImageControls.ERandom.checked = false
             ImageToImageControls.EProg.style = "width:100%;"
         })
