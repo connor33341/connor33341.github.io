@@ -192,7 +192,7 @@
         <p>connor33341 2024</p>
     </div>
     <script type="module">
-        let NegativePrompt = "low res, blurry,less digit,bad anatomy,extra digit"
+        let NegativePrompt = "low res, blurry,less digit,bad anatomy,extra digit,distorted"//distorted
         const W = 1.5
         let ImageUrl = ""
         let ImageData
@@ -285,7 +285,7 @@
         })
         TextToImageControls.EGenerate.addEventListener("click", async () => {
             TextToImageControls.EProg.style = "width:24%;"
-            GenerateParams()
+            //GenerateParams()
             await Delay(2000)
             var Data = GenerateData()
             TextToImageControls.EProg.style = "width:45%;"
@@ -449,6 +449,9 @@
                 ImageToImageControls.EPrompt.value = Params.Prompt2
                 ImageToImageControls.ESeed.value = Params.Seed2
                 ImageToImageControls.ERandom.checked = Random2
+                if (Params.NegativePrompt){
+                    NegativePrompt = Params.NegativePrompt
+                }
             }
         }
         Init()
