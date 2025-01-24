@@ -96,3 +96,12 @@ footer a {
 footer a:hover {
     text-decoration: underline;
 }
+
+.page{
+    z-index: 6;
+    opacity: 1;
+    position: absolute;
+    margin: auto;
+    width: 100%;
+    /*padding: 10px;*/
+}
