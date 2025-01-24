@@ -5,8 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Map</title>
     <link rel="stylesheet" href="https://connor33341.github.io/static/css/mc.css">
+    <link rel="stylesheet" href="https://connor33341.github.io/static/css/particles.css">
     <script src="https://connor33341.github.io/static/js/darkmode.js"></script>
-    <style>
+    <script src="https://connor33341.github.io/statuc/particles/particles.js"></script>
+    <!--<style>
         :root {
             --bg-color: #f9f9f9;
             --text-color: #333;
@@ -104,8 +106,8 @@
         footer a:hover {
             text-decoration: underline;
         }
-    </style>
-    <script>
+    </style>-->
+    <!--<script>
         document.addEventListener('DOMContentLoaded', () => {
             const darkModeToggle = document.getElementById('dark-mode-toggle');
             const updateTheme = () => {
@@ -124,9 +126,10 @@
 
             updateTheme();
         });
-    </script>
+    </script>-->
 </head>
 <body>
+    <div id="particles-js"></div>
     <div class="top-bar">
         <nav>
             <a href="#">Home</a>
@@ -142,5 +145,8 @@
             Powered by Blue Maps | <a href="https://example.com" target="_blank">Learn More</a> | ©2024 connor33341
         </footer>
     </div>
+    <script>
+        particlesJS.load('particles-js', 'https://connor33341.github.io/static/particles/particlesjs-config.json', function() {});
+    </script>
 </body>
 </html>
