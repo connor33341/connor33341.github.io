@@ -1,9 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
 
-    </head>
-    <body>
-        
-    </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Map</title>
+    <link rel="stylesheet" href="https://connor33341.github.io/static/css/mc.css">
+    <link rel="stylesheet" href="https://connor33341.github.io/static/css/particles.css">
+    <script src="https://connor33341.github.io/static/js/darkmode.js"></script>
+    <script src="https://connor33341.github.io/static/particles/particles.js"></script>
+    <style>
+        .stats{
+            border-width: 4px;
+            border-color: blueviolet;
+            border-style:outset;
+            padding: 15px;
+            border-radius: 2%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="particles-js"></div>
+    <div class="page">
+        <div class="top-bar">
+            <nav>
+                <a href="https://connor33341.github.io">Home</a>
+                <a href="https://connor33341.github.io/mc">About - MC</a>
+                <a href="https://connor33341.github.io/mc/tools/map.html">Map - MC</a>
+                <a href="#">Contact</a>
+            </nav>
+            <button id="dark-mode-toggle" class="dark-mode-toggle">Toggle Dark Mode</button>
+        </div>
+        <div class="container">
+            <header>
+                <h1>Minecraft Server</h1>
+            </header>
+            <div>
+                <div class="stats">
+                    <h1>Editions: Bedrock and Java</h1>
+                    <h1>ServerVersion: 1.21</h1>
+                    <h1>ClientVersions: 1.12-1.21+</h1>
+                </div>
+                <br>
+                <p></p>
+            </div>
+            <footer>
+                ©2024 connor33341
+            </footer>
+        </div>
+    </div>
+    <script>
+        particlesJS.load('particles-js', 'https://connor33341.github.io/static/particles/particlesjs-config.json', function () { });
+    </script>
+</body>
+
 </html>
