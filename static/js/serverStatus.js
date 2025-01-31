@@ -1,4 +1,4 @@
-const JavaEndpoint = ""
+const JavaEndpoint = "https://api.mcsrvstat.us/3/"
 const BedrockEndpoint = ""
 
 export async function GetJavaStatus(Url){

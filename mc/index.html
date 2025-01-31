@@ -71,9 +71,9 @@
                 <br>
                 <p style="padding-bottom: 15px">List of Addresses, please note that these addresses are randomly generated and are subject to change. <a href="https://discord.gg/MyKAzXYrM9">Discord</a></p>
                 <table class="infotable">
-                    <tr><th>Type</th><th>Address</th><th>Port</th><th>Online</th></tr>
-                    <tr><td>Java Edition</td><td>we-developer.gl.joinmc.link</td><td>61790</td><td id="javaServer"></td></tr>
-                    <tr><td>Bedrock Edition</td><td>japanese-extending.gl.at.ply.gg</td><td>4070</td><td id="bedrockServer"></td></tr>
+                    <tr><th>Type</th><th>Address</th><th>Port</th><th>Online</th><th>Players Online</th></tr>
+                    <tr><td>Java Edition</td><td>we-developer.gl.joinmc.link</td><td>61790</td><td id="javaServer">Unknown</td><td id="javaPlayers"></td></tr>
+                    <tr><td>Bedrock Edition</td><td>japanese-extending.gl.at.ply.gg</td><td>4070</td><td id="bedrockServer">Unknown</td><td id="bedrockPlayers"></td></tr>
                     <tr visable="false"><td>Server Map</td><td><a href="http://account-opponents.gl.at.ply.gg:51357/#world:1511:0:1390:7587:0:0:0:1:flat">account-opponents.gl.at.ply.gg</a></td><td>51357</td></tr>
                 </table>
                 <br>
@@ -86,6 +86,19 @@
     </div>
     <script>
         particlesJS.load('particles-js', 'https://connor33341.github.io/static/particles/particlesjs-config.json', function () { });
+    </script>
+    <script type="module">
+        import {GetJavaStatus, GetBedrockStatus} from "https://connor33341.github.io/static/js/serverStatus.js"
+        const JavaStatus = document.getElementById("javaServer")
+        const JavaPlayers = document.getElementById("javaPlayers")
+        const BedrockStatus = document.getElementById("bedrockServer")
+        const BedrockPlayers = document.getElementById("bedrockPlayers")
+        function UpdateStatus(){
+            var jStatus,jPlayers = GetJavaStatus("we-developer.gl.joinmc.link")
+            JavaStatus.innerText = jStatus
+            JavaPlayers.innerText = jPlayers
+        }
+        setInterval(UpdateStatus,1000)
     </script>
 </body>
 
