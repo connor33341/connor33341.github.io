@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://connor33341.github.io/static/css/particles.css">
     <script src="https://connor33341.github.io/static/js/darkmode.js"></script>
     <script src="https://connor33341.github.io/static/particles/particles.js"></script>
+    <script type="module" src="https://connor33341.github.io/static/js/serverStatus.js"></script>
     <style>
         .stats{
             border-width: 4px;
@@ -70,10 +71,10 @@
                 <br>
                 <p style="padding-bottom: 15px">List of Addresses, please note that these addresses are randomly generated and are subject to change. <a href="https://discord.gg/MyKAzXYrM9">Discord</a></p>
                 <table class="infotable">
-                    <tr><th>Type</th><th>Address</th><th>Port</th></tr>
-                    <tr><td>Java Edition</td><td>we-developer.gl.joinmc.link</td><td>61790</td></tr>
-                    <tr><td>Bedrock Edition</td><td>japanese-extending.gl.at.ply.gg</td><td>4070</td></tr>
-                    <tr><td>Server Map</td><td><a href="http://account-opponents.gl.at.ply.gg:51357/#world:1511:0:1390:7587:0:0:0:1:flat">account-opponents.gl.at.ply.gg</a></td><td>51357</td></tr>
+                    <tr><th>Type</th><th>Address</th><th>Port</th><th>Online</th></tr>
+                    <tr><td>Java Edition</td><td>we-developer.gl.joinmc.link</td><td>61790</td><td id="javaServer"></td></tr>
+                    <tr><td>Bedrock Edition</td><td>japanese-extending.gl.at.ply.gg</td><td>4070</td><td id="bedrockServer"></td></tr>
+                    <tr visable="false"><td>Server Map</td><td><a href="http://account-opponents.gl.at.ply.gg:51357/#world:1511:0:1390:7587:0:0:0:1:flat">account-opponents.gl.at.ply.gg</a></td><td>51357</td></tr>
                 </table>
                 <br>
                 <p></p>
