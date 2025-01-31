@@ -93,8 +93,8 @@
         const JavaPlayers = document.getElementById("javaPlayers")
         const BedrockStatus = document.getElementById("bedrockServer")
         const BedrockPlayers = document.getElementById("bedrockPlayers")
-        function UpdateStatus(){
-            var jStatus,jPlayers = GetJavaStatus("we-developer.gl.joinmc.link")
+        async function UpdateStatus(){
+            var jStatus,jPlayers = await GetJavaStatus("we-developer.gl.joinmc.link")
             JavaStatus.innerText = jStatus
             JavaPlayers.innerText = jPlayers
         }
