@@ -1,10 +1,11 @@
 {
     "buttons":[
         {"name":"AI","href":"https://connor33341.github.io/ai","popup":"Some old projects"},
-        {"name":"Software","href":"https://","popup":"Refer to https://github.com/connor33341 for projects with active development"},
+        {"name":"Software","href":"https://github.com/connor33341?tab=repositories","popup":"Refer to https://github.com/connor33341 for projects with active development"},
         {"name":"Minecraft","href":"https://connor33341.github.io/mc","popup":"Self-Hosted minecraft network"},
-        {"name":"Games","href":"https://","popup":"Unreal Engine 5 Games"},
-        {"name":"Network/Communication","href":"https://","popup":"Techinical Details of certain projects"},
-        {"name":"Aerospace","href":"https://","popup":"Drones and TVC/AFC controlled Rockets"}
+        {"name":"Games","href":"https://www.roblox.com/users/1269609907/profile?friendshipSourceType=PlayerSearch#!/creations","popup":"Roblox Games, switching to Unreal in the future"},
+        {"name":"Network","href":"https://connor33341.github.io/v2/renders/network.html","popup":"Techinical Details of certain projects"},
+        {"name":"Aerospace","href":"https://cw-aerospace.github.io/index.html","popup":"Drones and TVC/AFC controlled Rockets"},
+        {"name":"Version 3","href":"https://connor33341.github.io/static/redirect/v3.html","popup":"3rd Iteration of this site"}
     ]
 }
