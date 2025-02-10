@@ -102,7 +102,9 @@
     <script>
         let Config = {}
         $(document).ready(function(){
-            $("#top").load("https://connor33341.github.io/static/modules/navbar.html")
+            $("#top").load("https://connor33341.github.io/static/modules/navbar.html", function(){
+                dmInit()
+            })
             $.ajax({
                 type:"GET",
                 url:"https://connor33341.github.io/static/config/homepage.json",
