@@ -1,0 +1,51 @@
+/* MDRN, the modern CSS for connor33341.github.io*/
+.stats{
+    border-width: 4px;
+    border-color: var(--border-color);
+    border-style:outset;
+    padding: 15px;
+    border-radius: 1%;
+    font-size: larger;
+    text-align: center;
+}
+.containercontent{
+    max-width: 50%;
+    align-content: center;
+}
+th, td{
+    padding-left: 25px;
+}
+th{
+    padding-bottom: 25px;
+    color: var(--link-color);
+}
+td{
+    padding-bottom: 10px;
+}
+table, th, td{
+    border-width: 4px;
+    border-color: var(--border-color);
+    border-style:outset;
+    border-radius: 1%;
+    padding: 15px;
+    border-collapse: collapse;
+}
+.btncontainer {
+    border-width: 2px;
+    border-color: var(--border-color);
+    /*border-style: outset;*/
+    border-style: solid;
+    border-radius: 20px;
+    box-shadow: 0 4px 10px var(--shadow-color);
+    align-items: center;
+    padding: 15px;
+    margin: 12px auto;
+    max-width: fit-content;
+}
+.selectionbtn{
+    background-color: var(--bg-color);
+    color: var(--link-color);
+    border-style: solid;
+    border-radius: 20px;
+    margin: 2.5px;
+}
