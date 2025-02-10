@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+function dmInit(){
     const darkModeToggle = document.getElementById('dark-mode-toggle');
     const updateTheme = () => {
         const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -15,4 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     updateTheme();
+}
+document.addEventListener('DOMContentLoaded', () => {
+    dmInit()
 });
