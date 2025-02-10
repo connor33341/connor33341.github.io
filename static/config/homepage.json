@@ -2,9 +2,9 @@
     "buttons":[
         {"name":"AI","href":"https://","popup":"Some old projects"},
         {"name":"Software","href":"https://","popup":"Refer to https://github.com/connor33341 for projects with active development"},
-        {"name":"Minecraft","href":"https://","popup":"Self-Hosted minecraft network"},
+        {"name":"Minecraft","href":"https://connor33341.github.io/mc","popup":"Self-Hosted minecraft network"},
         {"name":"Games","href":"https://","popup":"Unreal Engine 5 Games"},
-        {"name":"Network/Communication","href":"","popup":"Techinical Details of certain projects"},
-        {"name":"Aerospace","href":"","popup":"Drones and TVC/AFC controlled Rockets"}
+        {"name":"Network/Communication","href":"https://","popup":"Techinical Details of certain projects"},
+        {"name":"Aerospace","href":"https://","popup":"Drones and TVC/AFC controlled Rockets"}
     ]
 }

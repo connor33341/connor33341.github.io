@@ -115,13 +115,23 @@
                         var $Button = $("<button>",{
                             text: Name,
                             class:"selectionbtn",
+                            id: Name
                         })
                         $Button.attr({
                             "aria-label": Popup,
-                            "data-balloon-pos": "up"
+                            "data-balloon-pos": "up",
+                            "href": HREF
                         })
                         console.log(Name)
                         $(".btncontainer").append($Button)
+                        $Button.on("click", (function(Name,HREF){
+                            return function (){
+                                console.log()
+                                var BtnHREF = $(`#${Name}`).attr("href")
+                                console.log("DEST: "+BtnHREF)
+                                location.href = BtnHREF
+                            }
+                        })(Name,HREF))
                     }
                 }
             })
