@@ -1,0 +1,6 @@
+{
+    "buttons":[
+        {"name":"Profile Picture Gen","href":"https://connor33341.github.io/ai/pfp.html","popup":"Refer to the prompt guidelines"},
+        {"name":"Profile Picture Gen w/ Prompt Example","href":"https://connor33341.github.io/ai/pfp.html?shared=true&prompt=1girl,russian,animal%20ears,anime&seed=302033155&random=false&negative=low%20res,%20blurry,less%20digit,bad%20anatomy,extra%20digit&prompt2=1girl,russian,animal%20ears,anime&seed2=&random2=false#SharedLink","popup":"Basic prompt example"}
+    ]
+}

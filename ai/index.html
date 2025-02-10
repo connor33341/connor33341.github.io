@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>connor33341.github.io | AI</title>
+    <meta name="description" content="Homepage of connor33341">
+    <link rel="stylesheet" href="https://connor33341.github.io/static/css/mc.css">
+    <link rel="stylesheet" href="https://connor33341.github.io/static/css/mdrn.css">
+    <link rel="stylesheet" href="https://connor33341.github.io/static/css/particles.css">
+    <link rel="stylesheet" href="https://unpkg.com/balloon-css/balloon.min.css">
+    <script src="https://connor33341.github.io/static/js/darkmode.js"></script>
+    <script src="https://connor33341.github.io/static/particles/particles.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <div id="particles-js"></div>
+    <div class="page">
+        <div class="top-bar" id="top">
+        </div>
+        <div class="container">
+            <header>
+                <h1>AI</h1>
+            </header>
+            <div class="containercontent">
+                <h3>Backends for alot of these will be shutdown soon</h3>
+                <div class="btncontainer">
+                </div>
+            </div>
+            <footer>
+                ©2024 connor33341
+            </footer>
+        </div>
+    </div>
+    <script>
+        let Config = {}
+        $(document).ready(function () {
+            $("#top").load("https://connor33341.github.io/static/modules/navbar.html", function () {
+                dmInit()
+            })
+            $.ajax({
+                type: "GET",
+                url: "https://connor33341.github.io/static/config/ai.json",
+                dataType: "json",
+                success: function (Data) {
+                    const Buttons = Data["buttons"]
+                    for (let i in Buttons) {
+                        var Object = Buttons[i]
+                        var Name = Object["name"]
+                        var HREF = Object["href"]
+                        var Popup = Object["popup"]
+                        var $Button = $("<button>", {
+                            text: Name,
+                            class: "selectionbtn",
+                            id: Name
+                        })
+                        $Button.attr({
+                            "aria-label": Popup,
+                            "data-balloon-pos": "up",
+                            "href": HREF
+                        })
+                        console.log(Name)
+                        $(".btncontainer").append($Button)
+                        $Button.on("click", (function (Name, HREF) {
+                            return function () {
+                                console.log()
+                                var BtnHREF = $(`#${Name}`).attr("href")
+                                console.log("DEST: " + BtnHREF)
+                                location.href = BtnHREF
+                            }
+                        })(Name, HREF))
+                    }
+                }
+            })
+        })
+    </script>
+    <script>
+        particlesJS.load('particles-js', 'https://connor33341.github.io/static/particles/particlesjs-config.json', function () { });
+    </script>
+</body>
+
+</html>
