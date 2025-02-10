@@ -26,6 +26,7 @@
         }
         .containercontent{
             max-width: 50%;
+            align-content: center;
         }
         th, td{
             padding-left: 25px;
@@ -86,10 +87,10 @@
             <div class="containercontent">
                 <h3>Website is inactive as of 2022</h3>
                 <div class="btncontainer">
-                    <button class="selectionbtn" aria-label="Test" data-balloon-pos="up">AI</button>
+                    <!--<button class="selectionbtn" aria-label="Test" data-balloon-pos="up">AI</button>
                     <button class="selectionbtn">Software</button>
                     <button class="selectionbtn">Minecraft</button>
-                    <button class="selectionbtn">Games</button>
+                    <button class="selectionbtn">Games</button>-->
                 </div>
             </div>
             <footer>
@@ -106,7 +107,22 @@
                 dataType: "json",
                 success: function (Data){
                     const Buttons = Data["buttons"]
-                    console.log(Buttons)
+                    for (let i in Buttons){
+                        var Object = Buttons[i]
+                        var Name = Object["name"]
+                        var HREF = Object["href"]
+                        var Popup = Object["popup"]
+                        var $Button = $("<button>",{
+                            text: Name,
+                            class:"selectionbtn",
+                        })
+                        $Button.attr({
+                            "aria-label": Popup,
+                            "data-balloon-pos": "up"
+                        })
+                        console.log(Name)
+                        $(".btncontainer").append($Button)
+                    }
                 }
             })
         })
