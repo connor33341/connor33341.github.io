@@ -1,9 +1,63 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>404</title>
-    </head>
-    <body>
-        <h1>404-Not Found</h1>
-    </body>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>connor33341.github.io | 404</title>
+    <meta name="description" content="Homepage of connor33341">
+    <link rel="stylesheet" href="https://connor33341.github.io/static/css/mc.css">
+    <link rel="stylesheet" href="https://connor33341.github.io/static/css/mdrn.css">
+    <link rel="stylesheet" href="https://connor33341.github.io/static/css/particles.css">
+    <link rel="stylesheet" href="https://unpkg.com/balloon-css/balloon.min.css">
+    <script src="https://connor33341.github.io/static/js/darkmode.js"></script>
+    <script src="https://connor33341.github.io/static/particles/particles.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <style>
+        .top-bar{
+            visibility: hidden;
+        }
+        .card{
+          background-color:#0c0c0cef;
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
+          padding: 10px;
+          padding-top: 5px;
+          font-family: sans-serif;
+          text-align: center;
+          border-radius: 5px;
+          max-width: 450px;
+        }
+        .card h1,p,h2,h3{
+           color: var(--text-color);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="particles-js"></div>
+    <div class="page">
+        <div class="top-bar" id="top" hidden="true">
+        </div>
+    </div>
+    <div class="card">
+        <h1><a href="https://connor33341.github.io">404-Not Found</a></h1>
+        <h2>The page you requested does not exist</h2>
+	    <p>The page may exist just under another URL, alot of this stuff is broken or abandonend in place</p>
+    </div>
+    <script>
+        let Config = {}
+        $(document).ready(function () {
+            $("#top").load("https://connor33341.github.io/static/modules/navbar.html", function () {
+                dmInit()
+            })
+        })
+    </script>
+    <script>
+        particlesJS.load('particles-js', 'https://connor33341.github.io/static/particles/particlesjs-config.json', function () { });
+    </script>
+</body>
+
 </html>
