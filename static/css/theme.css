@@ -1,0 +1,17 @@
+:root {
+    --bg-color: #f9f9f9;
+    --text-color: #333;
+    --container-bg: #fff;
+    --link-color: #007BFF;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --border-color: #007BFF;
+}
+
+[data-theme="dark"] {
+    --bg-color: #121212;
+    --text-color: #f9f9f9;
+    --container-bg: #1e1e1e;
+    --link-color: blueviolet;/*#4aa3ff;*/
+    --shadow-color: rgba(0, 0, 0, 0.4);
+    --border-color: blueviolet;
+}
