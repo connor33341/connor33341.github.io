@@ -1,0 +1,26 @@
+{
+    "version": 1,
+    "defaultHost": "<from-proxy>",
+    "defaultProxy": "https://proxy.mcraft.fun",
+    "mapsProvider": "https://maps.mcraft.fun/",
+    "peerJsServer": "",
+    "peerJsServerFallback": "https://p2p.mcraft.fun",
+    "promoteServers": [
+      {
+        "ip": "pvp.mc.connor33341.dev",
+        "version": "1.19.4",
+        "description": "Cracked PVP Server"
+      }
+    ],
+    "pauseLinks": [
+      [
+        {
+          "type": "github"
+        },
+        {
+          "type": "discord"
+        }
+      ]
+    ]
+  }
+  
