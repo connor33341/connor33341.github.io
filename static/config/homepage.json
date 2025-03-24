@@ -8,6 +8,6 @@
         {"name":"Aerospace","href":"https://cw-aerospace.github.io/index.html","popup":"Drones and TVC/AFC controlled Rockets"},
         {"name":"Version3","href":"https://connor33341.github.io/static/redirect/v3.html","popup":"3rd Iteration of this site"},
         {"name":"OpenChatRoom","href":"https://openchatroom.github.io/OpenChatRoom-Client/","popup":"Temu google chats"},
-        {"name":"MC-Client","href":"https://client.connor33341.github.io/","popup":"Fully browser based client"}
+        {"name":"MC-Client","href":"https://client.connor33341.dev/","popup":"Fully browser based client"}
     ]
 }
