@@ -7,8 +7,8 @@
         {"name":"Network","href":"https://connor33341.github.io/v2/renders/network.html","popup":"Techinical Details of certain projects"},
         {"name":"Aerospace","href":"https://cw-aerospace.github.io/index.html","popup":"Drones and TVC/AFC controlled Rockets"},
         {"name":"VoxaCommunications","href":"https://voxacommunications-website.pages.dev/","popup":"Privacy focused Decentralized Network"},
-        {"name":"Blockchain Prodj Docs","href":"https://stellaris-node.connor33341.dev/docs","popup":"3.8M Market Cap?"},
-        {"name":"OpenChatRoom DEPRECATED","href":"https://openchatroom.github.io/OpenChatRoom-Client/","popup":"Temu google chats"},
-        {"name":"MC-Client DEPRECATED","href":"https://client.connor33341.dev/","popup":"Fully browser based client"}
+        {"name":"Blockchain-Prodj-Docs","href":"https://stellaris-node.connor33341.dev/docs","popup":"3.8M Market Cap?"},
+        {"name":"OpenChatRoom-DEPRECATED","href":"https://openchatroom.github.io/OpenChatRoom-Client/","popup":"Temu google chats"},
+        {"name":"MC-Client-DEPRECATED","href":"https://client.connor33341.dev/","popup":"Fully browser based client"}
     ]
 }
