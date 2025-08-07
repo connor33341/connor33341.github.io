@@ -204,7 +204,7 @@
         let ImageUrl = ""
         let ImageData
         const AlertBox = document.getElementById("alert")
-        import { Client } from "https://cdn.jsdelivr.net/npm/@gradio/client/dist/index.min.js";
+        import { Client } from "https://cdn.jsdelivr.net/npm/@gradio/client@1.15.3/dist/index.min.js";
         const TextToImageClient = await Client.connect("stabilityai/stable-diffusion-3-medium");
         const ImageToImageClient = await Client.connect("turboedit/turbo_edit")
         const ShareLink = document.getElementById("share")
