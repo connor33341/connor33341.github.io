@@ -7,7 +7,7 @@
     "peerJsServerFallback": "https://p2p.mcraft.fun",
     "promoteServers": [
       {
-        "ip": "pvp.mc.connor33341.dev",
+        "ip": "pvp.mc.legacy.connor33341.dev",
         "version": "1.19.4",
         "description": "Cracked PVP Server"
       }

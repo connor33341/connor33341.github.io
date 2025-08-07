@@ -2,13 +2,13 @@
     "buttons":[
         {"name":"AI","href":"https://connor33341.github.io/ai","popup":"Some old projects"},
         {"name":"Software","href":"https://github.com/connor33341?tab=repositories","popup":"Refer to https://github.com/connor33341 for projects with active development"},
-        {"name":"Minecraft","href":"https://minecraft.connor33341.dev","popup":"Self-Hosted minecraft network"},
+        {"name":"Minecraft","href":"https://minecraft.legacy.connor33341.dev","popup":"Self-Hosted minecraft network"},
         {"name":"Games","href":"https://www.roblox.com/users/1269609907/profile?friendshipSourceType=PlayerSearch#!/creations","popup":"Roblox Games, switching to Unreal in the future"},
         {"name":"Network","href":"https://connor33341.github.io/v2/renders/network.html","popup":"Techinical Details of certain projects"},
         {"name":"Aerospace","href":"https://cw-aerospace.github.io/index.html","popup":"Drones and TVC/AFC controlled Rockets"},
         {"name":"VoxaCommunications","href":"https://voxacommunications-website.pages.dev/","popup":"Privacy focused Decentralized Network"},
-        {"name":"Blockchain-Prodj-Docs","href":"https://stellaris-node.connor33341.dev/docs","popup":"3.8M Market Cap?"},
+        {"name":"Blockchain-Prodj-Docs","href":"https://stellaris-node.legacy.connor33341.dev/docs","popup":"3.8M Market Cap?"},
         {"name":"OpenChatRoom-DEPRECATED","href":"https://openchatroom.github.io/OpenChatRoom-Client/","popup":"Temu google chats"},
-        {"name":"MC-Client-DEPRECATED","href":"https://client.connor33341.dev/","popup":"Fully browser based client"}
+        {"name":"MC-Client-DEPRECATED","href":"https://client.legacy.connor33341.dev/","popup":"Fully browser based client"}
     ]
 }
