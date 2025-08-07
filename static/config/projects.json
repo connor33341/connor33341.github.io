@@ -1,1 +1,9 @@
-{}
+{[
+  {
+    "title": "quasar",
+    "description": "Stellaris / Denaro Wallet for Chromium Based Browsers",
+    "image": "https://github.com/StellarisChain/quasar/blob/master/src/assets/img/logo-transparent.png?raw=true",
+    "githubUrl": "https://github.com/StellarisChain/quasar/",
+    "technologies": ["React", "TypeScript", "MV3", "Blockchain"]
+  },
+]}
