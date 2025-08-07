@@ -1,4 +1,4 @@
-{[
+[
   {
     "title": "quasar",
     "description": "Stellaris / Denaro Wallet for Chromium Based Browsers",
@@ -6,4 +6,11 @@
     "githubUrl": "https://github.com/StellarisChain/quasar/",
     "technologies": ["React", "TypeScript", "MV3", "Blockchain"]
   },
-]}
+  {
+    "title": "VoxaCommunications",
+    "description": "Decentralized Network for dApps and dAI, designed for censorship resistance",
+    "image": "https://avatars.githubusercontent.com/u/207939939?s=200&v=4",
+    "githubUrl": "https://github.com/Voxa-Communications",
+    "technologies": ["Python", "Rust", "Blockchain", "Networking"]
+  }
+]
