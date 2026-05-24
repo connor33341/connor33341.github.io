@@ -318,17 +318,36 @@ function saveHistory(){
 }
 function loadHistory(){
   try{
-    const raw=localStorage.getItem('cipher_history');if(!raw)return;
-    for(const [a,d] of Object.entries(JSON.parse(raw))){
+    const raw = localStorage.getItem('cipher_history');
+    if(!raw) return;
+
+    for(const [a, d] of Object.entries(JSON.parse(raw))){
       const msgs = (d.msgs || []).map(m => ({
-        reactions: {},
-        editHistory: [],
-        deleted: false,        // ensure default
-        ...
+        id: m.id,
+        dir: m.dir,
+        text: m.text || '',
+        ts: m.ts,
+        sigOk: m.sigOk !== false,           // default true unless explicitly false
+        reactions: m.reactions || {},
+        editHistory: m.editHistory || [],
+        deleted: !!m.deleted,               // force boolean
+        ...m                                // in case there are other fields
       }));
-      convs[a]={conn:null,aesKey:null,ecdsaPub:null,msgs,open:false,hidden:d.hidden||false,pingTimer:null,lastPong:0};
+
+      convs[a] = {
+        conn: null,
+        aesKey: null,
+        ecdsaPub: null,
+        msgs,
+        open: false,
+        hidden: d.hidden || false,
+        pingTimer: null,
+        lastPong: 0
+      };
     }
-  }catch(e){console.warn('History load:',e);}
+  }catch(e){
+    console.warn('History load:', e);
+  }
 }
 function clearHistory(){localStorage.removeItem('cipher_history');}
 
