@@ -4,6 +4,29 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Cipher — ECC P2P Messenger</title>
+
+<!-- PWA / iOS -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Cipher">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#0d1117">
+<meta name="description" content="P2P end-to-end encrypted messenger using ECC cryptography">
+
+<!-- iOS touch icons (generated inline as SVG data URIs) -->
+<link rel="apple-touch-icon" sizes="180x180" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='40' fill='%230d1117'/%3E%3Ctext x='90' y='115' font-size='90' text-anchor='middle'%3E%F0%9F%94%90%3C/text%3E%3C/svg%3E">
+<link rel="apple-touch-icon" sizes="152x152" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 152 152'%3E%3Crect width='152' height='152' rx='34' fill='%230d1117'/%3E%3Ctext x='76' y='100' font-size='76' text-anchor='middle'%3E%F0%9F%94%90%3C/text%3E%3C/svg%3E">
+<link rel="apple-touch-icon" sizes="120x120" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Crect width='120' height='120' rx='27' fill='%230d1117'/%3E%3Ctext x='60' y='80' font-size='60' text-anchor='middle'%3E%F0%9F%94%90%3C/text%3E%3C/svg%3E">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230d1117'/%3E%3Ctext x='32' y='46' font-size='36' text-anchor='middle'%3E%F0%9F%94%90%3C/text%3E%3C/svg%3E">
+
+<!-- iOS splash screens (iPhone 14 Pro, 12/13, SE, iPad) -->
+<link rel="apple-touch-startup-image" media="screen and (device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3)" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1179' height='2556'%3E%3Crect width='1179' height='2556' fill='%230d1117'/%3E%3Ctext x='590' y='1370' font-size='200' text-anchor='middle'%3E%F0%9F%94%90%3C/text%3E%3C/svg%3E">
+<link rel="apple-touch-startup-image" media="screen and (device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3)" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1170' height='2532'%3E%3Crect width='1170' height='2532' fill='%230d1117'/%3E%3Ctext x='585' y='1346' font-size='200' text-anchor='middle'%3E%F0%9F%94%90%3C/text%3E%3C/svg%3E">
+<link rel="apple-touch-startup-image" media="screen and (device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='750' height='1334'%3E%3Crect width='750' height='1334' fill='%230d1117'/%3E%3Ctext x='375' y='747' font-size='180' text-anchor='middle'%3E%F0%9F%94%90%3C/text%3E%3C/svg%3E">
+<link rel="apple-touch-startup-image" media="screen and (device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1536' height='2048'%3E%3Crect width='1536' height='2048' fill='%230d1117'/%3E%3Ctext x='768' y='1100' font-size='300' text-anchor='middle'%3E%F0%9F%94%90%3C/text%3E%3C/svg%3E">
+
+<!-- Web App Manifest (inline as data URI since this is a single file) -->
+<link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22Cipher%20%E2%80%94%20ECC%20P2P%20Messenger%22%2C%22short_name%22%3A%22Cipher%22%2C%22description%22%3A%22P2P%20end-to-end%20encrypted%20messenger%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%230d1117%22%2C%22theme_color%22%3A%22%230d1117%22%2C%22orientation%22%3A%22any%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22data%3Aimage%2Fsvg%2Bxml%2C%253Csvg%2520xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%2520viewBox%3D'0%25200%2520192%2520192'%253E%253Crect%2520width%3D'192'%2520height%3D'192'%2520rx%3D'40'%2520fill%3D'%25230d1117'%2F%253E%253Ctext%2520x%3D'96'%2520y%3D'130'%2520font-size%3D'110'%2520text-anchor%3D'middle'%253E%25F0%259F%2594%2590%253C%2Ftext%253E%253C%2Fsvg%253E%22%2C%22sizes%22%3A%22192x192%22%2C%22type%22%3A%22image%2Fsvg%2Bxml%22%7D%5D%7D">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/peerjs/1.5.4/peerjs.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <style>
@@ -826,8 +849,90 @@ function closeModal(){stopScanner();document.getElementById('modal-bg')?.remove(
 // ── jsQR ──────────────────────────────────────────────────────
 (()=>{const s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js';document.head.appendChild(s);})();
 
+// ── PWA INSTALL PROMPT (iOS) ──────────────────────────────────
+function checkIOSInstall(){
+  const isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent);
+  const isStandalone=('standalone' in navigator)&&navigator.standalone;
+  const dismissed=localStorage.getItem('cipher_pwa_dismissed');
+  if(!isIOS||isStandalone||dismissed)return;
+
+  const banner=document.createElement('div');
+  banner.id='pwa-banner';
+  banner.style.cssText=`
+    position:fixed;bottom:calc(16px + var(--safe-b));left:50%;transform:translateX(-50%);
+    background:var(--bg2);border:1px solid var(--border);border-radius:14px;
+    padding:14px 16px;display:flex;align-items:flex-start;gap:12px;
+    width:calc(100% - 32px);max-width:380px;z-index:500;
+    box-shadow:0 8px 32px rgba(0,0,0,.6);
+  `;
+  banner.innerHTML=`
+    <div style="font-size:32px;line-height:1;flex-shrink:0">🔐</div>
+    <div style="flex:1;min-width:0">
+      <div style="font-size:13px;font-weight:700;margin-bottom:4px">Add Cipher to Home Screen</div>
+      <div style="font-size:11.5px;color:var(--dim);line-height:1.4">
+        Tap <span style="display:inline-flex;align-items:center;gap:3px;color:var(--accent)">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+          Share
+        </span> then <strong style="color:var(--text)">Add to Home Screen</strong> for the full app experience.
+      </div>
+    </div>
+    <button onclick="document.getElementById('pwa-banner').remove();localStorage.setItem('cipher_pwa_dismissed','1')"
+      style="background:none;border:none;color:var(--dim);font-size:18px;cursor:pointer;padding:0;flex-shrink:0;line-height:1">✕</button>
+  `;
+
+  // Arrow pointing down toward the share button
+  const arrow=document.createElement('div');
+  arrow.style.cssText=`
+    position:fixed;bottom:calc(8px + var(--safe-b));left:50%;transform:translateX(-50%);
+    color:var(--accent);font-size:22px;z-index:501;animation:bounce .9s infinite alternate;
+  `;
+  arrow.textContent='↓';
+  if(!document.getElementById('pwa-bounce-style')){
+    const st=document.createElement('style');
+    st.id='pwa-bounce-style';
+    st.textContent='@keyframes bounce{from{transform:translateX(-50%) translateY(0)}to{transform:translateX(-50%) translateY(5px)}}';
+    document.head.appendChild(st);
+  }
+
+  document.body.appendChild(banner);
+  document.body.appendChild(arrow);
+  banner.addEventListener('remove',()=>arrow.remove());
+
+  // Auto-dismiss arrow when banner is closed
+  const obs=new MutationObserver(()=>{if(!document.getElementById('pwa-banner'))arrow.remove();});
+  obs.observe(document.body,{childList:true});
+}
+
+// ── SERVICE WORKER (offline support) ─────────────────────────
+function registerSW(){
+  if(!('serviceWorker' in navigator))return;
+  // Inline SW as a blob — caches the page itself for offline use
+  const swCode=`
+    const CACHE='cipher-v1';
+    const PRECACHE=[self.location.href];
+    self.addEventListener('install',e=>{
+      e.waitUntil(caches.open(CACHE).then(c=>c.addAll(PRECACHE)).then(()=>self.skipWaiting()));
+    });
+    self.addEventListener('activate',e=>{
+      e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim()));
+    });
+    self.addEventListener('fetch',e=>{
+      e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request).then(res=>{
+        const clone=res.clone();
+        caches.open(CACHE).then(c=>c.put(e.request,clone));
+        return res;
+      }).catch(()=>caches.match(e.request))));
+    });
+  `;
+  const blob=new Blob([swCode],{type:'application/javascript'});
+  const url=URL.createObjectURL(blob);
+  navigator.serviceWorker.register(url,{scope:'./'}).catch(()=>{});
+}
+
 // ── GO ────────────────────────────────────────────────────────
 init().catch(e=>{console.error(e);toast('Init error: '+e.message,5000);});
+registerSW();
+setTimeout(checkIOSInstall, 2500);
 </script>
 </body>
 </html>
