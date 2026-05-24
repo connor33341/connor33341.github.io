@@ -2,240 +2,269 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Cipher — ECC P2P Messenger</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/peerjs/1.5.4/peerjs.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 :root{
   --bg:#0d1117;--bg2:#161b22;--bg3:#21262d;--border:#30363d;
   --text:#e6edf3;--dim:#8b949e;--accent:#58a6ff;
   --green:#3fb950;--red:#f85149;--yellow:#d29922;
-  --out:#1c3a5e;--in:#21262d;
+  --out:#1c3a5e;--in:#21262d;--sb:270px;
+  --safe-b:env(safe-area-inset-bottom,0px);
+  --safe-l:env(safe-area-inset-left,0px);
+  --safe-r:env(safe-area-inset-right,0px);
 }
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);height:100vh;display:flex;overflow:hidden;font-size:14px}
+html,body{height:100%;height:-webkit-fill-available;overflow:hidden}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);display:flex;font-size:14px;position:relative}
 
 /* SIDEBAR */
-#sidebar{width:270px;min-width:270px;background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column}
-#id-panel{padding:14px;border-bottom:1px solid var(--border)}
+#sidebar{width:var(--sb);flex-shrink:0;background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;height:100%;padding-left:var(--safe-l);transition:transform .25s ease}
+#sidebar-inner{display:flex;flex-direction:column;height:100%;overflow:hidden}
+#id-panel{padding:14px;border-bottom:1px solid var(--border);flex-shrink:0}
 #id-panel h2{font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px}
 #addr-box{background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:8px 10px;cursor:pointer;transition:border-color .15s}
-#addr-box:hover{border-color:var(--accent)}
+#addr-box:hover,#addr-box:active{border-color:var(--accent)}
 #my-addr{font-family:'Courier New',monospace;font-size:10.5px;color:var(--accent);word-break:break-all;line-height:1.4}
 #net-row{display:flex;align-items:center;gap:6px;margin-top:8px}
 #dot{width:7px;height:7px;border-radius:50%;background:var(--yellow);flex-shrink:0}
 #dot.on{background:var(--green)}#dot.err{background:var(--red)}
 #net-lbl{font-size:11px;color:var(--dim)}
 #id-actions{display:flex;gap:5px;margin-top:10px}
-.pill-btn{flex:1;background:var(--bg3);border:1px solid var(--border);color:var(--text);border-radius:6px;padding:5px 4px;font-size:11px;cursor:pointer;transition:border-color .15s;white-space:nowrap}
-.pill-btn:hover{border-color:var(--accent);color:var(--accent)}
-
-#connect-panel{padding:12px 14px;border-bottom:1px solid var(--border)}
+.pill-btn{flex:1;background:var(--bg3);border:1px solid var(--border);color:var(--text);border-radius:6px;padding:6px 4px;font-size:11px;cursor:pointer;transition:border-color .15s;white-space:nowrap;text-align:center}
+.pill-btn:hover,.pill-btn:active{border-color:var(--accent);color:var(--accent)}
+#connect-panel{padding:12px 14px;border-bottom:1px solid var(--border);flex-shrink:0}
 #connect-panel h3{font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px}
-#peer-input{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:7px 10px;color:var(--text);font-size:11.5px;font-family:'Courier New',monospace;outline:none}
+#peer-input{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:8px 10px;color:var(--text);font-size:12px;font-family:'Courier New',monospace;outline:none;-webkit-appearance:none}
 #peer-input:focus{border-color:var(--accent)}
 #peer-input::placeholder{color:var(--dim)}
 #conn-row{display:flex;gap:6px;margin-top:7px}
-#conn-btn{flex:1;background:var(--accent);color:#000;border:none;border-radius:6px;padding:7px;font-size:12px;font-weight:700;cursor:pointer}
-#conn-btn:hover{opacity:.85}
-#scan-btn{background:var(--bg3);border:1px solid var(--border);color:var(--text);border-radius:6px;padding:7px 10px;font-size:13px;cursor:pointer;transition:border-color .15s}
-#scan-btn:hover{border-color:var(--accent)}
-#scan-btn.hidden-btn{display:none}
-
-#conv-list{flex:1;overflow-y:auto;padding:6px 0}
-.conv{padding:10px 14px;cursor:pointer;border-left:3px solid transparent;transition:background .1s;position:relative}
-.conv:hover{background:var(--bg3)}
+#conn-btn{flex:1;background:var(--accent);color:#000;border:none;border-radius:6px;padding:8px;font-size:12px;font-weight:700;cursor:pointer}
+#conn-btn:active{opacity:.8}
+#scan-btn{background:var(--bg3);border:1px solid var(--border);color:var(--text);border-radius:6px;padding:8px 11px;font-size:14px;cursor:pointer;display:none}
+#scan-btn.visible{display:block}
+#conv-list{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:6px 0;min-height:0}
+.conv{padding:10px 14px;cursor:pointer;border-left:3px solid transparent;position:relative;user-select:none}
+.conv:active{background:var(--bg3)}
 .conv.active{background:var(--bg3);border-left-color:var(--accent)}
 .conv-addr{font-family:'Courier New',monospace;font-size:10.5px;color:var(--accent)}
 .conv-row{display:flex;align-items:center;justify-content:space-between;gap:6px;margin-bottom:2px}
 .conv-st{font-size:10px}.conv-st.on{color:var(--green)}.conv-st.off{color:var(--dim)}
-.conv-prev{font-size:11.5px;color:var(--dim);overflow:hidden;white-space:nowrap;text-overflow:ellipsis;padding-right:20px}
-.conv-hide{position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--dim);font-size:13px;cursor:pointer;opacity:0;transition:opacity .15s;padding:2px 4px}
-.conv:hover .conv-hide{opacity:1}
-.conv-hide:hover{color:var(--red)}
+.conv-prev{font-size:11.5px;color:var(--dim);overflow:hidden;white-space:nowrap;text-overflow:ellipsis;padding-right:24px}
+.conv-hide{position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--dim);font-size:14px;cursor:pointer;padding:4px 6px;opacity:0;transition:opacity .15s}
+.conv:hover .conv-hide,.conv.active .conv-hide{opacity:1}
+@media(pointer:coarse){.conv-hide{opacity:.5}}
+#sidebar-footer{padding:10px 14px;padding-bottom:calc(10px + var(--safe-b));border-top:1px solid var(--border);flex-shrink:0}
+#settings-btn{width:100%;background:var(--bg3);border:1px solid var(--border);color:var(--dim);border-radius:6px;padding:8px;font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:border-color .15s}
+#settings-btn:hover,#settings-btn:active{border-color:var(--accent);color:var(--text)}
 
-#sidebar-footer{padding:10px 14px;border-top:1px solid var(--border)}
-#settings-btn{width:100%;background:var(--bg3);border:1px solid var(--border);color:var(--dim);border-radius:6px;padding:7px;font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:border-color .15s}
-#settings-btn:hover{border-color:var(--accent);color:var(--text)}
+/* MOBILE */
+#menu-btn{display:none;position:absolute;top:12px;left:12px;z-index:50;background:var(--bg2);border:1px solid var(--border);color:var(--text);border-radius:8px;padding:7px 10px;font-size:16px;cursor:pointer;line-height:1}
+#sb-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:39;backdrop-filter:blur(2px)}
 
 /* MAIN */
-#main{flex:1;display:flex;flex-direction:column;overflow:hidden}
-#chat-head{padding:12px 18px;border-bottom:1px solid var(--border);background:var(--bg2);display:flex;align-items:center;gap:10px}
-#chat-peer{font-family:'Courier New',monospace;font-size:11px;color:var(--accent)}
-#chat-enc{font-size:11px;margin-left:auto;padding:3px 8px;border-radius:4px;background:rgba(63,185,80,.15);color:var(--green)}
+#main{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0;height:100%;padding-right:var(--safe-r)}
+#chat-head{padding:12px 16px;border-bottom:1px solid var(--border);background:var(--bg2);display:flex;align-items:center;gap:10px;flex-shrink:0}
+#chat-head-back{display:none;background:none;border:none;color:var(--accent);font-size:18px;cursor:pointer;padding:2px 6px 2px 0;line-height:1}
+#chat-peer{font-family:'Courier New',monospace;font-size:11px;color:var(--accent);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;min-width:0}
+#chat-enc{font-size:11px;flex-shrink:0;padding:3px 8px;border-radius:4px;background:rgba(63,185,80,.15);color:var(--green)}
 #chat-enc.pending{background:rgba(210,153,34,.15);color:var(--yellow)}
-#msgs{flex:1;overflow-y:auto;padding:18px;display:flex;flex-direction:column;gap:8px}
-.msg{max-width:78%;padding:9px 13px;border-radius:12px;line-height:1.45}
-.msg.out{background:var(--out);align-self:flex-end;border-bottom-right-radius:3px}
-.msg.in{background:var(--in);border:1px solid var(--border);align-self:flex-start;border-bottom-left-radius:3px}
-.msg-text{word-break:break-word}
-.msg-meta{font-size:10.5px;color:var(--dim);margin-top:4px;display:flex;align-items:center;gap:5px}
+#msgs{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:16px;display:flex;flex-direction:column;gap:6px;min-height:0}
+
+/* MSG WRAP */
+.msg-wrap{display:flex;flex-direction:column;gap:2px;max-width:82%}
+.msg-wrap.out{align-self:flex-end;align-items:flex-end}
+.msg-wrap.in{align-self:flex-start;align-items:flex-start}
+.msg-actions{display:flex;gap:3px;opacity:0;transition:opacity .15s}
+.msg-wrap:hover .msg-actions{opacity:1}
+@media(pointer:coarse){.msg-actions{opacity:.55}}
+.act-btn{background:var(--bg2);border:1px solid var(--border);color:var(--dim);border-radius:5px;padding:2px 7px;font-size:11px;cursor:pointer;line-height:1.6;transition:border-color .12s}
+.act-btn:hover,.act-btn:active{border-color:var(--accent);color:var(--text)}
+
+/* BUBBLE */
+.msg{padding:9px 13px;border-radius:12px;line-height:1.45;word-break:break-word}
+.msg.out{background:var(--out);border-bottom-right-radius:3px}
+.msg.in{background:var(--in);border:1px solid var(--border);border-bottom-left-radius:3px}
+.msg-text{word-break:break-word;white-space:pre-wrap}
+.msg-meta{font-size:10.5px;color:var(--dim);margin-top:4px;display:flex;align-items:center;gap:5px;flex-wrap:wrap}
 .badge{font-size:9.5px;padding:1px 5px;border-radius:3px;font-weight:700}
 .badge.ok{background:rgba(63,185,80,.2);color:var(--green)}
 .badge.bad{background:rgba(248,81,73,.2);color:var(--red)}
-.sys-msg{text-align:center;font-size:11px;color:var(--dim);padding:2px 0}
+.edited-lbl{font-size:10px;color:var(--dim);text-decoration:underline dotted;cursor:pointer}
+.edited-lbl:hover{color:var(--accent)}
+.deleted-text{color:var(--dim);font-style:italic}
 
-#input-wrap{padding:14px 18px;border-top:1px solid var(--border);background:var(--bg2);display:flex;gap:10px;align-items:flex-end}
-#msg-in{flex:1;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:9px 13px;color:var(--text);font-size:13.5px;outline:none;resize:none;max-height:140px;overflow-y:auto;font-family:inherit;line-height:1.4}
+/* REACTIONS */
+.msg-reactions{display:flex;flex-wrap:wrap;gap:3px;min-height:0}
+.r-pill{background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:2px 8px;font-size:12px;cursor:pointer;display:flex;align-items:center;gap:2px;transition:border-color .1s;user-select:none;line-height:1.5}
+.r-pill.mine{border-color:var(--accent);background:rgba(88,166,255,.1)}
+.r-pill:hover,.r-pill:active{border-color:var(--accent)}
+
+/* REACTION PICKER */
+#react-picker{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:6px 8px;display:flex;gap:2px;position:fixed;z-index:200;box-shadow:0 4px 24px rgba(0,0,0,.6)}
+#react-picker button{background:none;border:none;font-size:22px;cursor:pointer;padding:3px 5px;border-radius:7px;line-height:1;transition:background .1s}
+#react-picker button:hover,#react-picker button:active{background:var(--bg3)}
+
+/* EDIT */
+.edit-ta{width:100%;background:var(--bg);border:1px solid var(--accent);border-radius:6px;padding:7px 10px;color:var(--text);font-size:14px;font-family:inherit;resize:none;outline:none;min-height:54px;line-height:1.4}
+.edit-row{display:flex;gap:6px;margin-top:6px;justify-content:flex-end}
+.edit-hist-scroll{display:flex;flex-direction:column;gap:6px;max-height:260px;overflow-y:auto}
+.edit-hist-item{background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:8px 10px}
+.edit-hist-item.cur{border-color:var(--accent)}
+.edit-hist-ts{font-size:10px;color:var(--dim);margin-bottom:3px}
+.edit-hist-txt{font-size:13px;word-break:break-word;white-space:pre-wrap}
+
+/* INPUT */
+#input-wrap{padding:10px 14px;padding-bottom:calc(10px + var(--safe-b));border-top:1px solid var(--border);background:var(--bg2);display:flex;gap:8px;align-items:flex-end;flex-shrink:0}
+#msg-in{flex:1;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:9px 12px;color:var(--text);font-size:15px;outline:none;resize:none;max-height:120px;overflow-y:auto;font-family:inherit;line-height:1.4;-webkit-appearance:none;min-width:0}
 #msg-in:focus{border-color:var(--accent)}
 #msg-in::placeholder{color:var(--dim)}
-#send-btn{background:var(--accent);border:none;border-radius:8px;padding:9px 16px;color:#000;font-weight:700;cursor:pointer;font-size:13px;white-space:nowrap}
-#send-btn:hover{opacity:.85}#send-btn:disabled{opacity:.45;cursor:not-allowed}
+#send-btn{background:var(--accent);border:none;border-radius:8px;padding:9px 14px;color:#000;font-weight:700;cursor:pointer;font-size:13px;white-space:nowrap;flex-shrink:0;height:40px;display:flex;align-items:center}
+#send-btn:active{opacity:.8}
 
-/* EMPTY STATE */
-#empty{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:var(--dim);text-align:center;padding:20px}
-#empty .lock{font-size:52px;margin-bottom:4px}
+/* RECONNECT BAR */
+#reconnect-bar{padding:8px 16px;background:rgba(210,153,34,.12);border-bottom:1px solid rgba(210,153,34,.25);display:flex;align-items:center;justify-content:space-between;gap:10px;flex-shrink:0}
+#reconnect-bar span{font-size:12px;color:var(--yellow)}
+#reconnect-bar button{background:var(--yellow);color:#000;border:none;border-radius:5px;padding:5px 10px;font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap}
+
+/* EMPTY */
+#empty{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:var(--dim);text-align:center;padding:24px}
+#empty .lock{font-size:48px;margin-bottom:4px}
 #empty h1{font-size:22px;color:var(--text)}
-#empty .stack{font-family:'Courier New',monospace;font-size:11px;color:var(--dim);margin-top:6px;line-height:1.8}
+#empty .stack{font-family:'Courier New',monospace;font-size:11px;margin-top:6px;line-height:1.8}
+.sys-msg{text-align:center;font-size:11px;color:var(--dim);padding:2px 0}
 
 /* MODAL */
-.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.7);display:flex;align-items:center;justify-content:center;z-index:100;backdrop-filter:blur(3px)}
-.modal{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:24px;width:360px;max-width:95vw;position:relative}
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.7);display:flex;align-items:center;justify-content:center;z-index:200;backdrop-filter:blur(4px);padding:16px}
+.modal{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:22px;width:100%;max-width:360px;position:relative;max-height:90vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
 .modal h2{font-size:15px;margin-bottom:16px;display:flex;align-items:center;gap:8px}
-.modal-close{position:absolute;top:14px;right:14px;background:none;border:none;color:var(--dim);font-size:18px;cursor:pointer;line-height:1}
-.modal-close:hover{color:var(--text)}
-
-/* QR DISPLAY */
-#qr-container{display:flex;justify-content:center;margin:8px 0 16px;background:#fff;padding:12px;border-radius:8px}
+.modal-close{position:absolute;top:14px;right:14px;background:none;border:none;color:var(--dim);font-size:20px;cursor:pointer;line-height:1;padding:2px 6px}
+#qr-container{display:flex;justify-content:center;margin:8px 0 14px;background:#fff;padding:12px;border-radius:8px}
 #qr-addr-label{font-family:'Courier New',monospace;font-size:10px;color:var(--dim);word-break:break-all;text-align:center;line-height:1.5}
-
-/* QR SCANNER */
-#scanner-wrap{position:relative;border-radius:8px;overflow:hidden;background:#000;margin-bottom:14px}
-#scanner-video{width:100%;display:block;border-radius:8px}
+#scanner-wrap{position:relative;border-radius:8px;overflow:hidden;background:#000;margin-bottom:12px;aspect-ratio:4/3}
+#scanner-video{width:100%;height:100%;object-fit:cover;display:block}
 #scanner-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none}
-.scan-frame{width:180px;height:180px;border:2px solid var(--accent);border-radius:8px;box-shadow:0 0 0 9999px rgba(0,0,0,.45)}
-#scan-status{font-size:12px;color:var(--dim);text-align:center;margin-top:4px}
-
-/* SETTINGS */
+.scan-frame{width:55%;aspect-ratio:1;border:2px solid var(--accent);border-radius:8px;box-shadow:0 0 0 9999px rgba(0,0,0,.45)}
+#scan-status{font-size:12px;color:var(--dim);text-align:center}
 .setting-row{display:flex;align-items:flex-start;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--border);gap:12px}
-.setting-row:last-child{border-bottom:none}
-.setting-info{flex:1}
+.setting-row:last-of-type{border-bottom:none}
+.setting-info{flex:1;min-width:0}
 .setting-label{font-size:13px;font-weight:600;margin-bottom:3px}
 .setting-desc{font-size:11.5px;color:var(--dim);line-height:1.4}
-.toggle{position:relative;width:36px;height:20px;flex-shrink:0;margin-top:1px}
-.toggle input{opacity:0;width:0;height:0}
+.toggle{position:relative;width:38px;height:22px;flex-shrink:0;margin-top:1px}
+.toggle input{opacity:0;width:0;height:0;position:absolute}
 .toggle-slider{position:absolute;inset:0;background:var(--bg3);border:1px solid var(--border);border-radius:20px;cursor:pointer;transition:.2s}
-.toggle-slider:before{content:'';position:absolute;width:14px;height:14px;left:2px;top:2px;background:var(--dim);border-radius:50%;transition:.2s}
+.toggle-slider:before{content:'';position:absolute;width:16px;height:16px;left:2px;top:2px;background:var(--dim);border-radius:50%;transition:.2s}
 .toggle input:checked+.toggle-slider{background:rgba(88,166,255,.2);border-color:var(--accent)}
 .toggle input:checked+.toggle-slider:before{transform:translateX(16px);background:var(--accent)}
-.settings-section{font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px}
-.danger-btn{width:100%;background:rgba(248,81,73,.1);border:1px solid rgba(248,81,73,.3);color:var(--red);border-radius:6px;padding:8px;font-size:12px;cursor:pointer;margin-top:8px;transition:background .15s}
-.danger-btn:hover{background:rgba(248,81,73,.2)}
+.settings-section{font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:.8px;margin:14px 0 8px}
+.danger-btn{width:100%;background:rgba(248,81,73,.1);border:1px solid rgba(248,81,73,.3);color:var(--red);border-radius:6px;padding:9px;font-size:12px;cursor:pointer;margin-top:6px;text-align:center}
+.danger-btn:hover,.danger-btn:active{background:rgba(248,81,73,.2)}
 
-/* TOAST */
-#toast{position:fixed;bottom:18px;right:18px;background:var(--bg3);border:1px solid var(--border);padding:9px 14px;border-radius:7px;font-size:12px;opacity:0;transition:opacity .25s;pointer-events:none;z-index:999}
+#toast{position:fixed;bottom:calc(20px + var(--safe-b));right:16px;left:16px;background:var(--bg3);border:1px solid var(--border);padding:9px 14px;border-radius:7px;font-size:12px;opacity:0;transition:opacity .25s;pointer-events:none;z-index:999;text-align:center;max-width:400px;margin:0 auto}
 #toast.show{opacity:1}
-::-webkit-scrollbar{width:5px}
+
+@media(max-width:640px){
+  #sidebar{position:fixed;top:0;left:0;bottom:0;z-index:40;transform:translateX(-100%);width:min(var(--sb),85vw)}
+  #sidebar.open{transform:translateX(0)}
+  #sb-overlay.show{display:block}
+  #menu-btn{display:flex;align-items:center;justify-content:center}
+  #chat-head{padding-left:52px}
+  #chat-head-back{display:block}
+  .conv-hide{opacity:.45}
+}
+::-webkit-scrollbar{width:4px}
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
 </style>
 </head>
 <body>
 
+<button id="menu-btn" onclick="toggleSidebar()">☰</button>
+<div id="sb-overlay" onclick="closeSidebar()"></div>
+
 <div id="sidebar">
+ <div id="sidebar-inner">
   <div id="id-panel">
-    <h2>Your Address</h2>
-    <div id="addr-box" title="Click to copy" onclick="copyAddr()">
-      <div id="my-addr">Generating keys…</div>
-    </div>
-    <div id="net-row">
-      <div id="dot"></div>
-      <span id="net-lbl">Initializing…</span>
-    </div>
-    <div id="id-actions">
-      <button class="pill-btn" onclick="copyAddr()">📋 Copy</button>
-      <button class="pill-btn" onclick="showQRDisplay()">📷 QR</button>
-      <button class="pill-btn" onclick="regenKeys()">🔄 New ID</button>
-    </div>
+   <h2>Your Address</h2>
+   <div id="addr-box" onclick="copyAddr()"><div id="my-addr">Generating keys…</div></div>
+   <div id="net-row"><div id="dot"></div><span id="net-lbl">Initializing…</span></div>
+   <div id="id-actions">
+    <button class="pill-btn" onclick="copyAddr()">📋 Copy</button>
+    <button class="pill-btn" onclick="showQRDisplay()">📷 QR</button>
+    <button class="pill-btn" onclick="regenKeys()">🔄 New ID</button>
+   </div>
   </div>
-
   <div id="connect-panel">
-    <h3>New Chat</h3>
-    <input id="peer-input" placeholder="Paste peer address…" />
-    <div id="conn-row">
-      <button id="conn-btn" onclick="connectToPeer()">Connect →</button>
-      <button id="scan-btn" class="hidden-btn" title="Scan QR code" onclick="showScanner()">📷</button>
-    </div>
+   <h3>New Chat</h3>
+   <input id="peer-input" placeholder="Paste peer address…" autocomplete="off" autocorrect="off" spellcheck="false"/>
+   <div id="conn-row">
+    <button id="conn-btn" onclick="connectToPeer()">Connect →</button>
+    <button id="scan-btn" onclick="showScanner()">📷</button>
+   </div>
   </div>
-
   <div id="conv-list"></div>
-
-  <div id="sidebar-footer">
-    <button id="settings-btn" onclick="showSettings()">⚙️ Settings</button>
-  </div>
+  <div id="sidebar-footer"><button id="settings-btn" onclick="showSettings()">⚙️ Settings</button></div>
+ </div>
 </div>
 
 <div id="main">
-  <div id="empty">
-    <div class="lock">🔐</div>
-    <h1>Cipher</h1>
-    <p>P2P encrypted messenger.<br>Share your address to start a conversation.</p>
-    <div class="stack">ECDH P-256 · ECDSA P-256 · AES-256-GCM · Base58Check</div>
-  </div>
+ <div id="empty">
+  <div class="lock">🔐</div><h1>Cipher</h1>
+  <p>P2P encrypted messenger.<br>Share your address to start a conversation.</p>
+  <div class="stack">ECDH P-256 · ECDSA P-256 · AES-256-GCM · Base58Check</div>
+ </div>
 </div>
 
 <div id="toast"></div>
 
 <script>
-// ─────────────────────────────────────────
-// UTILS
-// ─────────────────────────────────────────
-const buf2b64 = b => btoa(String.fromCharCode(...new Uint8Array(b)));
-const b642buf = s => { const b=atob(s),u=new Uint8Array(b.length); for(let i=0;i<b.length;i++)u[i]=b.charCodeAt(i); return u; };
-const ts2time = t => { const d=new Date(t); return String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0'); };
-const shortAddr = a => a.slice(0,8)+'…'+a.slice(-5);
-const escHtml = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+// ── UTILS ─────────────────────────────────────────────────────
+const buf2b64=b=>btoa(String.fromCharCode(...new Uint8Array(b)));
+const b642buf=s=>{const b=atob(s),u=new Uint8Array(b.length);for(let i=0;i<b.length;i++)u[i]=b.charCodeAt(i);return u;};
+const ts2time=t=>{const d=new Date(t);return String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');};
+const shortAddr=a=>a.slice(0,8)+'…'+a.slice(-5);
+const escHtml=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+function genId(){return Array.from(crypto.getRandomValues(new Uint8Array(8))).map(b=>b.toString(16).padStart(2,'0')).join('');}
 
-let toastTimer;
-function toast(msg,dur=2800){
-  const el=document.getElementById('toast');
-  el.textContent=msg; el.classList.add('show');
-  clearTimeout(toastTimer);
-  toastTimer=setTimeout(()=>el.classList.remove('show'),dur);
-}
+let toastT;
+function toast(m,d=2800){const el=document.getElementById('toast');el.textContent=m;el.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>el.classList.remove('show'),d);}
 
-// ─────────────────────────────────────────
-// SETTINGS
-// ─────────────────────────────────────────
-const DEFAULTS = { preserveHistory: false, showTimestamps: true, compactMode: false };
-let settings = {...DEFAULTS};
+// ── MOBILE ────────────────────────────────────────────────────
+function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('sb-overlay').classList.toggle('show');}
+function closeSidebar(){document.getElementById('sidebar').classList.remove('open');document.getElementById('sb-overlay').classList.remove('show');}
 
-function loadSettings(){
-  try{ const s=localStorage.getItem('cipher_settings'); if(s) settings={...DEFAULTS,...JSON.parse(s)}; }
-  catch(e){}
-}
-function saveSettings(){ localStorage.setItem('cipher_settings',JSON.stringify(settings)); }
+// ── SETTINGS ──────────────────────────────────────────────────
+const DEFS={preserveHistory:false,showTimestamps:true,compactMode:false};
+let settings={...DEFS};
+function loadSettings(){try{const s=localStorage.getItem('cipher_settings');if(s)settings={...DEFS,...JSON.parse(s)};}catch(e){}}
+function saveSettings(){localStorage.setItem('cipher_settings',JSON.stringify(settings));}
 
-// ─────────────────────────────────────────
-// BASE58CHECK
-// ─────────────────────────────────────────
+// ── BASE58CHECK ───────────────────────────────────────────────
 const B58='123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
 function b58Enc(bytes){
-  let z=0; for(const b of bytes){if(b!==0)break;z++;}
-  let n=0n; for(const b of bytes)n=(n<<8n)|BigInt(b);
-  let s=''; while(n>0n){s=B58[Number(n%58n)]+s;n/=58n;}
+  let z=0;for(const b of bytes){if(b!==0)break;z++;}
+  let n=0n;for(const b of bytes)n=(n<<8n)|BigInt(b);
+  let s='';while(n>0n){s=B58[Number(n%58n)]+s;n/=58n;}
   return '1'.repeat(z)+s;
 }
 function b58Dec(str){
-  let z=0; for(const c of str){if(c!=='1')break;z++;}
-  let n=0n;
-  for(const c of str){const i=B58.indexOf(c);if(i<0)throw new Error('Bad B58 char');n=n*58n+BigInt(i);}
-  const out=[];
-  while(n>0n){out.unshift(Number(n&0xffn));n>>=8n;}
+  let z=0;for(const c of str){if(c!=='1')break;z++;}
+  let n=0n;for(const c of str){const i=B58.indexOf(c);if(i<0)throw new Error('Bad B58');n=n*58n+BigInt(i);}
+  const out=[];while(n>0n){out.unshift(Number(n&0xffn));n>>=8n;}
   return new Uint8Array([...Array(z).fill(0),...out]);
 }
 async function b58CheckEnc(ver,payload){
-  const data=new Uint8Array(1+payload.length); data[0]=ver; data.set(payload,1);
+  const data=new Uint8Array(1+payload.length);data[0]=ver;data.set(payload,1);
   const h1=new Uint8Array(await crypto.subtle.digest('SHA-256',data));
   const h2=new Uint8Array(await crypto.subtle.digest('SHA-256',h1));
-  const full=new Uint8Array(data.length+4); full.set(data); full.set(h2.slice(0,4),data.length);
+  const full=new Uint8Array(data.length+4);full.set(data);full.set(h2.slice(0,4),data.length);
   return b58Enc(full);
 }
 
-// ─────────────────────────────────────────
-// CRYPTO
-// ─────────────────────────────────────────
+// ── CRYPTO ────────────────────────────────────────────────────
 async function genKeys(){
   const [ecdh,ecdsa]=await Promise.all([
     crypto.subtle.generateKey({name:'ECDH',namedCurve:'P-256'},true,['deriveKey']),
@@ -253,493 +282,552 @@ async function exportKeys(keys){
   return {ep,epu:buf2b64(epu),sp,spu:buf2b64(spu)};
 }
 async function importKeys(s){
-  const [ecdhPriv,ecdhPub,ecdsaPriv,ecdsaPub]=await Promise.all([
+  const [ep,epu,sp,spu]=await Promise.all([
     crypto.subtle.importKey('jwk',s.ep,{name:'ECDH',namedCurve:'P-256'},true,['deriveKey']),
     crypto.subtle.importKey('spki',b642buf(s.epu),{name:'ECDH',namedCurve:'P-256'},true,[]),
     crypto.subtle.importKey('jwk',s.sp,{name:'ECDSA',namedCurve:'P-256'},true,['sign']),
     crypto.subtle.importKey('spki',b642buf(s.spu),{name:'ECDSA',namedCurve:'P-256'},true,['verify']),
   ]);
-  return {ecdh:{privateKey:ecdhPriv,publicKey:ecdhPub},ecdsa:{privateKey:ecdsaPriv,publicKey:ecdsaPub}};
+  return {ecdh:{privateKey:ep,publicKey:epu},ecdsa:{privateKey:sp,publicKey:spu}};
 }
-async function deriveAddr(ecdhPub){
-  const raw=await crypto.subtle.exportKey('raw',ecdhPub);
-  const hash=new Uint8Array(await crypto.subtle.digest('SHA-256',raw));
-  return b58CheckEnc(0x01,hash.slice(0,20));
-}
-async function importECDHPub(b64){ return crypto.subtle.importKey('spki',b642buf(b64),{name:'ECDH',namedCurve:'P-256'},true,[]); }
-async function importECDSAPub(b64){ return crypto.subtle.importKey('spki',b642buf(b64),{name:'ECDSA',namedCurve:'P-256'},true,['verify']); }
-async function deriveSharedKey(myPriv,theirPub){ return crypto.subtle.deriveKey({name:'ECDH',public:theirPub},myPriv,{name:'AES-GCM',length:256},false,['encrypt','decrypt']); }
-async function encryptMsg(aesKey,pt){ const iv=crypto.getRandomValues(new Uint8Array(12)); const ct=await crypto.subtle.encrypt({name:'AES-GCM',iv},aesKey,new TextEncoder().encode(pt)); return {iv:buf2b64(iv),ct:buf2b64(ct)}; }
-async function decryptMsg(aesKey,ivB64,ctB64){ const pt=await crypto.subtle.decrypt({name:'AES-GCM',iv:b642buf(ivB64)},aesKey,b642buf(ctB64)); return new TextDecoder().decode(pt); }
-async function signData(priv,data){ return buf2b64(await crypto.subtle.sign({name:'ECDSA',hash:'SHA-256'},priv,new TextEncoder().encode(data))); }
-async function verifyData(pub,data,sigB64){ return crypto.subtle.verify({name:'ECDSA',hash:'SHA-256'},pub,b642buf(sigB64),new TextEncoder().encode(data)); }
+async function deriveAddr(pub){const raw=await crypto.subtle.exportKey('raw',pub);const h=new Uint8Array(await crypto.subtle.digest('SHA-256',raw));return b58CheckEnc(0x01,h.slice(0,20));}
+async function impECDH(b){return crypto.subtle.importKey('spki',b642buf(b),{name:'ECDH',namedCurve:'P-256'},true,[]);}
+async function impECDSA(b){return crypto.subtle.importKey('spki',b642buf(b),{name:'ECDSA',namedCurve:'P-256'},true,['verify']);}
+async function mkShared(priv,pub){return crypto.subtle.deriveKey({name:'ECDH',public:pub},priv,{name:'AES-GCM',length:256},false,['encrypt','decrypt']);}
+async function enc(k,pt){const iv=crypto.getRandomValues(new Uint8Array(12));const ct=await crypto.subtle.encrypt({name:'AES-GCM',iv},k,new TextEncoder().encode(pt));return{iv:buf2b64(iv),ct:buf2b64(ct)};}
+async function dec(k,iv,ct){return new TextDecoder().decode(await crypto.subtle.decrypt({name:'AES-GCM',iv:b642buf(iv)},k,b642buf(ct)));}
+async function sign(priv,d){return buf2b64(await crypto.subtle.sign({name:'ECDSA',hash:'SHA-256'},priv,new TextEncoder().encode(d)));}
+async function verify(pub,d,sig){return crypto.subtle.verify({name:'ECDSA',hash:'SHA-256'},pub,b642buf(sig),new TextEncoder().encode(d));}
 
-// ─────────────────────────────────────────
-// STATE
-// ─────────────────────────────────────────
-let myKeys=null, myAddr='', myPubExport=null;
+// ── STATE ─────────────────────────────────────────────────────
+let myKeys=null,myAddr='',myPub=null;
 let peer=null;
-let convs={};   // addr -> {conn,sharedKey,ecdsaPub,msgs[],open,hidden}
+// conv: {conn,aesKey,ecdsaPub,msgs[],open,hidden,pingTimer,lastPong}
+let convs={};
 let activeAddr=null;
 let hasCam=false;
+let currentPickerId=null;
 
-// ─────────────────────────────────────────
-// HISTORY PERSISTENCE
-// ─────────────────────────────────────────
+// ── HISTORY ───────────────────────────────────────────────────
 function saveHistory(){
-  if(!settings.preserveHistory) return;
-  const data={};
-  for(const [addr,c] of Object.entries(convs)){
-    data[addr]={msgs:c.msgs, hidden:c.hidden||false};
-  }
-  localStorage.setItem('cipher_history',JSON.stringify(data));
+  if(!settings.preserveHistory)return;
+  const out={};
+  for(const [a,c] of Object.entries(convs))
+    out[a]={msgs:c.msgs,hidden:c.hidden||false};
+  localStorage.setItem('cipher_history',JSON.stringify(out));
 }
-
 function loadHistory(){
   try{
-    const raw=localStorage.getItem('cipher_history');
-    if(!raw) return;
-    const data=JSON.parse(raw);
-    for(const [addr,d] of Object.entries(data)){
-      convs[addr]={conn:null,sharedKey:null,ecdsaPub:null,msgs:d.msgs||[],open:false,hidden:d.hidden||false};
+    const raw=localStorage.getItem('cipher_history');if(!raw)return;
+    for(const [a,d] of Object.entries(JSON.parse(raw))){
+      const msgs=(d.msgs||[]).map(m=>({reactions:{},editHistory:[],...m}));
+      convs[a]={conn:null,aesKey:null,ecdsaPub:null,msgs,open:false,hidden:d.hidden||false,pingTimer:null,lastPong:0};
     }
-  }catch(e){ console.warn('History load failed',e); }
+  }catch(e){console.warn('History load:',e);}
 }
+function clearHistory(){localStorage.removeItem('cipher_history');}
 
-function clearHistory(){ localStorage.removeItem('cipher_history'); }
-
-// ─────────────────────────────────────────
-// INIT
-// ─────────────────────────────────────────
+// ── INIT ──────────────────────────────────────────────────────
 async function init(){
-  loadSettings();
-  setNet('…','');
-
+  loadSettings();setNet('…','');
   const stored=localStorage.getItem('cipher_v2');
-  if(stored){
-    try{ myKeys=await importKeys(JSON.parse(stored)); }
-    catch(e){ console.warn('Key load failed, regenerating',e); myKeys=null; }
-  }
-  if(!myKeys){ myKeys=await genKeys(); await persistKeys(); }
-
+  if(stored){try{myKeys=await importKeys(JSON.parse(stored));}catch(e){myKeys=null;}}
+  if(!myKeys){myKeys=await genKeys();await persistKeys();}
   const ex=await exportKeys(myKeys);
-  myPubExport={epu:ex.epu,spu:ex.spu};
+  myPub={epu:ex.epu,spu:ex.spu};
   myAddr=await deriveAddr(myKeys.ecdh.publicKey);
   document.getElementById('my-addr').textContent=myAddr;
-
-  if(settings.preserveHistory) loadHistory();
-
-  // Check camera availability
+  if(settings.preserveHistory)loadHistory();
   if(navigator.mediaDevices?.enumerateDevices){
     navigator.mediaDevices.enumerateDevices().then(devs=>{
       hasCam=devs.some(d=>d.kind==='videoinput');
-      if(hasCam) document.getElementById('scan-btn').classList.remove('hidden-btn');
-    });
+      if(hasCam)document.getElementById('scan-btn').classList.add('visible');
+    }).catch(()=>{});
   }
-
   renderConvList();
   initPeer();
 }
-
-async function persistKeys(){ const ex=await exportKeys(myKeys); localStorage.setItem('cipher_v2',JSON.stringify(ex)); }
-
+async function persistKeys(){const ex=await exportKeys(myKeys);localStorage.setItem('cipher_v2',JSON.stringify(ex));}
 async function regenKeys(){
-  if(!confirm('This will create a new identity and disconnect all peers. Continue?')) return;
-  localStorage.removeItem('cipher_v2');
-  clearHistory();
-  if(peer&&!peer.destroyed) peer.destroy();
-  convs={}; activeAddr=null;
-  renderConvList();
-  document.getElementById('main').innerHTML=emptyHTML();
-  myKeys=null;
-  await init();
-  toast('New identity generated.');
+  if(!confirm('Create a new identity? This disconnects all peers.'))return;
+  localStorage.removeItem('cipher_v2');clearHistory();
+  if(peer&&!peer.destroyed)peer.destroy();
+  for(const a of Object.keys(convs))stopHeartbeat(a);
+  convs={};activeAddr=null;renderConvList();showEmpty();myKeys=null;
+  await init();toast('New identity generated.');
 }
 
-// ─────────────────────────────────────────
-// PEERJS
-// ─────────────────────────────────────────
+// ── HEARTBEAT ─────────────────────────────────────────────────
+const PING_INTERVAL=6000, PING_TIMEOUT=14000;
+
+function startHeartbeat(addr){
+  stopHeartbeat(addr);
+  const c=convs[addr];if(!c)return;
+  c.lastPong=Date.now();
+  c.pingTimer=setInterval(()=>{
+    const c=convs[addr];if(!c)return;
+    if(Date.now()-c.lastPong>PING_TIMEOUT){markOffline(addr,true);return;}
+    if(c.conn?.open){try{c.conn.send({type:'ping'});}catch(e){markOffline(addr,true);}}
+  },PING_INTERVAL);
+}
+
+function stopHeartbeat(addr){
+  const c=convs[addr];
+  if(c?.pingTimer){clearInterval(c.pingTimer);c.pingTimer=null;}
+}
+
+function markOffline(addr,timeout=false){
+  const c=convs[addr];if(!c||!c.open)return;
+  stopHeartbeat(addr);
+  c.open=false;c.conn=null;c.aesKey=null;c.ecdsaPub=null;
+  sysMsg(addr,timeout?'Connection timed out — peer may have closed their tab.':'Connection closed.');
+  renderConvList();
+  if(activeAddr===addr){updateEncBadge(false);showReconnectBar(addr);}
+}
+
+// ── PEER ──────────────────────────────────────────────────────
 function initPeer(){
   setNet('Connecting…','');
   peer=new Peer(myAddr,{debug:0});
-  peer.on('open',()=>setNet('Online','on'));
+  peer.on('open',()=>{setNet('Online','on');autoReconnect();});
   peer.on('connection',conn=>setupConn(conn));
   peer.on('error',err=>{
-    console.error('PeerJS:',err.type,err);
     if(err.type==='unavailable-id'){
-      toast('Address conflict — generating new identity…',4000);
-      localStorage.removeItem('cipher_v2'); peer.destroy();
-      setTimeout(async()=>{ myKeys=await genKeys(); await persistKeys(); myAddr=await deriveAddr(myKeys.ecdh.publicKey); document.getElementById('my-addr').textContent=myAddr; initPeer(); },500);
-    } else if(err.type==='peer-unavailable'){ toast('Peer not found or offline.');
-    } else { setNet(err.type,'err'); toast('Network: '+err.type); }
+      toast('Address conflict — regenerating…',4000);
+      localStorage.removeItem('cipher_v2');peer.destroy();
+      setTimeout(async()=>{myKeys=await genKeys();await persistKeys();myAddr=await deriveAddr(myKeys.ecdh.publicKey);document.getElementById('my-addr').textContent=myAddr;initPeer();},500);
+    }else if(err.type==='peer-unavailable'){toast('Peer not found or offline.');}
+    else{setNet(err.type,'err');toast('Network: '+err.type);}
   });
-  peer.on('disconnected',()=>{ setNet('Disconnected','err'); setTimeout(()=>{ if(peer&&!peer.destroyed)peer.reconnect(); },4000); });
+  peer.on('disconnected',()=>{setNet('Disconnected','err');setTimeout(()=>{if(peer&&!peer.destroyed)peer.reconnect();},4000);});
+}
+
+function autoReconnect(){
+  if(!settings.preserveHistory)return;
+  for(const [addr,c] of Object.entries(convs)){
+    if(!c.hidden&&!c.open)setTimeout(()=>attemptReconnect(addr),400+Math.random()*600);
+  }
+}
+
+function attemptReconnect(addr){
+  if(!peer||peer.destroyed||convs[addr]?.open)return;
+  const conn=peer.connect(addr,{reliable:true,serialization:'json'});
+  setupConn(conn,true);
 }
 
 function connectToPeer(){
   const addr=document.getElementById('peer-input').value.trim();
-  if(!addr) return toast('Enter a peer address');
-  if(addr===myAddr) return toast('That\'s your own address');
-  if(convs[addr]?.open){ selectConv(addr); return; }
-  // Un-hide if hidden
-  if(convs[addr]) convs[addr].hidden=false;
+  if(!addr)return toast('Enter a peer address');
+  if(addr===myAddr)return toast("That's your own address");
+  if(convs[addr]?.open){selectConv(addr);closeSidebar();return;}
+  if(convs[addr])convs[addr].hidden=false;
   document.getElementById('peer-input').value='';
   const conn=peer.connect(addr,{reliable:true,serialization:'json'});
-  setupConn(conn);
+  setupConn(conn);closeSidebar();
 }
 
-function setupConn(conn){
+function setupConn(conn,isAuto=false){
   const addr=conn.peer;
-  if(!convs[addr]) convs[addr]={conn:null,sharedKey:null,ecdsaPub:null,msgs:[],open:false,hidden:false};
-  else { convs[addr].hidden=false; }
+  if(!convs[addr])convs[addr]={conn:null,aesKey:null,ecdsaPub:null,msgs:[],open:false,hidden:false,pingTimer:null,lastPong:0};
+  else if(!isAuto)convs[addr].hidden=false;
 
   conn.on('open',async()=>{
-    convs[addr].conn=conn; convs[addr].open=true;
+    convs[addr].conn=conn;convs[addr].open=true;
+    startHeartbeat(addr);
     sysMsg(addr,'Connection established — performing handshake…');
-    conn.send({type:'hs',epu:myPubExport.epu,spu:myPubExport.spu,addr:myAddr});
+    conn.send({type:'hs',epu:myPub.epu,spu:myPub.spu});
     renderConvList();
-    if(!activeAddr||activeAddr===addr) selectConv(addr);
+    if(!activeAddr||activeAddr===addr)selectConv(addr);
   });
-  conn.on('data',data=>handleData(addr,data));
-  conn.on('close',()=>{
-    if(convs[addr]){convs[addr].open=false;convs[addr].conn=null;}
-    sysMsg(addr,'Connection closed.');
-    renderConvList();
-    if(activeAddr===addr) updateEncBadge(false);
-  });
-  conn.on('error',e=>sysMsg(addr,'Connection error: '+e.message));
+  conn.on('data',data=>handleData(addr,conn,data));
+  conn.on('close',()=>{markOffline(addr,false);});
+  conn.on('error',e=>{stopHeartbeat(addr);sysMsg(addr,'Error: '+e.message);});
 }
 
-async function handleData(addr,data){
-  const c=convs[addr]; if(!c)return;
+async function handleData(addr,conn,data){
+  const c=convs[addr];if(!c)return;
+  if(data.type==='ping'){if(conn.open)try{conn.send({type:'pong'});}catch(e){}return;}
+  if(data.type==='pong'){c.lastPong=Date.now();return;}
   if(data.type==='hs'){
     try{
-      const ecdhPub=await importECDHPub(data.epu);
-      c.ecdsaPub=await importECDSAPub(data.spu);
-      c.sharedKey=await deriveSharedKey(myKeys.ecdh.privateKey,ecdhPub);
+      const ep=await impECDH(data.epu);
+      c.ecdsaPub=await impECDSA(data.spu);
+      c.aesKey=await mkShared(myKeys.ecdh.privateKey,ep);
       sysMsg(addr,'🔒 End-to-end encrypted channel established.');
       renderConvList();
-      if(activeAddr===addr) updateEncBadge(true);
-    }catch(e){ sysMsg(addr,'Handshake failed: '+e.message); }
-  } else if(data.type==='msg'){
-    if(!c.sharedKey) return sysMsg(addr,'⚠ Message before handshake');
-    try{
-      const pt=await decryptMsg(c.sharedKey,data.iv,data.ct);
-      const sigOk=c.ecdsaPub?await verifyData(c.ecdsaPub,`${addr}:${data.ts}:${pt}`,data.sig):false;
-      const m={dir:'in',text:pt,ts:data.ts,sigOk};
-      c.msgs.push(m);
-      saveHistory();
-      if(activeAddr===addr) appendMsg(m);
-      else renderConvList();
-    }catch(e){ sysMsg(addr,'Decrypt error: '+e.message); }
+      if(activeAddr===addr){updateEncBadge(true);removeReconnectBar();}
+    }catch(e){sysMsg(addr,'Handshake failed: '+e.message);}
+    return;
+  }
+  if(data.type==='e')await handleSecure(addr,data);
+}
+
+// ── SECURE ENVELOPE ───────────────────────────────────────────
+async function sendSecure(addr,payload){
+  const c=convs[addr];
+  if(!c?.conn?.open||!c?.aesKey)return false;
+  const json=JSON.stringify(payload);
+  const ts=Date.now();
+  const {iv,ct}=await enc(c.aesKey,json);
+  const sig=await sign(myKeys.ecdsa.privateKey,`${myAddr}:${ts}:${json}`);
+  try{c.conn.send({type:'e',iv,ct,sig,ts});return true;}catch(e){return false;}
+}
+
+async function handleSecure(addr,data){
+  const c=convs[addr];if(!c?.aesKey)return;
+  try{
+    const json=await dec(c.aesKey,data.iv,data.ct);
+    const sigOk=c.ecdsaPub?await verify(c.ecdsaPub,`${addr}:${data.ts}:${json}`,data.sig):false;
+    const p=JSON.parse(json);
+    if(p.t==='msg')onMsg(addr,p,sigOk);
+    else if(p.t==='react')onReact(addr,p);
+    else if(p.t==='edit')onEdit(addr,p);
+    else if(p.t==='del')onDel(addr,p);
+  }catch(e){console.warn('handleSecure:',e);}
+}
+
+// ── INCOMING HANDLERS ─────────────────────────────────────────
+function onMsg(addr,p,sigOk){
+  const m={id:p.id,dir:'in',text:p.text,ts:p.ts,sigOk,reactions:{},editHistory:[],deleted:false};
+  convs[addr].msgs.push(m);
+  if(activeAddr===addr){
+    const el=document.getElementById('msgs');
+    if(el){el.appendChild(buildMsgEl(m,addr));el.scrollTop=el.scrollHeight;}
+  }
+  renderConvList();saveHistory();
+}
+function onReact(addr,p){
+  const m=convs[addr]?.msgs.find(x=>x.id===p.msgId);if(!m)return;
+  if(!m.reactions)m.reactions={};
+  if(!m.reactions[p.emoji])m.reactions[p.emoji]=[];
+  const arr=m.reactions[p.emoji];
+  const idx=arr.indexOf('them');
+  if(p.add&&idx===-1)arr.push('them');
+  if(!p.add&&idx!==-1)arr.splice(idx,1);
+  if(!arr.length)delete m.reactions[p.emoji];
+  if(activeAddr===addr)updateMsgEl(p.msgId,addr);
+  saveHistory();
+}
+function onEdit(addr,p){
+  const m=convs[addr]?.msgs.find(x=>x.id===p.msgId);if(!m||m.deleted)return;
+  if(!m.editHistory)m.editHistory=[];
+  m.editHistory.push({text:m.text,ts:Date.now()});
+  m.text=p.text;
+  if(activeAddr===addr)updateMsgEl(p.msgId,addr);
+  renderConvList();saveHistory();
+}
+function onDel(addr,p){
+  const m=convs[addr]?.msgs.find(x=>x.id===p.msgId);if(!m)return;
+  m.deleted=true;m.text='';m.reactions={};
+  if(activeAddr===addr)updateMsgEl(p.msgId,addr);
+  saveHistory();
+}
+
+// ── SEND ──────────────────────────────────────────────────────
+async function sendMsg(){
+  if(!activeAddr)return;
+  const inp=document.getElementById('msg-in');
+  const text=inp.value.trim();if(!text)return;
+  const c=convs[activeAddr];
+  if(!c?.open||!c?.aesKey)return toast('Not connected or handshake pending');
+  const id=genId(),ts=Date.now();
+  const ok=await sendSecure(activeAddr,{t:'msg',id,text,ts});
+  if(!ok)return toast('Send failed');
+  const m={id,dir:'out',text,ts,sigOk:true,reactions:{},editHistory:[],deleted:false};
+  c.msgs.push(m);inp.value='';inp.style.height='';
+  const el=document.getElementById('msgs');
+  if(el){el.appendChild(buildMsgEl(m,activeAddr));el.scrollTop=el.scrollHeight;}
+  renderConvList();saveHistory();
+}
+
+// ── MSG DOM ───────────────────────────────────────────────────
+const EMOJIS=['❤️','😂','😮','😢','😡','👍','👎','🔥'];
+
+function buildMsgEl(m,addr){
+  if(m.system){const d=document.createElement('div');d.className='sys-msg';d.textContent=m.text;return d;}
+  const wrap=document.createElement('div');
+  wrap.className=`msg-wrap ${m.dir}`;wrap.dataset.id=m.id;
+
+  // Action bar
+  const bar=document.createElement('div');bar.className='msg-actions';
+  const reactBtn=document.createElement('button');reactBtn.className='act-btn';reactBtn.textContent='😊';reactBtn.title='React';
+  reactBtn.onclick=e=>{e.stopPropagation();showReactPicker(m.id,addr,e);};
+  bar.appendChild(reactBtn);
+  if(m.dir==='out'&&!m.deleted){
+    const eb=document.createElement('button');eb.className='act-btn';eb.textContent='✏️';eb.title='Edit';eb.onclick=()=>startEdit(m.id,addr);
+    const db=document.createElement('button');db.className='act-btn';db.textContent='🗑';db.title='Delete';db.onclick=()=>doDelete(m.id,addr);
+    bar.appendChild(eb);bar.appendChild(db);
+  }
+  wrap.appendChild(bar);
+
+  // Bubble
+  const bubble=document.createElement('div');bubble.className=`msg ${m.dir}`;bubble.id=`b-${m.id}`;
+  fillBubble(bubble,m,addr);
+  wrap.appendChild(bubble);
+
+  // Reactions
+  const rr=document.createElement('div');rr.className='msg-reactions';rr.id=`r-${m.id}`;
+  fillReactions(rr,m,addr);
+  wrap.appendChild(rr);
+
+  return wrap;
+}
+
+function fillBubble(el,m,addr){
+  if(m.deleted){el.innerHTML='<div class="msg-text deleted-text">This message was deleted.</div>';return;}
+  const ts=settings.showTimestamps?`<span>${ts2time(m.ts)}</span>`:'';
+  const sig=m.dir==='in'?`<span class="badge ${m.sigOk?'ok':'bad'}">${m.sigOk?'✓ verified':'✗ bad sig'}</span>`:'';
+  const edited=m.editHistory?.length?`<span class="edited-lbl" onclick="showEditHistory('${m.id}','${addr}')">edited</span>`:'';
+  el.innerHTML=`<div class="msg-text">${escHtml(m.text)}</div><div class="msg-meta">${ts}${sig}${edited}</div>`;
+}
+
+function fillReactions(el,m,addr){
+  el.innerHTML='';
+  if(!m.reactions)return;
+  for(const [emoji,senders] of Object.entries(m.reactions)){
+    if(!senders.length)continue;
+    const p=document.createElement('div');
+    p.className='r-pill'+(senders.includes('me')?' mine':'');
+    p.textContent=senders.length>1?emoji+' '+senders.length:emoji;
+    p.title=senders.map(s=>s==='me'?'You':'Them').join(', ');
+    p.onclick=()=>toggleReact(m.id,addr,emoji);
+    el.appendChild(p);
   }
 }
 
-// ─────────────────────────────────────────
-// SEND
-// ─────────────────────────────────────────
-async function sendMsg(){
-  if(!activeAddr) return;
-  const inp=document.getElementById('msg-in');
-  const text=inp.value.trim();
-  if(!text) return;
-  const c=convs[activeAddr];
-  if(!c?.open||!c?.sharedKey) return toast('Not connected or handshake pending');
-  const ts=Date.now();
-  const {iv,ct}=await encryptMsg(c.sharedKey,text);
-  const sig=await signData(myKeys.ecdsa.privateKey,`${myAddr}:${ts}:${text}`);
-  c.conn.send({type:'msg',iv,ct,sig,ts});
-  const m={dir:'out',text,ts,sigOk:true};
-  c.msgs.push(m);
-  inp.value=''; inp.style.height='';
-  appendMsg(m);
-  saveHistory();
-  renderConvList();
+function updateMsgEl(msgId,addr){
+  const m=convs[addr]?.msgs.find(x=>x.id===msgId);if(!m)return;
+  const b=document.getElementById(`b-${msgId}`);if(b)fillBubble(b,m,addr);
+  const r=document.getElementById(`r-${msgId}`);if(r)fillReactions(r,m,addr);
 }
 
-// ─────────────────────────────────────────
-// UI
-// ─────────────────────────────────────────
-function emptyHTML(){
-  return`<div id="empty"><div class="lock">🔐</div><h1>Cipher</h1><p>P2P encrypted messenger.<br>Share your address to start a conversation.</p><div class="stack">ECDH P-256 · ECDSA P-256 · AES-256-GCM · Base58Check</div></div>`;
+// ── REACTIONS ─────────────────────────────────────────────────
+function showReactPicker(msgId,addr,evt){
+  document.getElementById('react-picker')?.remove();
+  if(currentPickerId===msgId){currentPickerId=null;return;}
+  currentPickerId=msgId;
+  const picker=document.createElement('div');picker.id='react-picker';
+  for(const emoji of EMOJIS){
+    const btn=document.createElement('button');btn.textContent=emoji;
+    btn.onclick=ev=>{ev.stopPropagation();toggleReact(msgId,addr,emoji);picker.remove();currentPickerId=null;};
+    picker.appendChild(btn);
+  }
+  document.body.appendChild(picker);
+  // Position
+  const r=evt.currentTarget.getBoundingClientRect();
+  const pw=Math.min(EMOJIS.length*40+16,window.innerWidth-16);
+  let left=r.left;
+  if(left+pw>window.innerWidth-8)left=window.innerWidth-pw-8;
+  if(left<8)left=8;
+  const ph=50;
+  let top=r.top-ph-8;if(top<8)top=r.bottom+8;
+  picker.style.cssText=`top:${top}px;left:${left}px`;
+  setTimeout(()=>document.addEventListener('click',function h(e){if(!picker.contains(e.target)){picker.remove();currentPickerId=null;document.removeEventListener('click',h);}},{passive:true}),0);
 }
+
+async function toggleReact(msgId,addr,emoji){
+  const c=convs[addr];const m=c?.msgs.find(x=>x.id===msgId);if(!m||m.deleted)return;
+  if(!m.reactions)m.reactions={};
+  if(!m.reactions[emoji])m.reactions[emoji]=[];
+  const arr=m.reactions[emoji];const idx=arr.indexOf('me');
+  const add=idx===-1;
+  if(add)arr.push('me');else arr.splice(idx,1);
+  if(!arr.length)delete m.reactions[emoji];
+  updateMsgEl(msgId,addr);saveHistory();
+  if(c.aesKey)await sendSecure(addr,{t:'react',msgId,emoji,add});
+}
+
+// ── EDIT ──────────────────────────────────────────────────────
+function startEdit(msgId,addr){
+  const m=convs[addr]?.msgs.find(x=>x.id===msgId);if(!m||m.deleted)return;
+  const b=document.getElementById(`b-${msgId}`);if(!b)return;
+  b.innerHTML=`<textarea class="edit-ta" id="eta-${msgId}">${escHtml(m.text)}</textarea><div class="edit-row"><button class="pill-btn" style="flex:none" onclick="cancelEdit('${msgId}','${addr}')">Cancel</button><button class="pill-btn" style="flex:none;border-color:var(--accent);color:var(--accent)" onclick="submitEdit('${msgId}','${addr}')">Save</button></div>`;
+  const ta=document.getElementById(`eta-${msgId}`);
+  ta.focus();ta.setSelectionRange(ta.value.length,ta.value.length);
+  ta.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();submitEdit(msgId,addr);}if(e.key==='Escape')cancelEdit(msgId,addr);});
+}
+function cancelEdit(msgId,addr){const m=convs[addr]?.msgs.find(x=>x.id===msgId);if(!m)return;const b=document.getElementById(`b-${msgId}`);if(b)fillBubble(b,m,addr);}
+async function submitEdit(msgId,addr){
+  const ta=document.getElementById(`eta-${msgId}`);if(!ta)return;
+  const newText=ta.value.trim();if(!newText)return;
+  const c=convs[addr];const m=c?.msgs.find(x=>x.id===msgId);if(!m)return;
+  if(newText===m.text){cancelEdit(msgId,addr);return;}
+  if(!m.editHistory)m.editHistory=[];
+  m.editHistory.push({text:m.text,ts:Date.now()});
+  m.text=newText;
+  const b=document.getElementById(`b-${msgId}`);if(b)fillBubble(b,m,addr);
+  saveHistory();
+  if(c.aesKey)await sendSecure(addr,{t:'edit',msgId,text:newText});
+}
+function showEditHistory(msgId,addr){
+  const m=convs[addr]?.msgs.find(x=>x.id===msgId);if(!m?.editHistory?.length)return;
+  const items=m.editHistory.map(e=>`<div class="edit-hist-item"><div class="edit-hist-ts">${ts2time(e.ts)}</div><div class="edit-hist-txt">${escHtml(e.text)}</div></div>`).join('');
+  openModal(`<button class="modal-close" onclick="closeModal()">✕</button><h2>✏️ Edit History</h2><div class="edit-hist-scroll">${items}</div><div class="settings-section" style="margin-top:10px">Current</div><div class="edit-hist-item cur"><div class="edit-hist-txt">${escHtml(m.text)}</div></div>`);
+}
+
+// ── DELETE ────────────────────────────────────────────────────
+async function doDelete(msgId,addr){
+  if(!confirm('Delete this message?'))return;
+  const c=convs[addr];const m=c?.msgs.find(x=>x.id===msgId);if(!m)return;
+  m.deleted=true;m.text='';m.reactions={};
+  updateMsgEl(msgId,addr);saveHistory();
+  // Remove edit/delete buttons from action bar
+  const wrap=document.querySelector(`.msg-wrap[data-id="${msgId}"]`);
+  if(wrap)wrap.querySelectorAll('.act-btn:not(:first-child)').forEach(b=>b.remove());
+  if(c.aesKey)await sendSecure(addr,{t:'del',msgId});
+}
+
+// ── UI ────────────────────────────────────────────────────────
+function showEmpty(){document.getElementById('main').innerHTML='<div id="empty"><div class="lock">🔐</div><h1>Cipher</h1><p>P2P encrypted messenger.<br>Share your address to start a conversation.</p><div class="stack">ECDH P-256 · ECDSA P-256 · AES-256-GCM · Base58Check</div></div>';}
+
+function showReconnectBar(addr){
+  removeReconnectBar();
+  const bar=document.createElement('div');bar.id='reconnect-bar';
+  bar.innerHTML=`<span>⚡ Connection lost</span><button onclick="attemptReconnect('${addr}');this.textContent='Reconnecting…';this.disabled=true">Reconnect</button>`;
+  document.getElementById('msgs')?.before(bar);
+}
+function removeReconnectBar(){document.getElementById('reconnect-bar')?.remove();}
 
 function selectConv(addr){
-  activeAddr=addr;
-  const c=convs[addr];
-  const main=document.getElementById('main');
-  const enc=c?.sharedKey?'🔒 Encrypted':'⏳ Handshake pending';
-  main.innerHTML=`
+  activeAddr=addr;const c=convs[addr];
+  const enc=c?.aesKey?'🔒 Encrypted':'⏳ Pending';
+  document.getElementById('main').innerHTML=`
     <div id="chat-head">
-      <div>
-        <div style="font-size:11px;color:var(--dim);margin-bottom:2px">Peer</div>
-        <div id="chat-peer" title="${addr}">${shortAddr(addr)}</div>
-      </div>
-      <div id="chat-enc" class="${c?.sharedKey?'':'pending'}">${enc}</div>
+      <button id="chat-head-back" onclick="goBack()">‹</button>
+      <div id="chat-peer" title="${addr}">${shortAddr(addr)}</div>
+      <div id="chat-enc" class="${c?.aesKey?'':'pending'}">${enc}</div>
     </div>
     <div id="msgs"></div>
     <div id="input-wrap">
-      <textarea id="msg-in" rows="1" placeholder="Type a message… (Enter to send)"></textarea>
+      <textarea id="msg-in" rows="1" placeholder="Message…"></textarea>
       <button id="send-btn" onclick="sendMsg()">Send</button>
     </div>`;
+  if(!c?.open&&c?.msgs?.some(m=>!m.system))showReconnectBar(addr);
   const ta=document.getElementById('msg-in');
-  ta.addEventListener('keydown',e=>{ if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMsg();} });
-  ta.addEventListener('input',()=>{ ta.style.height=''; ta.style.height=Math.min(ta.scrollHeight,140)+'px'; });
+  ta.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMsg();}});
+  ta.addEventListener('input',()=>{ta.style.height='';ta.style.height=Math.min(ta.scrollHeight,120)+'px';});
   const msgsEl=document.getElementById('msgs');
-  (c?.msgs||[]).forEach(m=>m.system?appendSys(m.text):appendMsg(m));
+  (c?.msgs||[]).forEach(m=>msgsEl.appendChild(buildMsgEl(m,addr)));
   msgsEl.scrollTop=msgsEl.scrollHeight;
   renderConvList();
 }
 
-function appendMsg(m){
-  const el=document.getElementById('msgs'); if(!el)return;
-  const d=document.createElement('div');
-  d.className='msg '+m.dir;
-  const timeStr=settings.showTimestamps?`<span>${ts2time(m.ts)}</span>`:'';
-  let meta=`<div class="msg-meta">${timeStr}`;
-  if(m.dir==='in') meta+=` <span class="badge ${m.sigOk?'ok':'bad'}">${m.sigOk?'✓ verified':'✗ bad sig'}</span>`;
-  meta+='</div>';
-  d.innerHTML=`<div class="msg-text">${escHtml(m.text)}</div>${meta}`;
-  el.appendChild(d); el.scrollTop=el.scrollHeight;
-}
-
-function appendSys(text){
-  const el=document.getElementById('msgs'); if(!el)return;
-  const d=document.createElement('div');
-  d.className='sys-msg'; d.textContent=text;
-  el.appendChild(d); el.scrollTop=el.scrollHeight;
-}
+function goBack(){activeAddr=null;showEmpty();renderConvList();}
 
 function sysMsg(addr,text){
   if(!convs[addr])return;
   convs[addr].msgs.push({system:true,text});
-  if(activeAddr===addr) appendSys(text);
+  if(activeAddr===addr){
+    const el=document.getElementById('msgs');
+    if(el){const d=document.createElement('div');d.className='sys-msg';d.textContent=text;el.appendChild(d);el.scrollTop=el.scrollHeight;}
+  }
 }
 
 function hideConv(addr,e){
   e.stopPropagation();
-  convs[addr].hidden=true;
-  saveHistory();
-  if(activeAddr===addr){
-    activeAddr=null;
-    document.getElementById('main').innerHTML=emptyHTML();
-  }
-  renderConvList();
-  toast('Chat hidden. It will reappear when they message you.');
+  convs[addr].hidden=true;saveHistory();
+  if(activeAddr===addr){activeAddr=null;showEmpty();}
+  renderConvList();toast('Chat hidden.');
 }
 
 function renderConvList(){
-  const el=document.getElementById('conv-list'); el.innerHTML='';
-  const visible=Object.entries(convs).filter(([,c])=>!c.hidden);
-  if(!visible.length){
-    el.innerHTML='<div style="padding:16px 14px;font-size:12px;color:var(--dim);text-align:center">No conversations yet</div>';
-    return;
-  }
-  for(const [addr,c] of visible){
+  const el=document.getElementById('conv-list');el.innerHTML='';
+  const vis=Object.entries(convs).filter(([,c])=>!c.hidden);
+  if(!vis.length){el.innerHTML='<div style="padding:16px 14px;font-size:12px;color:var(--dim);text-align:center">No conversations yet</div>';return;}
+  for(const [addr,c] of vis){
     const last=c.msgs.filter(m=>!m.system).slice(-1)[0];
-    const prev=last?(last.dir==='out'?'You: ':'')+last.text:'No messages yet';
+    const prev=last?((last.dir==='out'?'You: ':'')+( last.deleted?'[deleted]':last.text)):'No messages yet';
     const d=document.createElement('div');
     d.className='conv'+(activeAddr===addr?' active':'');
-    d.onclick=()=>selectConv(addr);
-    d.innerHTML=`
-      <div class="conv-row">
-        <div class="conv-addr">${shortAddr(addr)}</div>
-        <div class="conv-st ${c.open?'on':'off'}">${c.open?'● online':'○ offline'}</div>
-      </div>
-      <div class="conv-prev">${escHtml(prev)}</div>
-      <button class="conv-hide" title="Hide chat" onclick="hideConv('${addr}',event)">✕</button>`;
+    d.onclick=()=>{selectConv(addr);closeSidebar();};
+    d.innerHTML=`<div class="conv-row"><div class="conv-addr">${shortAddr(addr)}</div><div class="conv-st ${c.open?'on':'off'}">${c.open?'● online':'○ offline'}</div></div><div class="conv-prev">${escHtml(prev)}</div><button class="conv-hide" title="Hide" onclick="hideConv('${addr}',event)">✕</button>`;
     el.appendChild(d);
   }
 }
 
-function updateEncBadge(encrypted){
-  const el=document.getElementById('chat-enc'); if(!el)return;
-  el.textContent=encrypted?'🔒 Encrypted':'⏳ Handshake pending';
-  el.className=encrypted?'':'pending';
-}
+function updateEncBadge(enc){const el=document.getElementById('chat-enc');if(!el)return;el.textContent=enc?'🔒 Encrypted':'⏳ Pending';el.className=enc?'':'pending';}
+function setNet(l,c){document.getElementById('net-lbl').textContent=l;document.getElementById('dot').className=c;}
+function copyAddr(){navigator.clipboard.writeText(myAddr).then(()=>toast('Address copied!'));}
 
-function setNet(label,cls){ document.getElementById('net-lbl').textContent=label; document.getElementById('dot').className=cls; }
-function copyAddr(){ navigator.clipboard.writeText(myAddr).then(()=>toast('Address copied!')); }
-
-// ─────────────────────────────────────────
-// MODAL HELPER
-// ─────────────────────────────────────────
-function openModal(html){
-  closeModal();
-  const bg=document.createElement('div');
-  bg.className='modal-bg'; bg.id='modal-bg';
-  bg.innerHTML=`<div class="modal">${html}</div>`;
-  bg.addEventListener('click',e=>{ if(e.target===bg) closeModal(); });
-  document.body.appendChild(bg);
-}
-function closeModal(){
-  const m=document.getElementById('modal-bg');
-  if(m){ stopScanner(); m.remove(); }
-}
-
-// ─────────────────────────────────────────
-// QR DISPLAY
-// ─────────────────────────────────────────
+// ── QR DISPLAY ────────────────────────────────────────────────
 function showQRDisplay(){
-  openModal(`
-    <button class="modal-close" onclick="closeModal()">✕</button>
-    <h2>📷 Your Address QR</h2>
-    <div id="qr-container"><div id="qrcode"></div></div>
-    <div id="qr-addr-label">${myAddr}</div>
-    <button class="pill-btn" style="width:100%;margin-top:14px" onclick="copyAddr();toast('Copied!')">📋 Copy Address</button>
-  `);
-  setTimeout(()=>{
-    new QRCode(document.getElementById('qrcode'),{
-      text: myAddr, width:180, height:180,
-      colorDark:'#000000', colorLight:'#ffffff',
-      correctLevel: QRCode.CorrectLevel.M
-    });
-  },50);
+  openModal(`<button class="modal-close" onclick="closeModal()">✕</button><h2>📷 Your Address QR</h2><div id="qr-container"><div id="qrcode"></div></div><div id="qr-addr-label">${myAddr}</div><button class="pill-btn" style="width:100%;margin-top:14px" onclick="copyAddr();toast('Copied!')">📋 Copy Address</button>`);
+  setTimeout(()=>new QRCode(document.getElementById('qrcode'),{text:myAddr,width:180,height:180,colorDark:'#000',colorLight:'#fff',correctLevel:QRCode.CorrectLevel.M}),50);
 }
 
-// ─────────────────────────────────────────
-// QR SCANNER
-// ─────────────────────────────────────────
-let scanStream=null, scanAnimFrame=null;
-
+// ── QR SCANNER ────────────────────────────────────────────────
+let scanStream=null,scanAF=null;
 function showScanner(){
-  openModal(`
-    <button class="modal-close" onclick="closeModal()">✕</button>
-    <h2>📷 Scan Peer Address</h2>
-    <div id="scanner-wrap">
-      <video id="scanner-video" autoplay playsinline muted></video>
-      <div id="scanner-overlay"><div class="scan-frame"></div></div>
-    </div>
-    <div id="scan-status">Point camera at a Cipher QR code…</div>
-  `);
+  openModal(`<button class="modal-close" onclick="closeModal()">✕</button><h2>📷 Scan Peer QR</h2><div id="scanner-wrap"><video id="scanner-video" autoplay playsinline muted></video><div id="scanner-overlay"><div class="scan-frame"></div></div></div><div id="scan-status">Point at a Cipher address QR…</div>`);
   startScanner();
 }
-
 async function startScanner(){
   try{
     scanStream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'environment'}});
-    const video=document.getElementById('scanner-video');
-    if(!video){ stopScanner(); return; }
-    video.srcObject=scanStream;
-    await video.play();
-    scanLoop(video);
-  }catch(e){
-    const st=document.getElementById('scan-status');
-    if(st) st.textContent='Camera access denied: '+e.message;
-  }
+    const v=document.getElementById('scanner-video');if(!v){stopScanner();return;}
+    v.srcObject=scanStream;await v.play();scanLoop(v);
+  }catch(e){const s=document.getElementById('scan-status');if(s)s.textContent='Camera error: '+e.message;}
 }
-
-function scanLoop(video){
-  const canvas=document.createElement('canvas');
-  const ctx=canvas.getContext('2d',{willReadFrequently:true});
+function scanLoop(v){
+  const c=document.createElement('canvas');const ctx=c.getContext('2d',{willReadFrequently:true});
   function tick(){
-    if(!document.getElementById('scanner-video')){ stopScanner(); return; }
-    if(video.readyState===video.HAVE_ENOUGH_DATA){
-      canvas.width=video.videoWidth; canvas.height=video.videoHeight;
-      ctx.drawImage(video,0,0);
-      try{
-        const img=ctx.getImageData(0,0,canvas.width,canvas.height);
-        const result=jsQR(img.data,img.width,img.height,{inversionAttempts:'dontInvert'});
-        if(result?.data){
-          const addr=result.data.trim();
-          // Basic validation: B58 chars only, reasonable length
-          if(/^[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{20,60}$/.test(addr)){
-            stopScanner(); closeModal();
-            document.getElementById('peer-input').value=addr;
-            toast('Address scanned! Click Connect to proceed.');
-            return;
-          }
-        }
+    if(!document.getElementById('scanner-video')){stopScanner();return;}
+    if(v.readyState===v.HAVE_ENOUGH_DATA){
+      c.width=v.videoWidth;c.height=v.videoHeight;ctx.drawImage(v,0,0);
+      try{const img=ctx.getImageData(0,0,c.width,c.height);const r=jsQR&&jsQR(img.data,img.width,img.height,{inversionAttempts:'dontInvert'});
+        if(r?.data){const addr=r.data.trim();if(/^[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{20,60}$/.test(addr)){stopScanner();closeModal();document.getElementById('peer-input').value=addr;toast('Address scanned! Tap Connect to proceed.');return;}}
       }catch(e){}
     }
-    scanAnimFrame=requestAnimationFrame(tick);
+    scanAF=requestAnimationFrame(tick);
   }
-  scanAnimFrame=requestAnimationFrame(tick);
+  scanAF=requestAnimationFrame(tick);
 }
+function stopScanner(){if(scanAF){cancelAnimationFrame(scanAF);scanAF=null;}if(scanStream){scanStream.getTracks().forEach(t=>t.stop());scanStream=null;}}
 
-function stopScanner(){
-  if(scanAnimFrame){ cancelAnimationFrame(scanAnimFrame); scanAnimFrame=null; }
-  if(scanStream){ scanStream.getTracks().forEach(t=>t.stop()); scanStream=null; }
-}
-
-// ─────────────────────────────────────────
-// SETTINGS MODAL
-// ─────────────────────────────────────────
+// ── SETTINGS MODAL ────────────────────────────────────────────
 function showSettings(){
   openModal(`
     <button class="modal-close" onclick="closeModal()">✕</button>
     <h2>⚙️ Settings</h2>
-    <div class="settings-section">Preferences</div>
     <div class="setting-row">
-      <div class="setting-info">
-        <div class="setting-label">Preserve Chat History</div>
-        <div class="setting-desc">Save messages to localStorage so they survive page refreshes. Only plaintext is stored — re-connecting re-establishes encryption.</div>
-      </div>
-      <label class="toggle">
-        <input type="checkbox" id="s-history" ${settings.preserveHistory?'checked':''} onchange="toggleSetting('preserveHistory',this.checked)">
-        <span class="toggle-slider"></span>
-      </label>
+      <div class="setting-info"><div class="setting-label">Preserve Chat History</div><div class="setting-desc">Save messages to localStorage. On reload, stored conversations auto-reconnect in the background.</div></div>
+      <label class="toggle"><input type="checkbox" ${settings.preserveHistory?'checked':''} onchange="toggleSetting('preserveHistory',this.checked)"><span class="toggle-slider"></span></label>
     </div>
     <div class="setting-row">
-      <div class="setting-info">
-        <div class="setting-label">Show Timestamps</div>
-        <div class="setting-desc">Display send time on each message bubble.</div>
-      </div>
-      <label class="toggle">
-        <input type="checkbox" id="s-ts" ${settings.showTimestamps?'checked':''} onchange="toggleSetting('showTimestamps',this.checked)">
-        <span class="toggle-slider"></span>
-      </label>
+      <div class="setting-info"><div class="setting-label">Show Timestamps</div><div class="setting-desc">Display send time on each message.</div></div>
+      <label class="toggle"><input type="checkbox" ${settings.showTimestamps?'checked':''} onchange="toggleSetting('showTimestamps',this.checked)"><span class="toggle-slider"></span></label>
     </div>
     <div class="setting-row">
-      <div class="setting-info">
-        <div class="setting-label">Compact Mode</div>
-        <div class="setting-desc">Reduce padding in the message list for a denser view.</div>
-      </div>
-      <label class="toggle">
-        <input type="checkbox" id="s-compact" ${settings.compactMode?'checked':''} onchange="toggleSetting('compactMode',this.checked)">
-        <span class="toggle-slider"></span>
-      </label>
+      <div class="setting-info"><div class="setting-label">Compact Mode</div><div class="setting-desc">Reduce padding for a denser message view.</div></div>
+      <label class="toggle"><input type="checkbox" ${settings.compactMode?'checked':''} onchange="toggleSetting('compactMode',this.checked)"><span class="toggle-slider"></span></label>
     </div>
-    <div class="settings-section" style="margin-top:16px">Danger Zone</div>
-    <button class="danger-btn" onclick="clearHistoryConfirm()">🗑 Clear Saved History</button>
-    <button class="danger-btn" style="margin-top:6px" onclick="regenKeys();closeModal()">🔄 Regenerate Identity</button>
+    <div class="settings-section">Danger Zone</div>
+    <button class="danger-btn" onclick="if(confirm('Clear all saved history?')){clearHistory();toast('History cleared.');}">🗑 Clear Saved History</button>
+    <button class="danger-btn" onclick="regenKeys();closeModal()">🔄 Regenerate Identity</button>
   `);
 }
-
 function toggleSetting(key,val){
-  settings[key]=val;
-  saveSettings();
-  if(key==='preserveHistory'){
-    if(val) saveHistory();
-    else clearHistory();
-    toast(val?'History will now be saved.':'History saving disabled. Existing history cleared.');
-  }
-  if(key==='showTimestamps'&&activeAddr) selectConv(activeAddr);
-  if(key==='compactMode'){
-    document.getElementById('msgs')?.querySelectorAll('.msg').forEach(m=>{
-      m.style.padding=val?'6px 10px':'9px 13px';
-    });
-  }
+  settings[key]=val;saveSettings();
+  if(key==='preserveHistory'){val?saveHistory():clearHistory();toast(val?'History saving enabled.':'History saving disabled.');}
+  if(key==='showTimestamps'&&activeAddr)selectConv(activeAddr);
+  if(key==='compactMode')document.querySelectorAll('.msg').forEach(m=>{m.style.padding=val?'6px 10px':'9px 13px';});
 }
 
-function clearHistoryConfirm(){
-  if(confirm('Delete all saved chat history from localStorage?')){ clearHistory(); toast('Saved history cleared.'); }
+// ── MODAL ─────────────────────────────────────────────────────
+function openModal(html){
+  closeModal();
+  const bg=document.createElement('div');bg.className='modal-bg';bg.id='modal-bg';
+  bg.innerHTML=`<div class="modal">${html}</div>`;
+  bg.addEventListener('click',e=>{if(e.target===bg)closeModal();});
+  document.body.appendChild(bg);
 }
+function closeModal(){stopScanner();document.getElementById('modal-bg')?.remove();}
 
-// ─────────────────────────────────────────
-// jsQR — minimal inline decoder
-// (loads from CDN dynamically since it's not on cdnjs)
-// ─────────────────────────────────────────
-(function loadJsQR(){
-  const s=document.createElement('script');
-  s.src='https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js';
-  document.head.appendChild(s);
-})();
+// ── jsQR ──────────────────────────────────────────────────────
+(()=>{const s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js';document.head.appendChild(s);})();
 
-// ─────────────────────────────────────────
-// GO
-// ─────────────────────────────────────────
-init().catch(e=>{ console.error(e); toast('Init error: '+e.message,5000); });
+// ── GO ────────────────────────────────────────────────────────
+init().catch(e=>{console.error(e);toast('Init error: '+e.message,5000);});
 </script>
 </body>
 </html>
