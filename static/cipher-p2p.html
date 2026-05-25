@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Cipher — ECC P2P Messenger</title>
+<title>Cipher</title>
 
 <!-- PWA / iOS -->
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -11,22 +11,11 @@
 <meta name="apple-mobile-web-app-title" content="Cipher">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#0d1117">
-<meta name="description" content="P2P end-to-end encrypted messenger using ECC cryptography">
+<meta name="description" content="P2P end-to-end encrypted messenger">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='40' fill='%230d1117'/%3E%3Ctext x='90' y='115' font-size='90' text-anchor='middle'%3E%F0%9F%94%90%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230d1117'/%3E%3Ctext x='32' y='46' font-size='36' text-anchor='middle'%3E%F0%9F%94%90%3C/text%3E%3C/svg%3E">
+<link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22Cipher%22%2C%22short_name%22%3A%22Cipher%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%230d1117%22%2C%22theme_color%22%3A%22%230d1117%22%7D">
 
-<!-- iOS touch icons (generated inline as SVG data URIs) -->
-<link rel="apple-touch-icon" sizes="180x180" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='40' fill='%230d1117'/%3E%3Ctext x='90' y='115' font-size='90' text-anchor='middle'%3E%F0%9F%94%90%3C/text%3E%3C/svg%3E">
-<link rel="apple-touch-icon" sizes="152x152" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 152 152'%3E%3Crect width='152' height='152' rx='34' fill='%230d1117'/%3E%3Ctext x='76' y='100' font-size='76' text-anchor='middle'%3E%F0%9F%94%90%3C/text%3E%3C/svg%3E">
-<link rel="apple-touch-icon" sizes="120x120" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Crect width='120' height='120' rx='27' fill='%230d1117'/%3E%3Ctext x='60' y='80' font-size='60' text-anchor='middle'%3E%F0%9F%94%90%3C/text%3E%3C/svg%3E">
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230d1117'/%3E%3Ctext x='32' y='46' font-size='36' text-anchor='middle'%3E%F0%9F%94%90%3C/text%3E%3C/svg%3E">
-
-<!-- iOS splash screens (iPhone 14 Pro, 12/13, SE, iPad) -->
-<link rel="apple-touch-startup-image" media="screen and (device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3)" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1179' height='2556'%3E%3Crect width='1179' height='2556' fill='%230d1117'/%3E%3Ctext x='590' y='1370' font-size='200' text-anchor='middle'%3E%F0%9F%94%90%3C/text%3E%3C/svg%3E">
-<link rel="apple-touch-startup-image" media="screen and (device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3)" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1170' height='2532'%3E%3Crect width='1170' height='2532' fill='%230d1117'/%3E%3Ctext x='585' y='1346' font-size='200' text-anchor='middle'%3E%F0%9F%94%90%3C/text%3E%3C/svg%3E">
-<link rel="apple-touch-startup-image" media="screen and (device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='750' height='1334'%3E%3Crect width='750' height='1334' fill='%230d1117'/%3E%3Ctext x='375' y='747' font-size='180' text-anchor='middle'%3E%F0%9F%94%90%3C/text%3E%3C/svg%3E">
-<link rel="apple-touch-startup-image" media="screen and (device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1536' height='2048'%3E%3Crect width='1536' height='2048' fill='%230d1117'/%3E%3Ctext x='768' y='1100' font-size='300' text-anchor='middle'%3E%F0%9F%94%90%3C/text%3E%3C/svg%3E">
-
-<!-- Web App Manifest (inline as data URI since this is a single file) -->
-<link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22Cipher%20%E2%80%94%20ECC%20P2P%20Messenger%22%2C%22short_name%22%3A%22Cipher%22%2C%22description%22%3A%22P2P%20end-to-end%20encrypted%20messenger%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%230d1117%22%2C%22theme_color%22%3A%22%230d1117%22%2C%22orientation%22%3A%22any%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22data%3Aimage%2Fsvg%2Bxml%2C%253Csvg%2520xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%2520viewBox%3D'0%25200%2520192%2520192'%253E%253Crect%2520width%3D'192'%2520height%3D'192'%2520rx%3D'40'%2520fill%3D'%25230d1117'%2F%253E%253Ctext%2520x%3D'96'%2520y%3D'130'%2520font-size%3D'110'%2520text-anchor%3D'middle'%253E%25F0%259F%2594%2590%253C%2Ftext%253E%253C%2Fsvg%253E%22%2C%22sizes%22%3A%22192x192%22%2C%22type%22%3A%22image%2Fsvg%2Bxml%22%7D%5D%7D">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/peerjs/1.5.4/peerjs.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <style>
@@ -35,16 +24,53 @@
   --bg:#0d1117;--bg2:#161b22;--bg3:#21262d;--border:#30363d;
   --text:#e6edf3;--dim:#8b949e;--accent:#58a6ff;
   --green:#3fb950;--red:#f85149;--yellow:#d29922;
-  --out:#1c3a5e;--in:#21262d;--sb:270px;
-  --safe-b:env(safe-area-inset-bottom,0px);
-  --safe-l:env(safe-area-inset-left,0px);
-  --safe-r:env(safe-area-inset-right,0px);
+  --out:#1c3a5e;--in:#21262d;--sb:270px;--nav:48px;
+  --st:env(safe-area-inset-top,0px);
+  --sb2:env(safe-area-inset-bottom,0px);
+  --sl:env(safe-area-inset-left,0px);
+  --sr:env(safe-area-inset-right,0px);
 }
-html,body{height:100%;height:-webkit-fill-available;overflow:hidden}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);display:flex;font-size:14px;position:relative}
+html{height:100%;height:-webkit-fill-available}
+body{
+  height:100%;height:-webkit-fill-available;
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  background:var(--bg);color:var(--text);
+  display:flex;flex-direction:column;font-size:14px;overflow:hidden;
+}
 
-/* SIDEBAR */
-#sidebar{width:var(--sb);flex-shrink:0;background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;height:100%;padding-left:var(--safe-l);transition:transform .25s ease}
+/* ── TOP NAV (mobile only) ─────────────────────────────────── */
+#top-nav{
+  display:none;flex-shrink:0;
+  background:var(--bg2);border-bottom:1px solid var(--border);
+  /* safe area for notch/dynamic island */
+  padding-top:var(--st);
+  padding-left:var(--sl);padding-right:var(--sr);
+  z-index:30;
+}
+#top-nav-inner{
+  height:var(--nav);display:flex;align-items:center;padding:0 4px;
+}
+.tn-side{width:72px;flex-shrink:0;display:flex;align-items:center}
+#tn-left{justify-content:flex-start}
+#tn-right{justify-content:flex-end}
+#tn-title{flex:1;font-size:16px;font-weight:700;text-align:center;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tn-icon-btn{background:none;border:none;color:var(--accent);font-size:18px;cursor:pointer;padding:8px 10px;line-height:1;display:flex;align-items:center;gap:3px;font-weight:600;font-family:inherit}
+#tn-dot{width:7px;height:7px;border-radius:50%;background:var(--yellow);margin-right:10px}
+#tn-dot.on{background:var(--green)}#tn-dot.err{background:var(--red)}
+#tn-enc{display:none;font-size:11px;padding:3px 7px;border-radius:4px;margin-right:6px}
+#tn-enc.ok{display:block;background:rgba(63,185,80,.15);color:var(--green)}
+#tn-enc.pend{display:block;background:rgba(210,153,34,.15);color:var(--yellow)}
+
+/* ── APP ROW ────────────────────────────────────────────────── */
+#app-row{flex:1;display:flex;min-height:0;overflow:hidden}
+
+/* ── SIDEBAR ────────────────────────────────────────────────── */
+#sidebar{
+  width:var(--sb);flex-shrink:0;background:var(--bg2);
+  border-right:1px solid var(--border);display:flex;flex-direction:column;
+  height:100%;padding-left:var(--sl);
+  transition:transform .25s cubic-bezier(.4,0,.2,1);
+}
 #sidebar-inner{display:flex;flex-direction:column;height:100%;overflow:hidden}
 #id-panel{padding:14px;border-bottom:1px solid var(--border);flex-shrink:0}
 #id-panel h2{font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px}
@@ -79,24 +105,63 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .conv-hide{position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--dim);font-size:14px;cursor:pointer;padding:4px 6px;opacity:0;transition:opacity .15s}
 .conv:hover .conv-hide,.conv.active .conv-hide{opacity:1}
 @media(pointer:coarse){.conv-hide{opacity:.5}}
-#sidebar-footer{padding:10px 14px;padding-bottom:calc(10px + var(--safe-b));border-top:1px solid var(--border);flex-shrink:0}
+#sidebar-footer{padding:10px 14px;padding-bottom:calc(10px + var(--sb2));border-top:1px solid var(--border);flex-shrink:0}
 #settings-btn{width:100%;background:var(--bg3);border:1px solid var(--border);color:var(--dim);border-radius:6px;padding:8px;font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:border-color .15s}
 #settings-btn:hover,#settings-btn:active{border-color:var(--accent);color:var(--text)}
-
-/* MOBILE */
-#menu-btn{display:none;position:absolute;top:12px;left:12px;z-index:50;background:var(--bg2);border:1px solid var(--border);color:var(--text);border-radius:8px;padding:7px 10px;font-size:16px;cursor:pointer;line-height:1}
 #sb-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:39;backdrop-filter:blur(2px)}
 
-/* MAIN */
-#main{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0;height:100%;padding-right:var(--safe-r)}
+/* ── MAIN ───────────────────────────────────────────────────── */
+#main{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0;min-height:0;padding-right:var(--sr)}
+
+/* ── HOME SCREEN ────────────────────────────────────────────── */
+#home{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;display:flex;flex-direction:column;min-height:0;padding-bottom:var(--sb2)}
+.home-hero{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px 20px 20px;text-align:center;gap:6px;flex-shrink:0}
+.home-hero-icon{font-size:44px;line-height:1;margin-bottom:4px}
+.home-hero h1{font-size:24px;font-weight:800;letter-spacing:-.3px}
+.home-hero p{font-size:12px;color:var(--dim)}
+.home-net{display:flex;align-items:center;gap:6px;margin-top:6px;background:var(--bg3);border:1px solid var(--border);border-radius:20px;padding:4px 12px;font-size:12px;color:var(--dim)}
+#home-dot{width:6px;height:6px;border-radius:50%;background:var(--yellow);flex-shrink:0}
+#home-dot.on{background:var(--green)}#home-dot.err{background:var(--red)}
+.home-section{padding:0 16px 8px;font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:.8px;flex-shrink:0}
+.home-convs{padding:0 12px;display:flex;flex-direction:column;gap:6px;flex-shrink:0}
+.hconv{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:12px 14px;cursor:pointer;display:flex;align-items:center;gap:12px;transition:border-color .15s;user-select:none}
+.hconv:hover,.hconv:active{border-color:var(--accent)}
+.hconv-dot{width:8px;height:8px;border-radius:50%;background:var(--border);flex-shrink:0}
+.hconv-dot.on{background:var(--green)}
+.hconv-body{flex:1;min-width:0}
+.hconv-addr{font-family:'Courier New',monospace;font-size:11.5px;color:var(--accent);margin-bottom:2px}
+.hconv-prev{font-size:12px;color:var(--dim);overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.hconv-right{display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0}
+.hconv-enc{font-size:13px}
+.hconv-ts{font-size:10px;color:var(--dim)}
+.home-id{margin:16px 12px 0;background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:14px;flex-shrink:0}
+.home-id-lbl{font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px}
+.home-id-addr{font-family:'Courier New',monospace;font-size:11px;color:var(--accent);word-break:break-all;line-height:1.5;margin-bottom:10px;padding:8px;background:var(--bg3);border-radius:6px;cursor:pointer}
+.home-id-btns{display:flex;gap:8px}
+.home-id-btn{flex:1;background:var(--bg3);border:1px solid var(--border);color:var(--text);border-radius:8px;padding:8px;font-size:12px;cursor:pointer;text-align:center;transition:border-color .15s}
+.home-id-btn:hover,.home-id-btn:active{border-color:var(--accent);color:var(--accent)}
+.home-actions{padding:16px 12px;display:flex;flex-direction:column;gap:8px;flex-shrink:0}
+.home-cta{width:100%;background:var(--accent);color:#000;border:none;border-radius:12px;padding:14px;font-size:15px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px}
+.home-cta:active{opacity:.85}
+.home-sec-btn{width:100%;background:var(--bg2);border:1px solid var(--border);color:var(--text);border-radius:12px;padding:12px;font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:border-color .15s}
+.home-sec-btn:hover,.home-sec-btn:active{border-color:var(--accent);color:var(--accent)}
+.home-empty-state{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px;color:var(--dim);gap:8px;min-height:80px}
+.home-empty-state p{font-size:13px;line-height:1.5}
+
+/* ── DESKTOP EMPTY ──────────────────────────────────────────── */
+#desk-empty{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px;color:var(--dim);gap:12px}
+#desk-empty .lock{font-size:52px;margin-bottom:4px}
+#desk-empty h1{font-size:22px;color:var(--text)}
+#desk-empty .stack{font-family:'Courier New',monospace;font-size:11px;margin-top:6px;line-height:1.8}
+
+/* ── CHAT ───────────────────────────────────────────────────── */
 #chat-head{padding:12px 16px;border-bottom:1px solid var(--border);background:var(--bg2);display:flex;align-items:center;gap:10px;flex-shrink:0}
-#chat-head-back{display:none;background:none;border:none;color:var(--accent);font-size:18px;cursor:pointer;padding:2px 6px 2px 0;line-height:1}
 #chat-peer{font-family:'Courier New',monospace;font-size:11px;color:var(--accent);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;min-width:0}
 #chat-enc{font-size:11px;flex-shrink:0;padding:3px 8px;border-radius:4px;background:rgba(63,185,80,.15);color:var(--green)}
 #chat-enc.pending{background:rgba(210,153,34,.15);color:var(--yellow)}
 #msgs{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:16px;display:flex;flex-direction:column;gap:6px;min-height:0}
 
-/* MSG WRAP */
+/* ── MSG WRAP ───────────────────────────────────────────────── */
 .msg-wrap{display:flex;flex-direction:column;gap:2px;max-width:82%}
 .msg-wrap.out{align-self:flex-end;align-items:flex-end}
 .msg-wrap.in{align-self:flex-start;align-items:flex-start}
@@ -105,8 +170,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 @media(pointer:coarse){.msg-actions{opacity:.55}}
 .act-btn{background:var(--bg2);border:1px solid var(--border);color:var(--dim);border-radius:5px;padding:2px 7px;font-size:11px;cursor:pointer;line-height:1.6;transition:border-color .12s}
 .act-btn:hover,.act-btn:active{border-color:var(--accent);color:var(--text)}
-
-/* BUBBLE */
 .msg{padding:9px 13px;border-radius:12px;line-height:1.45;word-break:break-word}
 .msg.out{background:var(--out);border-bottom-right-radius:3px}
 .msg.in{background:var(--in);border:1px solid var(--border);border-bottom-left-radius:3px}
@@ -118,19 +181,13 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .edited-lbl{font-size:10px;color:var(--dim);text-decoration:underline dotted;cursor:pointer}
 .edited-lbl:hover{color:var(--accent)}
 .deleted-text{color:var(--dim);font-style:italic}
-
-/* REACTIONS */
-.msg-reactions{display:flex;flex-wrap:wrap;gap:3px;min-height:0}
+.msg-reactions{display:flex;flex-wrap:wrap;gap:3px}
 .r-pill{background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:2px 8px;font-size:12px;cursor:pointer;display:flex;align-items:center;gap:2px;transition:border-color .1s;user-select:none;line-height:1.5}
 .r-pill.mine{border-color:var(--accent);background:rgba(88,166,255,.1)}
 .r-pill:hover,.r-pill:active{border-color:var(--accent)}
-
-/* REACTION PICKER */
 #react-picker{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:6px 8px;display:flex;gap:2px;position:fixed;z-index:200;box-shadow:0 4px 24px rgba(0,0,0,.6)}
 #react-picker button{background:none;border:none;font-size:22px;cursor:pointer;padding:3px 5px;border-radius:7px;line-height:1;transition:background .1s}
 #react-picker button:hover,#react-picker button:active{background:var(--bg3)}
-
-/* EDIT */
 .edit-ta{width:100%;background:var(--bg);border:1px solid var(--accent);border-radius:6px;padding:7px 10px;color:var(--text);font-size:14px;font-family:inherit;resize:none;outline:none;min-height:54px;line-height:1.4}
 .edit-row{display:flex;gap:6px;margin-top:6px;justify-content:flex-end}
 .edit-hist-scroll{display:flex;flex-direction:column;gap:6px;max-height:260px;overflow-y:auto}
@@ -138,30 +195,29 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .edit-hist-item.cur{border-color:var(--accent)}
 .edit-hist-ts{font-size:10px;color:var(--dim);margin-bottom:3px}
 .edit-hist-txt{font-size:13px;word-break:break-word;white-space:pre-wrap}
+.sys-msg{text-align:center;font-size:11px;color:var(--dim);padding:2px 0}
 
-/* INPUT */
-#input-wrap{padding:10px 14px;padding-bottom:calc(10px + var(--safe-b));border-top:1px solid var(--border);background:var(--bg2);display:flex;gap:8px;align-items:flex-end;flex-shrink:0}
+/* ── INPUT ──────────────────────────────────────────────────── */
+#input-wrap{
+  padding:10px 14px;
+  padding-bottom:calc(10px + var(--sb2));
+  padding-right:calc(14px + var(--sr));
+  border-top:1px solid var(--border);background:var(--bg2);
+  display:flex;gap:8px;align-items:flex-end;flex-shrink:0;
+}
 #msg-in{flex:1;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:9px 12px;color:var(--text);font-size:15px;outline:none;resize:none;max-height:120px;overflow-y:auto;font-family:inherit;line-height:1.4;-webkit-appearance:none;min-width:0}
 #msg-in:focus{border-color:var(--accent)}
 #msg-in::placeholder{color:var(--dim)}
 #send-btn{background:var(--accent);border:none;border-radius:8px;padding:9px 14px;color:#000;font-weight:700;cursor:pointer;font-size:13px;white-space:nowrap;flex-shrink:0;height:40px;display:flex;align-items:center}
 #send-btn:active{opacity:.8}
-
-/* RECONNECT BAR */
 #reconnect-bar{padding:8px 16px;background:rgba(210,153,34,.12);border-bottom:1px solid rgba(210,153,34,.25);display:flex;align-items:center;justify-content:space-between;gap:10px;flex-shrink:0}
 #reconnect-bar span{font-size:12px;color:var(--yellow)}
 #reconnect-bar button{background:var(--yellow);color:#000;border:none;border-radius:5px;padding:5px 10px;font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap}
 
-/* EMPTY */
-#empty{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:var(--dim);text-align:center;padding:24px}
-#empty .lock{font-size:48px;margin-bottom:4px}
-#empty h1{font-size:22px;color:var(--text)}
-#empty .stack{font-family:'Courier New',monospace;font-size:11px;margin-top:6px;line-height:1.8}
-.sys-msg{text-align:center;font-size:11px;color:var(--dim);padding:2px 0}
-
-/* MODAL */
-.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.7);display:flex;align-items:center;justify-content:center;z-index:200;backdrop-filter:blur(4px);padding:16px}
-.modal{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:22px;width:100%;max-width:360px;position:relative;max-height:90vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
+/* ── MODAL ──────────────────────────────────────────────────── */
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.7);display:flex;align-items:flex-end;justify-content:center;z-index:200;backdrop-filter:blur(4px);padding:0}
+.modal{background:var(--bg2);border:1px solid var(--border);border-radius:16px 16px 0 0;padding:22px;padding-bottom:calc(22px + var(--sb2));width:100%;max-width:480px;position:relative;max-height:92vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.modal-handle{width:36px;height:4px;background:var(--border);border-radius:2px;margin:0 auto 18px}
 .modal h2{font-size:15px;margin-bottom:16px;display:flex;align-items:center;gap:8px}
 .modal-close{position:absolute;top:14px;right:14px;background:none;border:none;color:var(--dim);font-size:20px;cursor:pointer;line-height:1;padding:2px 6px}
 #qr-container{display:flex;justify-content:center;margin:8px 0 14px;background:#fff;padding:12px;border-radius:8px}
@@ -185,18 +241,28 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .settings-section{font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:.8px;margin:14px 0 8px}
 .danger-btn{width:100%;background:rgba(248,81,73,.1);border:1px solid rgba(248,81,73,.3);color:var(--red);border-radius:6px;padding:9px;font-size:12px;cursor:pointer;margin-top:6px;text-align:center}
 .danger-btn:hover,.danger-btn:active{background:rgba(248,81,73,.2)}
-
-#toast{position:fixed;bottom:calc(20px + var(--safe-b));right:16px;left:16px;background:var(--bg3);border:1px solid var(--border);padding:9px 14px;border-radius:7px;font-size:12px;opacity:0;transition:opacity .25s;pointer-events:none;z-index:999;text-align:center;max-width:400px;margin:0 auto}
+#toast{position:fixed;bottom:calc(24px + var(--sb2));right:16px;left:16px;background:var(--bg3);border:1px solid var(--border);padding:10px 16px;border-radius:10px;font-size:13px;opacity:0;transition:opacity .25s;pointer-events:none;z-index:999;text-align:center;max-width:400px;margin:0 auto;font-weight:500}
 #toast.show{opacity:1}
 
+/* ── MOBILE BREAKPOINT ──────────────────────────────────────── */
 @media(max-width:640px){
-  #sidebar{position:fixed;top:0;left:0;bottom:0;z-index:40;transform:translateX(-100%);width:min(var(--sb),85vw)}
-  #sidebar.open{transform:translateX(0)}
+  #top-nav{display:block}
+  #sidebar{
+    position:fixed;top:0;left:0;bottom:0;z-index:50;
+    transform:translateX(-100%);width:min(var(--sb),88vw);
+    /* safe area handled inside sidebar content */
+    padding-top:0;
+  }
+  #id-panel{padding-top:calc(14px + var(--st))} /* push content below notch */
+  #sidebar.open{transform:translateX(0);box-shadow:4px 0 24px rgba(0,0,0,.5)}
   #sb-overlay.show{display:block}
-  #menu-btn{display:flex;align-items:center;justify-content:center}
-  #chat-head{padding-left:52px}
-  #chat-head-back{display:block}
-  .conv-hide{opacity:.45}
+  #chat-head{display:none} /* shown in top-nav instead */
+  .modal-bg{align-items:flex-end}
+}
+@media(min-width:641px){
+  .modal-bg{align-items:center;padding:16px}
+  .modal{border-radius:12px;max-width:380px;padding-bottom:22px}
+  .modal-handle{display:none}
 }
 ::-webkit-scrollbar{width:4px}
 ::-webkit-scrollbar-track{background:transparent}
@@ -205,40 +271,49 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 </head>
 <body>
 
-<button id="menu-btn" onclick="toggleSidebar()">☰</button>
-<div id="sb-overlay" onclick="closeSidebar()"></div>
-
-<div id="sidebar">
- <div id="sidebar-inner">
-  <div id="id-panel">
-   <h2>Your Address</h2>
-   <div id="addr-box" onclick="copyAddr()"><div id="my-addr">Generating keys…</div></div>
-   <div id="net-row"><div id="dot"></div><span id="net-lbl">Initializing…</span></div>
-   <div id="id-actions">
-    <button class="pill-btn" onclick="copyAddr()">📋 Copy</button>
-    <button class="pill-btn" onclick="showQRDisplay()">📷 QR</button>
-    <button class="pill-btn" onclick="regenKeys()">🔄 New ID</button>
-   </div>
+<!-- Mobile top nav -->
+<div id="top-nav">
+  <div id="top-nav-inner">
+    <div class="tn-side" id="tn-left">
+      <button class="tn-icon-btn" id="tn-menu-btn" onclick="toggleSidebar()">☰</button>
+    </div>
+    <div id="tn-title">Cipher</div>
+    <div class="tn-side" id="tn-right">
+      <div id="tn-enc"></div>
+      <div id="tn-dot"></div>
+    </div>
   </div>
-  <div id="connect-panel">
-   <h3>New Chat</h3>
-   <input id="peer-input" placeholder="Paste peer address…" autocomplete="off" autocorrect="off" spellcheck="false"/>
-   <div id="conn-row">
-    <button id="conn-btn" onclick="connectToPeer()">Connect →</button>
-    <button id="scan-btn" onclick="showScanner()">📷</button>
-   </div>
-  </div>
-  <div id="conv-list"></div>
-  <div id="sidebar-footer"><button id="settings-btn" onclick="showSettings()">⚙️ Settings</button></div>
- </div>
 </div>
 
-<div id="main">
- <div id="empty">
-  <div class="lock">🔐</div><h1>Cipher</h1>
-  <p>P2P encrypted messenger.<br>Share your address to start a conversation.</p>
-  <div class="stack">ECDH P-256 · ECDSA P-256 · AES-256-GCM · Base58Check</div>
+<div id="sb-overlay" onclick="closeSidebar()"></div>
+
+<div id="app-row">
+ <div id="sidebar">
+  <div id="sidebar-inner">
+   <div id="id-panel">
+    <h2>Your Address</h2>
+    <div id="addr-box" onclick="copyAddr()"><div id="my-addr">Generating keys…</div></div>
+    <div id="net-row"><div id="dot"></div><span id="net-lbl">Initializing…</span></div>
+    <div id="id-actions">
+     <button class="pill-btn" onclick="copyAddr()">📋 Copy</button>
+     <button class="pill-btn" onclick="showQRDisplay()">📷 QR</button>
+     <button class="pill-btn" onclick="regenKeys()">🔄 New ID</button>
+    </div>
+   </div>
+   <div id="connect-panel">
+    <h3>New Chat</h3>
+    <input id="peer-input" placeholder="Paste peer address…" autocomplete="off" autocorrect="off" spellcheck="false"/>
+    <div id="conn-row">
+     <button id="conn-btn" onclick="connectToPeer()">Connect →</button>
+     <button id="scan-btn" onclick="showScanner()">📷</button>
+    </div>
+   </div>
+   <div id="conv-list"></div>
+   <div id="sidebar-footer"><button id="settings-btn" onclick="showSettings()">⚙️ Settings</button></div>
+  </div>
  </div>
+
+ <div id="main"></div>
 </div>
 
 <div id="toast"></div>
@@ -248,14 +323,16 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 const buf2b64=b=>btoa(String.fromCharCode(...new Uint8Array(b)));
 const b642buf=s=>{const b=atob(s),u=new Uint8Array(b.length);for(let i=0;i<b.length;i++)u[i]=b.charCodeAt(i);return u;};
 const ts2time=t=>{const d=new Date(t);return String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');};
+const ts2date=t=>{const d=new Date(t);const today=new Date();if(d.toDateString()===today.toDateString())return ts2time(t);const yesterday=new Date(today);yesterday.setDate(today.getDate()-1);if(d.toDateString()===yesterday.toDateString())return'Yesterday';return d.toLocaleDateString(undefined,{month:'short',day:'numeric'});};
 const shortAddr=a=>a.slice(0,8)+'…'+a.slice(-5);
 const escHtml=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 function genId(){return Array.from(crypto.getRandomValues(new Uint8Array(8))).map(b=>b.toString(16).padStart(2,'0')).join('');}
+const isMobile=()=>window.innerWidth<=640;
 
 let toastT;
 function toast(m,d=2800){const el=document.getElementById('toast');el.textContent=m;el.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>el.classList.remove('show'),d);}
 
-// ── MOBILE ────────────────────────────────────────────────────
+// ── MOBILE SIDEBAR ────────────────────────────────────────────
 function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('sb-overlay').classList.toggle('show');}
 function closeSidebar(){document.getElementById('sidebar').classList.remove('open');document.getElementById('sb-overlay').classList.remove('show');}
 
@@ -267,52 +344,14 @@ function saveSettings(){localStorage.setItem('cipher_settings',JSON.stringify(se
 
 // ── BASE58CHECK ───────────────────────────────────────────────
 const B58='123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
-function b58Enc(bytes){
-  let z=0;for(const b of bytes){if(b!==0)break;z++;}
-  let n=0n;for(const b of bytes)n=(n<<8n)|BigInt(b);
-  let s='';while(n>0n){s=B58[Number(n%58n)]+s;n/=58n;}
-  return '1'.repeat(z)+s;
-}
-function b58Dec(str){
-  let z=0;for(const c of str){if(c!=='1')break;z++;}
-  let n=0n;for(const c of str){const i=B58.indexOf(c);if(i<0)throw new Error('Bad B58');n=n*58n+BigInt(i);}
-  const out=[];while(n>0n){out.unshift(Number(n&0xffn));n>>=8n;}
-  return new Uint8Array([...Array(z).fill(0),...out]);
-}
-async function b58CheckEnc(ver,payload){
-  const data=new Uint8Array(1+payload.length);data[0]=ver;data.set(payload,1);
-  const h1=new Uint8Array(await crypto.subtle.digest('SHA-256',data));
-  const h2=new Uint8Array(await crypto.subtle.digest('SHA-256',h1));
-  const full=new Uint8Array(data.length+4);full.set(data);full.set(h2.slice(0,4),data.length);
-  return b58Enc(full);
-}
+function b58Enc(bytes){let z=0;for(const b of bytes){if(b!==0)break;z++;}let n=0n;for(const b of bytes)n=(n<<8n)|BigInt(b);let s='';while(n>0n){s=B58[Number(n%58n)]+s;n/=58n;}return '1'.repeat(z)+s;}
+function b58Dec(str){let z=0;for(const c of str){if(c!=='1')break;z++;}let n=0n;for(const c of str){const i=B58.indexOf(c);if(i<0)throw new Error('Bad B58');n=n*58n+BigInt(i);}const out=[];while(n>0n){out.unshift(Number(n&0xffn));n>>=8n;}return new Uint8Array([...Array(z).fill(0),...out]);}
+async function b58CheckEnc(ver,payload){const data=new Uint8Array(1+payload.length);data[0]=ver;data.set(payload,1);const h1=new Uint8Array(await crypto.subtle.digest('SHA-256',data));const h2=new Uint8Array(await crypto.subtle.digest('SHA-256',h1));const full=new Uint8Array(data.length+4);full.set(data);full.set(h2.slice(0,4),data.length);return b58Enc(full);}
 
 // ── CRYPTO ────────────────────────────────────────────────────
-async function genKeys(){
-  const [ecdh,ecdsa]=await Promise.all([
-    crypto.subtle.generateKey({name:'ECDH',namedCurve:'P-256'},true,['deriveKey']),
-    crypto.subtle.generateKey({name:'ECDSA',namedCurve:'P-256'},true,['sign','verify']),
-  ]);
-  return {ecdh,ecdsa};
-}
-async function exportKeys(keys){
-  const [ep,epu,sp,spu]=await Promise.all([
-    crypto.subtle.exportKey('jwk',keys.ecdh.privateKey),
-    crypto.subtle.exportKey('spki',keys.ecdh.publicKey),
-    crypto.subtle.exportKey('jwk',keys.ecdsa.privateKey),
-    crypto.subtle.exportKey('spki',keys.ecdsa.publicKey),
-  ]);
-  return {ep,epu:buf2b64(epu),sp,spu:buf2b64(spu)};
-}
-async function importKeys(s){
-  const [ep,epu,sp,spu]=await Promise.all([
-    crypto.subtle.importKey('jwk',s.ep,{name:'ECDH',namedCurve:'P-256'},true,['deriveKey']),
-    crypto.subtle.importKey('spki',b642buf(s.epu),{name:'ECDH',namedCurve:'P-256'},true,[]),
-    crypto.subtle.importKey('jwk',s.sp,{name:'ECDSA',namedCurve:'P-256'},true,['sign']),
-    crypto.subtle.importKey('spki',b642buf(s.spu),{name:'ECDSA',namedCurve:'P-256'},true,['verify']),
-  ]);
-  return {ecdh:{privateKey:ep,publicKey:epu},ecdsa:{privateKey:sp,publicKey:spu}};
-}
+async function genKeys(){const [ecdh,ecdsa]=await Promise.all([crypto.subtle.generateKey({name:'ECDH',namedCurve:'P-256'},true,['deriveKey']),crypto.subtle.generateKey({name:'ECDSA',namedCurve:'P-256'},true,['sign','verify'])]);return {ecdh,ecdsa};}
+async function exportKeys(keys){const [ep,epu,sp,spu]=await Promise.all([crypto.subtle.exportKey('jwk',keys.ecdh.privateKey),crypto.subtle.exportKey('spki',keys.ecdh.publicKey),crypto.subtle.exportKey('jwk',keys.ecdsa.privateKey),crypto.subtle.exportKey('spki',keys.ecdsa.publicKey)]);return {ep,epu:buf2b64(epu),sp,spu:buf2b64(spu)};}
+async function importKeys(s){const [ep,epu,sp,spu]=await Promise.all([crypto.subtle.importKey('jwk',s.ep,{name:'ECDH',namedCurve:'P-256'},true,['deriveKey']),crypto.subtle.importKey('spki',b642buf(s.epu),{name:'ECDH',namedCurve:'P-256'},true,[]),crypto.subtle.importKey('jwk',s.sp,{name:'ECDSA',namedCurve:'P-256'},true,['sign']),crypto.subtle.importKey('spki',b642buf(s.spu),{name:'ECDSA',namedCurve:'P-256'},true,['verify'])]);return {ecdh:{privateKey:ep,publicKey:epu},ecdsa:{privateKey:sp,publicKey:spu}};}
 async function deriveAddr(pub){const raw=await crypto.subtle.exportKey('raw',pub);const h=new Uint8Array(await crypto.subtle.digest('SHA-256',raw));return b58CheckEnc(0x01,h.slice(0,20));}
 async function impECDH(b){return crypto.subtle.importKey('spki',b642buf(b),{name:'ECDH',namedCurve:'P-256'},true,[]);}
 async function impECDSA(b){return crypto.subtle.importKey('spki',b642buf(b),{name:'ECDSA',namedCurve:'P-256'},true,['verify']);}
@@ -325,7 +364,6 @@ async function verify(pub,d,sig){return crypto.subtle.verify({name:'ECDSA',hash:
 // ── STATE ─────────────────────────────────────────────────────
 let myKeys=null,myAddr='',myPub=null;
 let peer=null;
-// conv: {conn,aesKey,ecdsaPub,msgs[],open,hidden,pingTimer,lastPong}
 let convs={};
 let activeAddr=null;
 let hasCam=false;
@@ -343,7 +381,7 @@ function loadHistory(){
   try{
     const raw=localStorage.getItem('cipher_history');if(!raw)return;
     for(const [a,d] of Object.entries(JSON.parse(raw))){
-      const msgs=(d.msgs||[]).map(m=>({reactions:{},editHistory:[],...m}));
+      const msgs=(d.msgs||[]).map(m=>({...m,id:m.id||genId(),text:m.text||'',sigOk:m.sigOk!==false,reactions:m.reactions||{},editHistory:m.editHistory||[],deleted:!!m.deleted}));
       convs[a]={conn:null,aesKey:null,ecdsaPub:null,msgs,open:false,hidden:d.hidden||false,pingTimer:null,lastPong:0};
     }
   }catch(e){console.warn('History load:',e);}
@@ -362,12 +400,11 @@ async function init(){
   document.getElementById('my-addr').textContent=myAddr;
   if(settings.preserveHistory)loadHistory();
   if(navigator.mediaDevices?.enumerateDevices){
-    navigator.mediaDevices.enumerateDevices().then(devs=>{
-      hasCam=devs.some(d=>d.kind==='videoinput');
-      if(hasCam)document.getElementById('scan-btn').classList.add('visible');
-    }).catch(()=>{});
+    navigator.mediaDevices.enumerateDevices().then(devs=>{hasCam=devs.some(d=>d.kind==='videoinput');if(hasCam)document.getElementById('scan-btn').classList.add('visible');}).catch(()=>{});
   }
+  initViewportHandler();
   renderConvList();
+  showHome();
   initPeer();
 }
 async function persistKeys(){const ex=await exportKeys(myKeys);localStorage.setItem('cipher_v2',JSON.stringify(ex));}
@@ -376,36 +413,53 @@ async function regenKeys(){
   localStorage.removeItem('cipher_v2');clearHistory();
   if(peer&&!peer.destroyed)peer.destroy();
   for(const a of Object.keys(convs))stopHeartbeat(a);
-  convs={};activeAddr=null;renderConvList();showEmpty();myKeys=null;
+  convs={};activeAddr=null;renderConvList();myKeys=null;
   await init();toast('New identity generated.');
 }
 
-// ── HEARTBEAT ─────────────────────────────────────────────────
-const PING_INTERVAL=6000, PING_TIMEOUT=14000;
+// ── VIEWPORT / KEYBOARD ───────────────────────────────────────
+function initViewportHandler(){
+  const vv=window.visualViewport;if(!vv)return;
+  vv.addEventListener('resize',()=>{
+    const msgs=document.getElementById('msgs');
+    if(msgs)setTimeout(()=>msgs.scrollTop=msgs.scrollHeight,80);
+  });
+}
 
+// ── TOP NAV HELPERS ───────────────────────────────────────────
+function setTopNavHome(){
+  document.getElementById('tn-left').innerHTML=`<button class="tn-icon-btn" onclick="toggleSidebar()">☰</button>`;
+  document.getElementById('tn-title').textContent='Cipher';
+  const enc=document.getElementById('tn-enc');enc.className='';enc.textContent='';
+}
+function setTopNavChat(addr,isEnc){
+  document.getElementById('tn-left').innerHTML=`<button class="tn-icon-btn" onclick="goBack()">‹ Back</button>`;
+  document.getElementById('tn-title').textContent=shortAddr(addr);
+  const enc=document.getElementById('tn-enc');
+  enc.className=isEnc?'ok':'pend';
+  enc.textContent=isEnc?'🔒':'⏳';
+}
+
+// ── HEARTBEAT ─────────────────────────────────────────────────
+const PING_IV=6000,PING_TO=14000;
 function startHeartbeat(addr){
-  stopHeartbeat(addr);
-  const c=convs[addr];if(!c)return;
+  stopHeartbeat(addr);const c=convs[addr];if(!c)return;
   c.lastPong=Date.now();
   c.pingTimer=setInterval(()=>{
     const c=convs[addr];if(!c)return;
-    if(Date.now()-c.lastPong>PING_TIMEOUT){markOffline(addr,true);return;}
-    if(c.conn?.open){try{c.conn.send({type:'ping'});}catch(e){markOffline(addr,true);}}
-  },PING_INTERVAL);
+    if(Date.now()-c.lastPong>PING_TO){markOffline(addr,true);return;}
+    if(c.conn?.open)try{c.conn.send({type:'ping'});}catch(e){markOffline(addr,true);}
+  },PING_IV);
 }
-
-function stopHeartbeat(addr){
-  const c=convs[addr];
-  if(c?.pingTimer){clearInterval(c.pingTimer);c.pingTimer=null;}
-}
-
+function stopHeartbeat(addr){const c=convs[addr];if(c?.pingTimer){clearInterval(c.pingTimer);c.pingTimer=null;}}
 function markOffline(addr,timeout=false){
   const c=convs[addr];if(!c||!c.open)return;
-  stopHeartbeat(addr);
-  c.open=false;c.conn=null;c.aesKey=null;c.ecdsaPub=null;
+  stopHeartbeat(addr);c.open=false;c.conn=null;c.aesKey=null;c.ecdsaPub=null;
   sysMsg(addr,timeout?'Connection timed out — peer may have closed their tab.':'Connection closed.');
   renderConvList();
   if(activeAddr===addr){updateEncBadge(false);showReconnectBar(addr);}
+  // Refresh home if visible
+  if(!activeAddr)showHome();
 }
 
 // ── PEER ──────────────────────────────────────────────────────
@@ -415,29 +469,21 @@ function initPeer(){
   peer.on('open',()=>{setNet('Online','on');autoReconnect();});
   peer.on('connection',conn=>setupConn(conn));
   peer.on('error',err=>{
-    if(err.type==='unavailable-id'){
-      toast('Address conflict — regenerating…',4000);
-      localStorage.removeItem('cipher_v2');peer.destroy();
-      setTimeout(async()=>{myKeys=await genKeys();await persistKeys();myAddr=await deriveAddr(myKeys.ecdh.publicKey);document.getElementById('my-addr').textContent=myAddr;initPeer();},500);
-    }else if(err.type==='peer-unavailable'){toast('Peer not found or offline.');}
+    if(err.type==='unavailable-id'){toast('Address conflict — regenerating…',4000);localStorage.removeItem('cipher_v2');peer.destroy();setTimeout(async()=>{myKeys=await genKeys();await persistKeys();myAddr=await deriveAddr(myKeys.ecdh.publicKey);document.getElementById('my-addr').textContent=myAddr;initPeer();},500);}
+    else if(err.type==='peer-unavailable')toast('Peer not found or offline.');
     else{setNet(err.type,'err');toast('Network: '+err.type);}
   });
   peer.on('disconnected',()=>{setNet('Disconnected','err');setTimeout(()=>{if(peer&&!peer.destroyed)peer.reconnect();},4000);});
 }
-
 function autoReconnect(){
   if(!settings.preserveHistory)return;
-  for(const [addr,c] of Object.entries(convs)){
+  for(const [addr,c] of Object.entries(convs))
     if(!c.hidden&&!c.open)setTimeout(()=>attemptReconnect(addr),400+Math.random()*600);
-  }
 }
-
 function attemptReconnect(addr){
   if(!peer||peer.destroyed||convs[addr]?.open)return;
-  const conn=peer.connect(addr,{reliable:true,serialization:'json'});
-  setupConn(conn,true);
+  setupConn(peer.connect(addr,{reliable:true,serialization:'json'}),true);
 }
-
 function connectToPeer(){
   const addr=document.getElementById('peer-input').value.trim();
   if(!addr)return toast('Enter a peer address');
@@ -445,37 +491,33 @@ function connectToPeer(){
   if(convs[addr]?.open){selectConv(addr);closeSidebar();return;}
   if(convs[addr])convs[addr].hidden=false;
   document.getElementById('peer-input').value='';
-  const conn=peer.connect(addr,{reliable:true,serialization:'json'});
-  setupConn(conn);closeSidebar();
+  setupConn(peer.connect(addr,{reliable:true,serialization:'json'}));
+  closeSidebar();
 }
-
 function setupConn(conn,isAuto=false){
   const addr=conn.peer;
   if(!convs[addr])convs[addr]={conn:null,aesKey:null,ecdsaPub:null,msgs:[],open:false,hidden:false,pingTimer:null,lastPong:0};
   else if(!isAuto)convs[addr].hidden=false;
-
   conn.on('open',async()=>{
-    convs[addr].conn=conn;convs[addr].open=true;
-    startHeartbeat(addr);
+    convs[addr].conn=conn;convs[addr].open=true;startHeartbeat(addr);
     sysMsg(addr,'Connection established — performing handshake…');
     conn.send({type:'hs',epu:myPub.epu,spu:myPub.spu});
     renderConvList();
     if(!activeAddr||activeAddr===addr)selectConv(addr);
+    else if(!activeAddr)showHome(); // refresh home
   });
   conn.on('data',data=>handleData(addr,conn,data));
-  conn.on('close',()=>{markOffline(addr,false);});
+  conn.on('close',()=>markOffline(addr,false));
   conn.on('error',e=>{stopHeartbeat(addr);sysMsg(addr,'Error: '+e.message);});
 }
-
 async function handleData(addr,conn,data){
   const c=convs[addr];if(!c)return;
   if(data.type==='ping'){if(conn.open)try{conn.send({type:'pong'});}catch(e){}return;}
   if(data.type==='pong'){c.lastPong=Date.now();return;}
   if(data.type==='hs'){
     try{
-      const ep=await impECDH(data.epu);
       c.ecdsaPub=await impECDSA(data.spu);
-      c.aesKey=await mkShared(myKeys.ecdh.privateKey,ep);
+      c.aesKey=await mkShared(myKeys.ecdh.privateKey,await impECDH(data.epu));
       sysMsg(addr,'🔒 End-to-end encrypted channel established.');
       renderConvList();
       if(activeAddr===addr){updateEncBadge(true);removeReconnectBar();}
@@ -487,15 +529,12 @@ async function handleData(addr,conn,data){
 
 // ── SECURE ENVELOPE ───────────────────────────────────────────
 async function sendSecure(addr,payload){
-  const c=convs[addr];
-  if(!c?.conn?.open||!c?.aesKey)return false;
-  const json=JSON.stringify(payload);
-  const ts=Date.now();
+  const c=convs[addr];if(!c?.conn?.open||!c?.aesKey)return false;
+  const json=JSON.stringify(payload),ts=Date.now();
   const {iv,ct}=await enc(c.aesKey,json);
   const sig=await sign(myKeys.ecdsa.privateKey,`${myAddr}:${ts}:${json}`);
   try{c.conn.send({type:'e',iv,ct,sig,ts});return true;}catch(e){return false;}
 }
-
 async function handleSecure(addr,data){
   const c=convs[addr];if(!c?.aesKey)return;
   try{
@@ -509,93 +548,65 @@ async function handleSecure(addr,data){
   }catch(e){console.warn('handleSecure:',e);}
 }
 
-// ── INCOMING HANDLERS ─────────────────────────────────────────
+// ── INCOMING ──────────────────────────────────────────────────
 function onMsg(addr,p,sigOk){
   const m={id:p.id,dir:'in',text:p.text,ts:p.ts,sigOk,reactions:{},editHistory:[],deleted:false};
   convs[addr].msgs.push(m);
-  if(activeAddr===addr){
-    const el=document.getElementById('msgs');
-    if(el){el.appendChild(buildMsgEl(m,addr));el.scrollTop=el.scrollHeight;}
-  }
+  if(activeAddr===addr){const el=document.getElementById('msgs');if(el){el.appendChild(buildMsgEl(m,addr));el.scrollTop=el.scrollHeight;}}
+  else if(!activeAddr)showHome(); // refresh home preview
   renderConvList();saveHistory();
 }
 function onReact(addr,p){
   const m=convs[addr]?.msgs.find(x=>x.id===p.msgId);if(!m)return;
-  if(!m.reactions)m.reactions={};
-  if(!m.reactions[p.emoji])m.reactions[p.emoji]=[];
-  const arr=m.reactions[p.emoji];
-  const idx=arr.indexOf('them');
-  if(p.add&&idx===-1)arr.push('them');
-  if(!p.add&&idx!==-1)arr.splice(idx,1);
+  if(!m.reactions)m.reactions={};if(!m.reactions[p.emoji])m.reactions[p.emoji]=[];
+  const arr=m.reactions[p.emoji],idx=arr.indexOf('them');
+  if(p.add&&idx===-1)arr.push('them');if(!p.add&&idx!==-1)arr.splice(idx,1);
   if(!arr.length)delete m.reactions[p.emoji];
-  if(activeAddr===addr)updateMsgEl(p.msgId,addr);
-  saveHistory();
+  if(activeAddr===addr)updateMsgEl(p.msgId,addr);saveHistory();
 }
 function onEdit(addr,p){
   const m=convs[addr]?.msgs.find(x=>x.id===p.msgId);if(!m||m.deleted)return;
-  if(!m.editHistory)m.editHistory=[];
-  m.editHistory.push({text:m.text,ts:Date.now()});
-  m.text=p.text;
-  if(activeAddr===addr)updateMsgEl(p.msgId,addr);
-  renderConvList();saveHistory();
+  if(!m.editHistory)m.editHistory=[];m.editHistory.push({text:m.text,ts:Date.now()});m.text=p.text;
+  if(activeAddr===addr)updateMsgEl(p.msgId,addr);renderConvList();saveHistory();
 }
 function onDel(addr,p){
   const m=convs[addr]?.msgs.find(x=>x.id===p.msgId);if(!m)return;
   m.deleted=true;m.text='';m.reactions={};
-  if(activeAddr===addr)updateMsgEl(p.msgId,addr);
-  saveHistory();
+  if(activeAddr===addr)updateMsgEl(p.msgId,addr);saveHistory();
 }
 
 // ── SEND ──────────────────────────────────────────────────────
 async function sendMsg(){
   if(!activeAddr)return;
-  const inp=document.getElementById('msg-in');
-  const text=inp.value.trim();if(!text)return;
-  const c=convs[activeAddr];
-  if(!c?.open||!c?.aesKey)return toast('Not connected or handshake pending');
+  const inp=document.getElementById('msg-in');const text=inp.value.trim();if(!text)return;
+  const c=convs[activeAddr];if(!c?.open||!c?.aesKey)return toast('Not connected or handshake pending');
   const id=genId(),ts=Date.now();
-  const ok=await sendSecure(activeAddr,{t:'msg',id,text,ts});
-  if(!ok)return toast('Send failed');
+  if(!await sendSecure(activeAddr,{t:'msg',id,text,ts}))return toast('Send failed');
   const m={id,dir:'out',text,ts,sigOk:true,reactions:{},editHistory:[],deleted:false};
   c.msgs.push(m);inp.value='';inp.style.height='';
-  const el=document.getElementById('msgs');
-  if(el){el.appendChild(buildMsgEl(m,activeAddr));el.scrollTop=el.scrollHeight;}
+  const el=document.getElementById('msgs');if(el){el.appendChild(buildMsgEl(m,activeAddr));el.scrollTop=el.scrollHeight;}
   renderConvList();saveHistory();
 }
 
 // ── MSG DOM ───────────────────────────────────────────────────
 const EMOJIS=['❤️','😂','😮','😢','😡','👍','👎','🔥'];
-
 function buildMsgEl(m,addr){
   if(m.system){const d=document.createElement('div');d.className='sys-msg';d.textContent=m.text;return d;}
-  const wrap=document.createElement('div');
-  wrap.className=`msg-wrap ${m.dir}`;wrap.dataset.id=m.id;
-
-  // Action bar
+  const wrap=document.createElement('div');wrap.className=`msg-wrap ${m.dir}`;wrap.dataset.id=m.id;
   const bar=document.createElement('div');bar.className='msg-actions';
-  const reactBtn=document.createElement('button');reactBtn.className='act-btn';reactBtn.textContent='😊';reactBtn.title='React';
-  reactBtn.onclick=e=>{e.stopPropagation();showReactPicker(m.id,addr,e);};
-  bar.appendChild(reactBtn);
+  const rb=document.createElement('button');rb.className='act-btn';rb.textContent='😊';rb.title='React';
+  rb.onclick=e=>{e.stopPropagation();showReactPicker(m.id,addr,e);};bar.appendChild(rb);
   if(m.dir==='out'&&!m.deleted){
-    const eb=document.createElement('button');eb.className='act-btn';eb.textContent='✏️';eb.title='Edit';eb.onclick=()=>startEdit(m.id,addr);
-    const db=document.createElement('button');db.className='act-btn';db.textContent='🗑';db.title='Delete';db.onclick=()=>doDelete(m.id,addr);
-    bar.appendChild(eb);bar.appendChild(db);
+    const eb=document.createElement('button');eb.className='act-btn';eb.textContent='✏️';eb.title='Edit';eb.onclick=()=>startEdit(m.id,addr);bar.appendChild(eb);
+    const db=document.createElement('button');db.className='act-btn';db.textContent='🗑';db.title='Delete';db.onclick=()=>doDelete(m.id,addr);bar.appendChild(db);
   }
   wrap.appendChild(bar);
-
-  // Bubble
   const bubble=document.createElement('div');bubble.className=`msg ${m.dir}`;bubble.id=`b-${m.id}`;
-  fillBubble(bubble,m,addr);
-  wrap.appendChild(bubble);
-
-  // Reactions
+  fillBubble(bubble,m,addr);wrap.appendChild(bubble);
   const rr=document.createElement('div');rr.className='msg-reactions';rr.id=`r-${m.id}`;
-  fillReactions(rr,m,addr);
-  wrap.appendChild(rr);
-
+  fillReactions(rr,m,addr);wrap.appendChild(rr);
   return wrap;
 }
-
 function fillBubble(el,m,addr){
   if(m.deleted){el.innerHTML='<div class="msg-text deleted-text">This message was deleted.</div>';return;}
   const ts=settings.showTimestamps?`<span>${ts2time(m.ts)}</span>`:'';
@@ -603,21 +614,16 @@ function fillBubble(el,m,addr){
   const edited=m.editHistory?.length?`<span class="edited-lbl" onclick="showEditHistory('${m.id}','${addr}')">edited</span>`:'';
   el.innerHTML=`<div class="msg-text">${escHtml(m.text)}</div><div class="msg-meta">${ts}${sig}${edited}</div>`;
 }
-
 function fillReactions(el,m,addr){
-  el.innerHTML='';
-  if(!m.reactions)return;
+  el.innerHTML='';if(!m.reactions)return;
   for(const [emoji,senders] of Object.entries(m.reactions)){
     if(!senders.length)continue;
-    const p=document.createElement('div');
-    p.className='r-pill'+(senders.includes('me')?' mine':'');
+    const p=document.createElement('div');p.className='r-pill'+(senders.includes('me')?' mine':'');
     p.textContent=senders.length>1?emoji+' '+senders.length:emoji;
     p.title=senders.map(s=>s==='me'?'You':'Them').join(', ');
-    p.onclick=()=>toggleReact(m.id,addr,emoji);
-    el.appendChild(p);
+    p.onclick=()=>toggleReact(m.id,addr,emoji);el.appendChild(p);
   }
 }
-
 function updateMsgEl(msgId,addr){
   const m=convs[addr]?.msgs.find(x=>x.id===msgId);if(!m)return;
   const b=document.getElementById(`b-${msgId}`);if(b)fillBubble(b,m,addr);
@@ -630,30 +636,19 @@ function showReactPicker(msgId,addr,evt){
   if(currentPickerId===msgId){currentPickerId=null;return;}
   currentPickerId=msgId;
   const picker=document.createElement('div');picker.id='react-picker';
-  for(const emoji of EMOJIS){
-    const btn=document.createElement('button');btn.textContent=emoji;
-    btn.onclick=ev=>{ev.stopPropagation();toggleReact(msgId,addr,emoji);picker.remove();currentPickerId=null;};
-    picker.appendChild(btn);
-  }
+  for(const emoji of EMOJIS){const btn=document.createElement('button');btn.textContent=emoji;btn.onclick=ev=>{ev.stopPropagation();toggleReact(msgId,addr,emoji);picker.remove();currentPickerId=null;};picker.appendChild(btn);}
   document.body.appendChild(picker);
-  // Position
   const r=evt.currentTarget.getBoundingClientRect();
   const pw=Math.min(EMOJIS.length*40+16,window.innerWidth-16);
-  let left=r.left;
-  if(left+pw>window.innerWidth-8)left=window.innerWidth-pw-8;
-  if(left<8)left=8;
-  const ph=50;
-  let top=r.top-ph-8;if(top<8)top=r.bottom+8;
+  let left=r.left;if(left+pw>window.innerWidth-8)left=window.innerWidth-pw-8;if(left<8)left=8;
+  let top=r.top-58;if(top<8)top=r.bottom+8;
   picker.style.cssText=`top:${top}px;left:${left}px`;
   setTimeout(()=>document.addEventListener('click',function h(e){if(!picker.contains(e.target)){picker.remove();currentPickerId=null;document.removeEventListener('click',h);}},{passive:true}),0);
 }
-
 async function toggleReact(msgId,addr,emoji){
   const c=convs[addr];const m=c?.msgs.find(x=>x.id===msgId);if(!m||m.deleted)return;
-  if(!m.reactions)m.reactions={};
-  if(!m.reactions[emoji])m.reactions[emoji]=[];
-  const arr=m.reactions[emoji];const idx=arr.indexOf('me');
-  const add=idx===-1;
+  if(!m.reactions)m.reactions={};if(!m.reactions[emoji])m.reactions[emoji]=[];
+  const arr=m.reactions[emoji],idx=arr.indexOf('me'),add=idx===-1;
   if(add)arr.push('me');else arr.splice(idx,1);
   if(!arr.length)delete m.reactions[emoji];
   updateMsgEl(msgId,addr);saveHistory();
@@ -665,8 +660,7 @@ function startEdit(msgId,addr){
   const m=convs[addr]?.msgs.find(x=>x.id===msgId);if(!m||m.deleted)return;
   const b=document.getElementById(`b-${msgId}`);if(!b)return;
   b.innerHTML=`<textarea class="edit-ta" id="eta-${msgId}">${escHtml(m.text)}</textarea><div class="edit-row"><button class="pill-btn" style="flex:none" onclick="cancelEdit('${msgId}','${addr}')">Cancel</button><button class="pill-btn" style="flex:none;border-color:var(--accent);color:var(--accent)" onclick="submitEdit('${msgId}','${addr}')">Save</button></div>`;
-  const ta=document.getElementById(`eta-${msgId}`);
-  ta.focus();ta.setSelectionRange(ta.value.length,ta.value.length);
+  const ta=document.getElementById(`eta-${msgId}`);ta.focus();ta.setSelectionRange(ta.value.length,ta.value.length);
   ta.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();submitEdit(msgId,addr);}if(e.key==='Escape')cancelEdit(msgId,addr);});
 }
 function cancelEdit(msgId,addr){const m=convs[addr]?.msgs.find(x=>x.id===msgId);if(!m)return;const b=document.getElementById(`b-${msgId}`);if(b)fillBubble(b,m,addr);}
@@ -675,12 +669,9 @@ async function submitEdit(msgId,addr){
   const newText=ta.value.trim();if(!newText)return;
   const c=convs[addr];const m=c?.msgs.find(x=>x.id===msgId);if(!m)return;
   if(newText===m.text){cancelEdit(msgId,addr);return;}
-  if(!m.editHistory)m.editHistory=[];
-  m.editHistory.push({text:m.text,ts:Date.now()});
-  m.text=newText;
+  if(!m.editHistory)m.editHistory=[];m.editHistory.push({text:m.text,ts:Date.now()});m.text=newText;
   const b=document.getElementById(`b-${msgId}`);if(b)fillBubble(b,m,addr);
-  saveHistory();
-  if(c.aesKey)await sendSecure(addr,{t:'edit',msgId,text:newText});
+  saveHistory();if(c.aesKey)await sendSecure(addr,{t:'edit',msgId,text:newText});
 }
 function showEditHistory(msgId,addr){
   const m=convs[addr]?.msgs.find(x=>x.id===msgId);if(!m?.editHistory?.length)return;
@@ -694,29 +685,107 @@ async function doDelete(msgId,addr){
   const c=convs[addr];const m=c?.msgs.find(x=>x.id===msgId);if(!m)return;
   m.deleted=true;m.text='';m.reactions={};
   updateMsgEl(msgId,addr);saveHistory();
-  // Remove edit/delete buttons from action bar
-  const wrap=document.querySelector(`.msg-wrap[data-id="${msgId}"]`);
-  if(wrap)wrap.querySelectorAll('.act-btn:not(:first-child)').forEach(b=>b.remove());
   if(c.aesKey)await sendSecure(addr,{t:'del',msgId});
 }
 
-// ── UI ────────────────────────────────────────────────────────
-function showEmpty(){document.getElementById('main').innerHTML='<div id="empty"><div class="lock">🔐</div><h1>Cipher</h1><p>P2P encrypted messenger.<br>Share your address to start a conversation.</p><div class="stack">ECDH P-256 · ECDSA P-256 · AES-256-GCM · Base58Check</div></div>';}
+// ── HOME SCREEN ───────────────────────────────────────────────
+function showHome(){
+  activeAddr=null;
+  setTopNavHome();
+  const main=document.getElementById('main');
 
-function showReconnectBar(addr){
-  removeReconnectBar();
-  const bar=document.createElement('div');bar.id='reconnect-bar';
-  bar.innerHTML=`<span>⚡ Connection lost</span><button onclick="attemptReconnect('${addr}');this.textContent='Reconnecting…';this.disabled=true">Reconnect</button>`;
-  document.getElementById('msgs')?.before(bar);
+  if(!isMobile()){
+    main.innerHTML=`
+      <div id="desk-empty">
+        <div class="lock">🔐</div>
+        <h1>Cipher</h1>
+        <p>Select a conversation from the sidebar<br>or connect to a new peer address.</p>
+        <div class="stack">ECDH P-256 · ECDSA P-256<br>AES-256-GCM · Base58Check</div>
+      </div>`;
+    return;
+  }
+
+  // Sort convs by last message time
+  const sorted=Object.entries(convs).filter(([,c])=>!c.hidden).sort(([,a],[,b])=>{
+    const at=a.msgs.filter(m=>!m.system).slice(-1)[0]?.ts||0;
+    const bt=b.msgs.filter(m=>!m.system).slice(-1)[0]?.ts||0;
+    return bt-at;
+  });
+
+  const convsHTML=sorted.length?`
+    <div class="home-section">Conversations</div>
+    <div class="home-convs">
+      ${sorted.map(([addr,c])=>{
+        const last=c.msgs.filter(m=>!m.system).slice(-1)[0];
+        const prev=last?(last.deleted?'[deleted]':last.text):'No messages yet';
+        const ts=last?ts2date(last.ts):'';
+        return `<div class="hconv" onclick="selectConv('${addr}')">
+          <div class="hconv-dot ${c.open?'on':''}"></div>
+          <div class="hconv-body">
+            <div class="hconv-addr">${shortAddr(addr)}</div>
+            <div class="hconv-prev">${escHtml(prev.slice(0,55))}</div>
+          </div>
+          <div class="hconv-right">
+            <div class="hconv-enc">${c.aesKey?'🔒':c.open?'⏳':''}</div>
+            <div class="hconv-ts">${ts}</div>
+          </div>
+        </div>`;
+      }).join('')}
+    </div>`
+  :`<div class="home-empty-state"><p>No conversations yet.<br>Tap below to connect to a peer.</p></div>`;
+
+  main.innerHTML=`
+    <div id="home">
+      <div class="home-hero">
+        <div class="home-hero-icon">🔐</div>
+        <h1>Cipher</h1>
+        <p>End-to-end encrypted P2P messaging</p>
+        <div class="home-net">
+          <div id="home-dot"></div>
+          <span id="home-net-lbl">Connecting…</span>
+        </div>
+      </div>
+      ${convsHTML}
+      <div class="home-id">
+        <div class="home-id-lbl">Your Address</div>
+        <div class="home-id-addr" onclick="copyAddr()">${myAddr||'Generating…'}</div>
+        <div class="home-id-btns">
+          <button class="home-id-btn" onclick="copyAddr()">📋 Copy</button>
+          <button class="home-id-btn" onclick="showQRDisplay()">📷 Show QR</button>
+        </div>
+      </div>
+      <div class="home-actions">
+        <button class="home-cta" onclick="openNewChat()">+ New Conversation</button>
+        <button class="home-sec-btn" onclick="showSettings()">⚙️ Settings</button>
+      </div>
+    </div>`;
+
+  // Sync net status into home dot
+  syncHomeDot();
 }
-function removeReconnectBar(){document.getElementById('reconnect-bar')?.remove();}
 
+function syncHomeDot(){
+  const d=document.getElementById('home-dot');
+  const l=document.getElementById('home-net-lbl');
+  const src=document.getElementById('dot');
+  const srcL=document.getElementById('net-lbl');
+  if(d&&src){d.className=src.className;}
+  if(l&&srcL){l.textContent=srcL.textContent;}
+}
+
+function openNewChat(){
+  toggleSidebar();
+  setTimeout(()=>document.getElementById('peer-input')?.focus(),300);
+}
+
+// ── CHAT VIEW ─────────────────────────────────────────────────
 function selectConv(addr){
   activeAddr=addr;const c=convs[addr];
+  closeSidebar();
+  setTopNavChat(addr,!!c?.aesKey);
   const enc=c?.aesKey?'🔒 Encrypted':'⏳ Pending';
   document.getElementById('main').innerHTML=`
     <div id="chat-head">
-      <button id="chat-head-back" onclick="goBack()">‹</button>
       <div id="chat-peer" title="${addr}">${shortAddr(addr)}</div>
       <div id="chat-enc" class="${c?.aesKey?'':'pending'}">${enc}</div>
     </div>
@@ -734,25 +803,28 @@ function selectConv(addr){
   msgsEl.scrollTop=msgsEl.scrollHeight;
   renderConvList();
 }
+function goBack(){showHome();renderConvList();}
 
-function goBack(){activeAddr=null;showEmpty();renderConvList();}
+function showReconnectBar(addr){
+  removeReconnectBar();
+  const bar=document.createElement('div');bar.id='reconnect-bar';
+  bar.innerHTML=`<span>⚡ Connection lost</span><button onclick="attemptReconnect('${addr}');this.textContent='Reconnecting…';this.disabled=true">Reconnect</button>`;
+  document.getElementById('msgs')?.before(bar);
+}
+function removeReconnectBar(){document.getElementById('reconnect-bar')?.remove();}
 
 function sysMsg(addr,text){
   if(!convs[addr])return;
   convs[addr].msgs.push({system:true,text});
-  if(activeAddr===addr){
-    const el=document.getElementById('msgs');
-    if(el){const d=document.createElement('div');d.className='sys-msg';d.textContent=text;el.appendChild(d);el.scrollTop=el.scrollHeight;}
-  }
+  if(activeAddr===addr){const el=document.getElementById('msgs');if(el){const d=document.createElement('div');d.className='sys-msg';d.textContent=text;el.appendChild(d);el.scrollTop=el.scrollHeight;}}
 }
-
 function hideConv(addr,e){
-  e.stopPropagation();
-  convs[addr].hidden=true;saveHistory();
-  if(activeAddr===addr){activeAddr=null;showEmpty();}
-  renderConvList();toast('Chat hidden.');
+  e.stopPropagation();convs[addr].hidden=true;saveHistory();
+  if(activeAddr===addr)goBack();
+  renderConvList();
+  if(!activeAddr)showHome();
+  toast('Chat hidden.');
 }
-
 function renderConvList(){
   const el=document.getElementById('conv-list');el.innerHTML='';
   const vis=Object.entries(convs).filter(([,c])=>!c.hidden);
@@ -760,28 +832,38 @@ function renderConvList(){
   for(const [addr,c] of vis){
     const last=c.msgs.filter(m=>!m.system).slice(-1)[0];
     const prev=last?((last.dir==='out'?'You: ':'')+( last.deleted?'[deleted]':last.text)):'No messages yet';
-    const d=document.createElement('div');
-    d.className='conv'+(activeAddr===addr?' active':'');
-    d.onclick=()=>{selectConv(addr);closeSidebar();};
+    const d=document.createElement('div');d.className='conv'+(activeAddr===addr?' active':'');
+    d.onclick=()=>selectConv(addr);
     d.innerHTML=`<div class="conv-row"><div class="conv-addr">${shortAddr(addr)}</div><div class="conv-st ${c.open?'on':'off'}">${c.open?'● online':'○ offline'}</div></div><div class="conv-prev">${escHtml(prev)}</div><button class="conv-hide" title="Hide" onclick="hideConv('${addr}',event)">✕</button>`;
     el.appendChild(d);
   }
 }
 
-function updateEncBadge(enc){const el=document.getElementById('chat-enc');if(!el)return;el.textContent=enc?'🔒 Encrypted':'⏳ Pending';el.className=enc?'':'pending';}
-function setNet(l,c){document.getElementById('net-lbl').textContent=l;document.getElementById('dot').className=c;}
+function updateEncBadge(enc){
+  // Desktop chat head
+  const el=document.getElementById('chat-enc');if(el){el.textContent=enc?'🔒 Encrypted':'⏳ Pending';el.className=enc?'':'pending';}
+  // Mobile top nav
+  const tnEnc=document.getElementById('tn-enc');if(tnEnc&&activeAddr){tnEnc.className=enc?'ok':'pend';tnEnc.textContent=enc?'🔒':'⏳';}
+}
+
+function setNet(l,c){
+  document.getElementById('net-lbl').textContent=l;
+  document.getElementById('dot').className=c;
+  const td=document.getElementById('tn-dot');if(td)td.className=c;
+  syncHomeDot();
+}
 function copyAddr(){navigator.clipboard.writeText(myAddr).then(()=>toast('Address copied!'));}
 
 // ── QR DISPLAY ────────────────────────────────────────────────
 function showQRDisplay(){
-  openModal(`<button class="modal-close" onclick="closeModal()">✕</button><h2>📷 Your Address QR</h2><div id="qr-container"><div id="qrcode"></div></div><div id="qr-addr-label">${myAddr}</div><button class="pill-btn" style="width:100%;margin-top:14px" onclick="copyAddr();toast('Copied!')">📋 Copy Address</button>`);
+  openModal(`<div class="modal-handle"></div><button class="modal-close" onclick="closeModal()">✕</button><h2>📷 Your Address QR</h2><div id="qr-container"><div id="qrcode"></div></div><div id="qr-addr-label">${myAddr}</div><button class="pill-btn" style="width:100%;margin-top:14px" onclick="copyAddr();toast('Copied!')">📋 Copy Address</button>`);
   setTimeout(()=>new QRCode(document.getElementById('qrcode'),{text:myAddr,width:180,height:180,colorDark:'#000',colorLight:'#fff',correctLevel:QRCode.CorrectLevel.M}),50);
 }
 
 // ── QR SCANNER ────────────────────────────────────────────────
 let scanStream=null,scanAF=null;
 function showScanner(){
-  openModal(`<button class="modal-close" onclick="closeModal()">✕</button><h2>📷 Scan Peer QR</h2><div id="scanner-wrap"><video id="scanner-video" autoplay playsinline muted></video><div id="scanner-overlay"><div class="scan-frame"></div></div></div><div id="scan-status">Point at a Cipher address QR…</div>`);
+  openModal(`<div class="modal-handle"></div><button class="modal-close" onclick="closeModal()">✕</button><h2>📷 Scan Peer QR</h2><div id="scanner-wrap"><video id="scanner-video" autoplay playsinline muted></video><div id="scanner-overlay"><div class="scan-frame"></div></div></div><div id="scan-status">Point at a Cipher address QR…</div>`);
   startScanner();
 }
 async function startScanner(){
@@ -797,7 +879,7 @@ function scanLoop(v){
     if(!document.getElementById('scanner-video')){stopScanner();return;}
     if(v.readyState===v.HAVE_ENOUGH_DATA){
       c.width=v.videoWidth;c.height=v.videoHeight;ctx.drawImage(v,0,0);
-      try{const img=ctx.getImageData(0,0,c.width,c.height);const r=jsQR&&jsQR(img.data,img.width,img.height,{inversionAttempts:'dontInvert'});
+      try{const img=ctx.getImageData(0,0,c.width,c.height);const r=typeof jsQR!=='undefined'&&jsQR(img.data,img.width,img.height,{inversionAttempts:'dontInvert'});
         if(r?.data){const addr=r.data.trim();if(/^[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{20,60}$/.test(addr)){stopScanner();closeModal();document.getElementById('peer-input').value=addr;toast('Address scanned! Tap Connect to proceed.');return;}}
       }catch(e){}
     }
@@ -810,6 +892,7 @@ function stopScanner(){if(scanAF){cancelAnimationFrame(scanAF);scanAF=null;}if(s
 // ── SETTINGS MODAL ────────────────────────────────────────────
 function showSettings(){
   openModal(`
+    <div class="modal-handle"></div>
     <button class="modal-close" onclick="closeModal()">✕</button>
     <h2>⚙️ Settings</h2>
     <div class="setting-row">
@@ -846,93 +929,30 @@ function openModal(html){
 }
 function closeModal(){stopScanner();document.getElementById('modal-bg')?.remove();}
 
-// ── jsQR ──────────────────────────────────────────────────────
-(()=>{const s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js';document.head.appendChild(s);})();
-
-// ── PWA INSTALL PROMPT (iOS) ──────────────────────────────────
+// ── PWA ───────────────────────────────────────────────────────
 function checkIOSInstall(){
   const isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent);
   const isStandalone=('standalone' in navigator)&&navigator.standalone;
-  const dismissed=localStorage.getItem('cipher_pwa_dismissed');
-  if(!isIOS||isStandalone||dismissed)return;
-
+  if(!isIOS||isStandalone||localStorage.getItem('cipher_pwa_dismissed'))return;
   const banner=document.createElement('div');
-  banner.id='pwa-banner';
-  banner.style.cssText=`
-    position:fixed;bottom:calc(16px + var(--safe-b));left:50%;transform:translateX(-50%);
-    background:var(--bg2);border:1px solid var(--border);border-radius:14px;
-    padding:14px 16px;display:flex;align-items:flex-start;gap:12px;
-    width:calc(100% - 32px);max-width:380px;z-index:500;
-    box-shadow:0 8px 32px rgba(0,0,0,.6);
-  `;
-  banner.innerHTML=`
-    <div style="font-size:32px;line-height:1;flex-shrink:0">🔐</div>
-    <div style="flex:1;min-width:0">
-      <div style="font-size:13px;font-weight:700;margin-bottom:4px">Add Cipher to Home Screen</div>
-      <div style="font-size:11.5px;color:var(--dim);line-height:1.4">
-        Tap <span style="display:inline-flex;align-items:center;gap:3px;color:var(--accent)">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
-          Share
-        </span> then <strong style="color:var(--text)">Add to Home Screen</strong> for the full app experience.
-      </div>
-    </div>
-    <button onclick="document.getElementById('pwa-banner').remove();localStorage.setItem('cipher_pwa_dismissed','1')"
-      style="background:none;border:none;color:var(--dim);font-size:18px;cursor:pointer;padding:0;flex-shrink:0;line-height:1">✕</button>
-  `;
-
-  // Arrow pointing down toward the share button
-  const arrow=document.createElement('div');
-  arrow.style.cssText=`
-    position:fixed;bottom:calc(8px + var(--safe-b));left:50%;transform:translateX(-50%);
-    color:var(--accent);font-size:22px;z-index:501;animation:bounce .9s infinite alternate;
-  `;
-  arrow.textContent='↓';
-  if(!document.getElementById('pwa-bounce-style')){
-    const st=document.createElement('style');
-    st.id='pwa-bounce-style';
-    st.textContent='@keyframes bounce{from{transform:translateX(-50%) translateY(0)}to{transform:translateX(-50%) translateY(5px)}}';
-    document.head.appendChild(st);
-  }
-
+  banner.style.cssText=`position:fixed;bottom:calc(16px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:14px 16px;display:flex;align-items:flex-start;gap:12px;width:calc(100% - 32px);max-width:380px;z-index:500;box-shadow:0 8px 32px rgba(0,0,0,.6)`;
+  banner.innerHTML=`<div style="font-size:30px;line-height:1;flex-shrink:0">🔐</div><div style="flex:1"><div style="font-size:13px;font-weight:700;margin-bottom:4px">Add Cipher to Home Screen</div><div style="font-size:11.5px;color:var(--dim);line-height:1.4">Tap <strong style="color:var(--accent)">Share ↑</strong> then <strong style="color:var(--text)">Add to Home Screen</strong> for the full app.</div></div><button onclick="this.closest('div[style]').remove();localStorage.setItem('cipher_pwa_dismissed','1')" style="background:none;border:none;color:var(--dim);font-size:20px;cursor:pointer;padding:0;flex-shrink:0">✕</button>`;
   document.body.appendChild(banner);
-  document.body.appendChild(arrow);
-  banner.addEventListener('remove',()=>arrow.remove());
-
-  // Auto-dismiss arrow when banner is closed
-  const obs=new MutationObserver(()=>{if(!document.getElementById('pwa-banner'))arrow.remove();});
-  obs.observe(document.body,{childList:true});
 }
-
-// ── SERVICE WORKER (offline support) ─────────────────────────
 function registerSW(){
   if(!('serviceWorker' in navigator))return;
-  // Inline SW as a blob — caches the page itself for offline use
-  const swCode=`
-    const CACHE='cipher-v1';
-    const PRECACHE=[self.location.href];
-    self.addEventListener('install',e=>{
-      e.waitUntil(caches.open(CACHE).then(c=>c.addAll(PRECACHE)).then(()=>self.skipWaiting()));
-    });
-    self.addEventListener('activate',e=>{
-      e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim()));
-    });
-    self.addEventListener('fetch',e=>{
-      e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request).then(res=>{
-        const clone=res.clone();
-        caches.open(CACHE).then(c=>c.put(e.request,clone));
-        return res;
-      }).catch(()=>caches.match(e.request))));
-    });
-  `;
-  const blob=new Blob([swCode],{type:'application/javascript'});
-  const url=URL.createObjectURL(blob);
+  const sw=`const C='cipher-v1';self.addEventListener('install',e=>{e.waitUntil(caches.open(C).then(c=>c.addAll([self.location.href])).then(()=>self.skipWaiting()));});self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k!==C).map(k=>caches.delete(k)))).then(()=>self.clients.claim()));});self.addEventListener('fetch',e=>{e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request).then(res=>{const cl=res.clone();caches.open(C).then(c=>c.put(e.request,cl));return res;}).catch(()=>caches.match(e.request))));});`;
+  const url=URL.createObjectURL(new Blob([sw],{type:'application/javascript'}));
   navigator.serviceWorker.register(url,{scope:'./'}).catch(()=>{});
 }
+
+// ── jsQR ──────────────────────────────────────────────────────
+(()=>{const s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js';document.head.appendChild(s);})();
 
 // ── GO ────────────────────────────────────────────────────────
 init().catch(e=>{console.error(e);toast('Init error: '+e.message,5000);});
 registerSW();
-setTimeout(checkIOSInstall, 2500);
+setTimeout(checkIOSInstall,3000);
 </script>
 </body>
 </html>
